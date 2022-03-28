@@ -13,7 +13,17 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
       textAlign: 'center',
     }}
     selectedKeys={[props.route]}
-    mode="horizontal">
+    mode="vertical">
+    <Menu.Item key="/bank">
+      <Link
+        onClick={(): void => {
+          props.setRoute('/bank');
+        }}
+        to="/bank">
+        Bank
+      </Link>
+    </Menu.Item>
+    {/*
     <Menu.Item key="/">
       <Link
         onClick={(): void => {
@@ -23,6 +33,7 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         Contracts
       </Link>
     </Menu.Item>
+
     <Menu.Item key="/hints">
       <Link
         onClick={(): void => {
@@ -50,6 +61,7 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         Mainnet DAI
       </Link>
     </Menu.Item>
+    */}
     {/* <Menu.Item key="/subgraph">
       <Link
         onClick={() => {

@@ -30,6 +30,14 @@ export const contractConnectorConfig = () => {
         hardhatContractsJson
       ),
 
+      Bank: createConnectorForHardhatContract('Bank', hardhatContracts.Bank__factory, hardhatContractsJson),
+
+      DebondData: createConnectorForHardhatContract(
+        'DebondData',
+        hardhatContracts.DebondData__factory,
+        hardhatContractsJson
+      ),
+
       // 🙋🏽‍♂️ Add your external contracts here, make sure to define the address in `externalContractsConfig.ts`
       DAI: createConnectorForExternalContract('DAI', externalContracts.DAI__factory, externalContractsAddressMap),
       UNI: createConnectorForExternalContract('UNI', externalContracts.UNI__factory, externalContractsAddressMap),

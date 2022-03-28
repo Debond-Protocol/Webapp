@@ -15,9 +15,12 @@ import { useScaffoldHooksExamples as useScaffoldHooksExamples } from './componen
 import { useBurnerFallback } from '~~/components/main/hooks/useBurnerFallback';
 import { useScaffoldProviders as useScaffoldAppProviders } from '~~/components/main/hooks/useScaffoldAppProviders';
 import { Hints, ExampleUI } from '~~/components/pages';
+import { BankUI } from '~~/components/pages/bank/BankUI';
 import { BURNER_FALLBACK_ENABLED, MAINNET_PROVIDER } from '~~/config/appConfig';
 import { useAppContracts, useConnectAppContracts, useLoadAppContracts } from '~~/config/contractContext';
 import { NETWORKS } from '~~/models/constants/networks';
+
+import { Layout } from 'antd';
 
 /**
  * ⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️
@@ -100,52 +103,67 @@ export const Main: FC = () => {
   }, [setRoute]);
 
   return (
-    <div className="App">
-      <MainPageHeader scaffoldAppProviders={scaffoldAppProviders} price={ethPrice} />
-
-      {/* Routes should be added between the <Switch> </Switch> as seen below */}
-      <BrowserRouter>
-        <MainPageMenu route={route} setRoute={setRoute} />
-        <Switch>
-          <Route exact path="/">
-            <MainPageContracts scaffoldAppProviders={scaffoldAppProviders} />
-          </Route>
-          {/* you can add routes here like the below examlples */}
-          <Route path="/hints">
-            <Hints
-              address={ethersContext?.account ?? ''}
-              yourCurrentBalance={yourCurrentBalance}
-              mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-              price={ethPrice}
-            />
-          </Route>
-          <Route path="/exampleui">
-            <ExampleUI
-              mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-              yourCurrentBalance={yourCurrentBalance}
-              price={ethPrice}
-            />
-          </Route>
-          <Route path="/mainnetdai">
-            {MAINNET_PROVIDER != null && (
-              <GenericContract
-                contractName="DAI"
-                contract={mainnetDai}
-                mainnetAdaptor={scaffoldAppProviders.mainnetAdaptor}
-                blockExplorer={NETWORKS.mainnet.blockExplorer}
-              />
-            )}
-          </Route>
-          {/* Subgraph also disabled in MainPageMenu, it does not work, see github issue! */}
-          {/*
+    <Layout>
+      <Layout.Header>
+        <MainPageHeader scaffoldAppProviders={scaffoldAppProviders} price={ethPrice} />
+      </Layout.Header>
+      <Layout.Content>
+        <Layout>
+          {/* Routes should be added between the <Switch> </Switch> as seen below */}
+          <BrowserRouter>
+            <Layout.Sider>
+              <MainPageMenu route={route} setRoute={setRoute} />
+            </Layout.Sider>
+            <Layout.Content>
+              <Switch>
+                <Route exact path="/">
+                  <MainPageContracts scaffoldAppProviders={scaffoldAppProviders} />
+                </Route>
+                {/* you can add routes here like the below examlples */}
+                <Route path="/hints">
+                  <Hints
+                    address={ethersContext?.account ?? ''}
+                    yourCurrentBalance={yourCurrentBalance}
+                    mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
+                    price={ethPrice}
+                  />
+                </Route>
+                <Route path="/bank">
+                  <BankUI
+                    mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
+                    yourCurrentBalance={yourCurrentBalance}
+                    price={ethPrice}
+                  />
+                </Route>
+                <Route path="/exampleui">
+                  <ExampleUI
+                    mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
+                    yourCurrentBalance={yourCurrentBalance}
+                    price={ethPrice}
+                  />
+                </Route>
+                <Route path="/mainnetdai">
+                  {MAINNET_PROVIDER != null && (
+                    <GenericContract
+                      contractName="DAI"
+                      contract={mainnetDai}
+                      mainnetAdaptor={scaffoldAppProviders.mainnetAdaptor}
+                      blockExplorer={NETWORKS.mainnet.blockExplorer}
+                    />
+                  )}
+                </Route>
+                {/* Subgraph also disabled in MainPageMenu, it does not work, see github issue! */}
+                {/*
           <Route path="/subgraph">
             <Subgraph subgraphUri={subgraphUri} mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider} />
           </Route>
           */}
-        </Switch>
-      </BrowserRouter>
-
+              </Switch>
+            </Layout.Content>
+          </BrowserRouter>
+        </Layout>
+      </Layout.Content>
       <MainPageFooter scaffoldAppProviders={scaffoldAppProviders} price={ethPrice} />
-    </div>
+    </Layout>
   );
 };
