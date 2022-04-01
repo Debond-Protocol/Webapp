@@ -61,7 +61,7 @@ const App: FC = () => {
         <ContractsAppContext>
           <EthersAppContext>
             <ErrorBoundary FallbackComponent={ErrorFallback}>
-              <ThemeSwitcherProvider themeMap={themes} defaultTheme={savedTheme || 'light'}>
+              <ThemeSwitcherProvider themeMap={themes} defaultTheme={savedTheme || 'dark'}>
                 <Suspense fallback={<div />}>
                   <MainPage />
                 </Suspense>

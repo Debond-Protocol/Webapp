@@ -102,8 +102,8 @@ export const MainPageFooter: FC<IMainPageFooterProps> = (props) => {
 
   return (
     <>
-      {left}
-      {right}
+      {/* left*/}
+      {/* right*/}
     </>
   );
 };

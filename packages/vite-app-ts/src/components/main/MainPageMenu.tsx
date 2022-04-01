@@ -14,6 +14,15 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
     }}
     selectedKeys={[props.route]}
     mode="vertical">
+    <Menu.Item key="/">
+      <Link
+        onClick={(): void => {
+          props.setRoute('/');
+        }}
+        to="/">
+        Dashboard
+      </Link>
+    </Menu.Item>
     <Menu.Item key="/bank">
       <Link
         onClick={(): void => {
@@ -23,6 +32,16 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         Bank
       </Link>
     </Menu.Item>
+    <Menu.Item key="/wallet">
+      <Link
+        onClick={(): void => {
+          props.setRoute('/wallet');
+        }}
+        to="/wallet">
+        Wallet
+      </Link>
+    </Menu.Item>
+
     {/*
     <Menu.Item key="/">
       <Link

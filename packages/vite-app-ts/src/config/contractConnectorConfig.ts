@@ -23,7 +23,6 @@ import * as externalContracts from '~~/generated/external-contracts/esm/types';
 export const contractConnectorConfig = () => {
   try {
     const result = {
-      // 🙋🏽‍♂️ Add your hadrdhat contracts here
       YourContract: createConnectorForHardhatContract(
         'YourContract',
         hardhatContracts.YourContract__factory,
@@ -35,6 +34,22 @@ export const contractConnectorConfig = () => {
       DebondData: createConnectorForHardhatContract(
         'DebondData',
         hardhatContracts.DebondData__factory,
+        hardhatContractsJson
+      ),
+
+      DebondBond: createConnectorForHardhatContract(
+        'DebondBond',
+        hardhatContracts.DebondBond__factory,
+        hardhatContractsJson
+      ),
+      USDC: createConnectorForHardhatContract('USDC', hardhatContracts.USDC__factory, hardhatContractsJson),
+      USDT: createConnectorForHardhatContract('USDT', hardhatContracts.USDT__factory, hardhatContractsJson),
+      DBIT: createConnectorForHardhatContract('DBIT', hardhatContracts.DBIT__factory, hardhatContractsJson),
+      DAI2: createConnectorForHardhatContract('DAI', hardhatContracts.DAI__factory, hardhatContractsJson),
+
+      TestContract: createConnectorForHardhatContract(
+        'TestContract',
+        hardhatContracts.TestContract__factory,
         hardhatContractsJson
       ),
 

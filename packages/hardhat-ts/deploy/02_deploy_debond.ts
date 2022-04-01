@@ -1,11 +1,17 @@
-import { ethers } from 'hardhat';
-import { DeployFunction } from 'hardhat-deploy/types';
-import { HardhatRuntimeEnvironment } from 'hardhat/types';
+import {ethers} from 'hardhat';
+import {DeployFunction} from 'hardhat-deploy/types';
+import {HardhatRuntimeEnvironment} from 'hardhat/types';
 
 const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
-  const { getNamedAccounts, deployments } = hre;
-  const { deploy } = deployments;
-  const { deployer } = await getNamedAccounts();
+  const {getNamedAccounts, deployments} = hre;
+  const {deploy} = deployments;
+  const {deployer} = await getNamedAccounts();
+
+  await deploy('TestContract', {
+    from: deployer,
+    args: [],
+    log: true,
+  });
 
   const DBIT = await ethers.getContract('DBIT', deployer);
   const USDC = await ethers.getContract('USDC', deployer);
@@ -35,6 +41,20 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     args: [APM.address, DebondData.address, DeBond.address],
     log: true,
   });
+
+  const DebondDeployed = await ethers.getContract('DebondBond', deployer);
+  const BankDeployed = await ethers.getContract('Bank', deployer);
+
+  const bondIssueRole = await DebondDeployed.ISSUER_ROLE();
+  const DBITMinterRole = await DBIT.MINTER_ROLE();
+  await DebondDeployed.grantRole(bondIssueRole, Bank.address);
+  await DBIT.grantRole(DBITMinterRole, Bank.address);
+  await USDC.mint(deployer, 100000);
+  await USDC.mint("0x632e15d35BeE185B9765a5b31550E9935a225326", 100000);
+
+  /*await BankDeployed.buyBond(1, 0, 1000, 50, 0);*/
 };
+
+
 export default func;
 func.tags = ['DBIT'];

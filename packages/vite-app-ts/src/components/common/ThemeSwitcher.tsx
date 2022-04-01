@@ -3,7 +3,7 @@ import { useEthersContext } from 'eth-hooks/context';
 import React, { FC, useEffect, useState } from 'react';
 import { useThemeSwitcher } from 'react-css-theme-switcher';
 
-const initialTheme = window.localStorage.getItem('theme') ?? 'light';
+const initialTheme = window.localStorage.getItem('theme') ?? 'dark';
 export const ThemeSwitcher: FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(initialTheme === 'dark');
   const { switcher, currentTheme, status, themes } = useThemeSwitcher();
