@@ -2,13 +2,6 @@
     text-align: center;
 }
 
-.ant-layout-sider {
-    width: 271px !important;
-    flex: unset !important;
-    max-width: unset !important;
-    min-width: unset !important;
-    margin-top: 30px !important;
-}
 
 * {
     font-family: 'Inter' !important;
@@ -138,4 +131,8 @@ button {
     width: 150px;
     left: 100px;
     top: 40px;
+}
+
+.ant-table-row-expand-icon:focus, .ant-table-row-expand-icon:hover{
+    color:inherit;
 }

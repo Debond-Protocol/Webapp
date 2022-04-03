@@ -1,8 +1,8 @@
-import { interestRatesEnum } from '~~/components/main/utils/utils';
-import { getMultiCallResults } from '~~/components/main/web3/multicall';
+import {interestRatesEnum} from '~~/components/main/utils/utils';
+import {getMultiCallResults} from '~~/components/main/web3/multicall';
 
 /**
- * Multicall to get all Nonce Ids for the user
+ * Multicall to get all the user's Nonce Ids
  * @param classesOwned
  * @param debondBondContract
  * @param address
@@ -13,19 +13,24 @@ export const fetchBondsIds = async (
   debondBondContract: any,
   address: string,
   provider: any
-) => {
+) :Promise<[any[], Map<string, any[]>]>=> {
   const bondsIds: any[] = [];
+  const bondsIdsMap :Map<string, any[]>= new Map<string, any[]>();
   const args = classesOwned?.map((classId: any) => {
     return [address, classId];
   });
-  const results = await getMultiCallResults(classesOwned, debondBondContract, 'getBondsPerAddress', provider, args);
+  const results = await getMultiCallResults(classesOwned, debondBondContract, 'getNoncesPerAddress', provider, args);
   for (const [idx, _classId] of classesOwned.entries()) {
+    let _bondsPerClass = []
+
     const arrayOfBonds = results[idx];
     for (const _bondId of arrayOfBonds) {
-      bondsIds.push({ classId: _classId, bondId: _bondId });
+      _bondsPerClass.push(_bondId)
+      bondsIds.push({classId: _classId, bondId: _bondId});
     }
+    bondsIdsMap.set(_classId.toString(), _bondsPerClass);
   }
-  return bondsIds;
+  return [bondsIds, bondsIdsMap];
 };
 
 /**
@@ -37,24 +42,30 @@ export const fetchBondsIds = async (
  */
 export const fetchBondDetails = async (bondIds: any[], debondBondContract: any, provider: any) => {
   const bonds: any[] = [];
+  //const bondsMap:Map<string,any[]> =new  Map<string,any[]>();
 
   const args = bondIds?.map((bondInfos: any) => {
-    const { classId, bondId } = bondInfos;
+    const {classId, bondId} = bondInfos;
     return [classId.toString(), bondId.toString()];
   });
 
-  const results = await getMultiCallResults(bondIds, debondBondContract, 'getNonceFromIdAndClassId', provider, args);
+  const results = await getMultiCallResults(bondIds, debondBondContract, 'bondDetails', provider, args);
   for (const [idx, _bond] of results.entries()) {
-    bonds.push({
+    console.log("bond0")
+    console.log(_bond)
+    console.log("bond1")
+    const _bondInfos={
       key: idx,
-      maturityTime: _bond?.maturityTime,
-      balance: _bond?.balance.toString(),
-      symbol: _bond?.symbol,
-      interestRateType: interestRatesEnum.get(_bond?.interestRateType.toString()),
-      periodTimestamp: _bond?.periodTimestamp,
-    });
+      maturityDate: _bond?._maturityDate,
+      //balance: _bond?.balance.toString(),
+      symbol: _bond?._symbol,
+      interestRateType: interestRatesEnum.get(_bond?._interestRateType.toString()),
+      period: _bond?._periodTimestamp.toString(),
+      issuanceDate:_bond?._issuanceDate.toString(),
+      progress: (Date.now() - _bond?._issuanceDate)/_bond?._periodTimestamp.toString()
+    }
+    bonds.push(_bondInfos);
   }
-  console.log(bonds);
 
   return bonds;
 };

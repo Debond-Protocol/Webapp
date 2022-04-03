@@ -23,11 +23,11 @@ import * as externalContracts from '~~/generated/external-contracts/esm/types';
 export const contractConnectorConfig = () => {
   try {
     const result = {
-      YourContract: createConnectorForHardhatContract(
+      /*YourContract: createConnectorForHardhatContract(
         'YourContract',
         hardhatContracts.YourContract__factory,
         hardhatContractsJson
-      ),
+      ),*/
 
       Bank: createConnectorForHardhatContract('Bank', hardhatContracts.Bank__factory, hardhatContractsJson),
 
@@ -47,11 +47,7 @@ export const contractConnectorConfig = () => {
       DBIT: createConnectorForHardhatContract('DBIT', hardhatContracts.DBIT__factory, hardhatContractsJson),
       DAI2: createConnectorForHardhatContract('DAI', hardhatContracts.DAI__factory, hardhatContractsJson),
 
-      TestContract: createConnectorForHardhatContract(
-        'TestContract',
-        hardhatContracts.TestContract__factory,
-        hardhatContractsJson
-      ),
+
 
       // 🙋🏽‍♂️ Add your external contracts here, make sure to define the address in `externalContractsConfig.ts`
       DAI: createConnectorForExternalContract('DAI', externalContracts.DAI__factory, externalContractsAddressMap),
