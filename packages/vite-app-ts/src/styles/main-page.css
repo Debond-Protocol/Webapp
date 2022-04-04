@@ -88,8 +88,8 @@ button {
 
 .Address {
     /*background: rgba(62, 58, 244, 0.87);*/
-    border: 0.5px solid #FFFFFF;
-    box-sizing: border-box;
+    /*border: 0.5px solid #FFFFFF;
+    box-sizing: border-box;*/
 }
 
 .leftWallet button {
@@ -135,4 +135,44 @@ button {
 
 .ant-table-row-expand-icon:focus, .ant-table-row-expand-icon:hover{
     color:inherit;
+}
+
+#walletConnector{
+    border: 0.5px solid #FFFFFF;
+    box-sizing: border-box;
+    width: fit-content;
+    min-width: 288px;
+    position:fixed;
+    right: 190px;
+    top: 40px;
+    /*top:-30px;
+    right: 20px;*/
+}
+
+#walletConnector .ant-menu-item{
+    padding: unset!important;
+}
+
+#walletConnector .ant-menu-submenu-title span{
+    width: 100%!important;
+    text-align: center;
+}
+
+#networkConnection{
+    border: 0.5px solid #FFFFFF;
+    box-sizing: border-box;
+    width: 150px;
+    position:fixed;
+    right: 490px;
+    top: 40px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 146%;
+    /* or 20px */
+    text-transform: uppercase;
+
+    /* Debond Grey */
+    color: #DFDFDF;
 }

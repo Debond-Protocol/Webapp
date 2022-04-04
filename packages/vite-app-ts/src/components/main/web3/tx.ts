@@ -25,18 +25,18 @@ export const depositTransaction = async (purchaseTokenAmount: Number, debondToke
   const _purchaseTokenClassId = Number.parseInt(purchaseTokenClassId)
 
   console.log('START');
-  console.log(_debondTokenMinAmount);
-  console.log(_purchaseTokenAmount);
-  console.log(_method);
-  console.log(_debondTokenClassId);
   console.log(_purchaseTokenClassId);
+  console.log(_debondTokenClassId);
+  console.log(_purchaseTokenAmount);
+  console.log(_debondTokenMinAmount);
+  console.log(_method);
   console.log('END');
 
   /* let account:string = ethersContext?.account!;
   await usdcContract!.mint(account, 100000);*/
-//  const result = tx?.(bankContract?.buyBond(_purchaseTokenClassId, _debondTokenClassId, _purchaseTokenAmount, _debondTokenMinAmount, _method), (update: any) => {
+  const result = tx?.(bankContract?.buyBond(_purchaseTokenClassId, _debondTokenClassId, _purchaseTokenAmount, _debondTokenMinAmount, _method), (update: any) => {
 
-  const result = tx?.(bankContract?.buyBond(1, 0, 3000, 0, 1), (update: any) => {
+    //const result = tx?.(bankContract?.buyBond(1, 0, 3000, 0, 1), (update: any) => {
     console.log('📡 Transaction Update:', update);
     if (update && (update.status === 'confirmed' || update.status === 1)) {
       console.log(' 🍾 Transaction ' + update.hash + ' finished!');
@@ -66,3 +66,17 @@ export const approveTransaction = async (amount: Number, tx: any, tokenContract:
   return result;
 }
 
+
+export const redeemTransaction = async (amount: Number,classId:Number, nonceId:Number,  tx: any, bankContract: any) => {
+  const _amount = parseEther(amount.toString()).toHexString();
+  console.log(amount)
+  console.log(classId)
+  console.log(nonceId)
+
+  //const l = await tokenContract?.approve(spender, purchaseAmount);
+  const result = tx?.(bankContract?.sellBonds(classId, nonceId,_amount),
+    (update: any) => {
+      console.log('📡 Transaction Update:', update);
+    })
+  return result;
+}

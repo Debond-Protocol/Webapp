@@ -46,10 +46,10 @@ export const BankUI: FC<IBankUIProps> = (props) => {
       setTokenFilters(_filters);
     }
 
-    if (provider) {
+    if (provider && debondDataContract) {
       _init();
     }
-  }, [provider]);
+  }, [provider, debondDataContract, ]);
 
   /**
    * Handle clicking on get bonds button

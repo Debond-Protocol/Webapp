@@ -1,5 +1,6 @@
 import {interestRatesEnum} from '~~/components/main/utils/utils';
 import {getMultiCallResults} from '~~/components/main/web3/multicall';
+import {useSignerAddress} from "eth-hooks";
 
 /**
  * Multicall to get all the user's Nonce Ids
@@ -13,9 +14,9 @@ export const fetchBondsIds = async (
   debondBondContract: any,
   address: string,
   provider: any
-) :Promise<[any[], Map<string, any[]>]>=> {
+): Promise<[any[], Map<string, any[]>]> => {
   const bondsIds: any[] = [];
-  const bondsIdsMap :Map<string, any[]>= new Map<string, any[]>();
+  const bondsIdsMap: Map<string, any[]> = new Map<string, any[]>();
   const args = classesOwned?.map((classId: any) => {
     return [address, classId];
   });
@@ -40,32 +41,39 @@ export const fetchBondsIds = async (
  * @param provider: provider
  * @param args: list of args to send to the multicall
  */
-export const fetchBondDetails = async (bondIds: any[], debondBondContract: any, provider: any) => {
+export const fetchBondDetails = async (bondIds: any[], debondBondContract: any, provider: any, address: any) => {
   const bonds: any[] = [];
   //const bondsMap:Map<string,any[]> =new  Map<string,any[]>();
 
   const args = bondIds?.map((bondInfos: any) => {
     const {classId, bondId} = bondInfos;
-    return [classId.toString(), bondId.toString()];
+    return [classId.toString(), bondId.toString(), address];
   });
 
-  const results = await getMultiCallResults(bondIds, debondBondContract, 'bondDetails', provider, args);
+  const results = await getMultiCallResults(bondIds, debondBondContract, 'nonceDetails', provider, args);
   for (const [idx, _bond] of results.entries()) {
-    console.log("bond0")
-    console.log(_bond)
-    console.log("bond1")
-    const _bondInfos={
+
+    const progress = Math.min((Date.now() - _bond?._issuanceDate) / _bond?._periodTimestamp * 100, 100)
+    const _bondInfos = {
       key: idx,
       maturityDate: _bond?._maturityDate,
       //balance: _bond?.balance.toString(),
       symbol: _bond?._symbol,
       interestRateType: interestRatesEnum.get(_bond?._interestRateType.toString()),
       period: _bond?._periodTimestamp.toString(),
-      issuanceDate:_bond?._issuanceDate.toString(),
-      progress: (Date.now() - _bond?._issuanceDate)/_bond?._periodTimestamp.toString()
+      issuanceDate: _bond?._issuanceDate.toString(),
+      progress: {
+        issuance: _bond?._issuanceDate,
+        period: _bond?._periodTimestamp.toString(),
+        maturity: _bond?._maturityDate,
+        progress: progress
+      },
+      redeem: {progress: progress, classId: args[idx][0], nonceId: args[idx][1],balance:_bond?._balance },
+      classId: args[idx][0],
+      bondId: args[idx][1],
+      balance: _bond?._balance,
     }
     bonds.push(_bondInfos);
   }
-
   return bonds;
 };

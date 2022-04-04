@@ -18,6 +18,7 @@ export const getAllClasses = async (debondDataContract: any, provider: any) => {
       token: classInfos.symbol,
       interestType: interestRatesEnum.get(classInfos.interestRateType.toString()),
       period: classInfos.periodTimestamp.toNumber(),
+      balance: "..."
     };
     allClasses.set(_classId.toString(), _class);
   }

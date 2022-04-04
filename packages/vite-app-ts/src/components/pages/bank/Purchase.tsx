@@ -1,17 +1,15 @@
-import {Button, Card, Col, Form, InputNumber, Radio, Row, Select, Slider, Table, Tabs} from "antd";
+import {Button, Card, Col, Form, InputNumber, Row, Slider, Table, Tabs} from "antd";
 import {formatEther} from "@ethersproject/units";
-import React, {FC, SetStateAction, useContext, useEffect, useState} from "react";
+import React, {FC, useContext, useEffect, useState} from "react";
 import {approveTransaction, depositTransaction} from "~~/components/main/web3/tx";
 import {mapClassesToRow, toStringArray} from "~~/components/main/utils/utils";
 import {transactor} from "eth-components/functions";
 import {useAppContracts} from "~~/config/contractContext";
 import {useEthersContext} from "eth-hooks/context";
 import {EthComponentsSettingsContext} from "eth-components/models";
-import {useBalance, useGasPrice, useSignerAddress} from "eth-hooks";
-import {getBalances} from "~~/components/main/web3/balances";
-import {availableTokens} from "~~/components/main/web3/utils/utils";
+import {useGasPrice, useSignerAddress} from "eth-hooks";
 import {useTokenBalance} from "eth-hooks/erc";
-import {BigNumber, ethers} from "ethers";
+import {BigNumber} from "ethers";
 
 export interface IPurchaseProps {
   selectedClass: any;
@@ -107,7 +105,7 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
     //const account: string = ethersContext?.account!;
     if (approved) {
       //const result = await depositTransaction(amountValue, props.selectedClass.id, selectedPurchaseClass.id, '0', tx, bankContract);
-      const result = await depositTransaction(3000, props.selectedClass.id, selectedPurchaseClass.id, '0', tx, bankContract);
+      const result = await depositTransaction(amountValue, props.selectedClass.id, selectedPurchaseClass.id,activeMethod , tx, bankContract);
 
       if (result) {
         purchasableInfos.get(selectedPurchaseClass?.token).approved = false;
