@@ -14,7 +14,7 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
     }}
     selectedKeys={[props.route]}
     mode="vertical">
-    <Menu.Item key="/">
+    <Menu.Item key="/" icon={<img src={"./menu/dashboard.png"}/>}>
       <Link
         onClick={(): void => {
           props.setRoute('/');
@@ -23,16 +23,34 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         Dashboard
       </Link>
     </Menu.Item>
-    <Menu.Item key="/bank">
+    <Menu.Item key="/bank" icon={<img src={"./menu/bond.png"}/>}>
       <Link
         onClick={(): void => {
           props.setRoute('/bank');
         }}
         to="/bank">
-        Bank
+        Bonds
       </Link>
     </Menu.Item>
-    <Menu.Item key="/wallet">
+    <Menu.Item key="/governance" icon={<img src={"./menu/governance.png"}/>}>
+      <Link
+        onClick={(): void => {
+          props.setRoute('/governance');
+        }}
+        to="/governance">
+        Ops governance
+      </Link>
+    </Menu.Item>
+    <Menu.Item key="/swap" icon={<img src={"./menu/swap2.png"}/>}>
+      <Link
+        onClick={(): void => {
+          props.setRoute('/swap');
+        }}
+        to="/swap">
+        Swap
+      </Link>
+    </Menu.Item>
+    <Menu.Item key="/wallet" icon={<img src={"./menu/wallet.png"}/>}>
       <Link
         onClick={(): void => {
           props.setRoute('/wallet');
@@ -41,7 +59,33 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         Wallet
       </Link>
     </Menu.Item>
-
+    <Menu.Item key="/dex" icon={<img src={"./menu/exchange.png"}/>}>
+      <Link
+        onClick={(): void => {
+          props.setRoute('/dex');
+        }}
+        to="/dex">
+        Bond Exchange
+      </Link>
+    </Menu.Item>
+    <Menu.Item key="/loan" icon={<img src={"./menu/loan.png"}/>}>
+      <Link
+        onClick={(): void => {
+          props.setRoute('/loan');
+        }}
+        to="/loan">
+        Loan
+      </Link>
+    </Menu.Item>
+    <Menu.Item key="/airdrop" icon={<img src={"./menu/airdrop.png"}/>}>
+      <Link
+        onClick={(): void => {
+          props.setRoute('/airdrop');
+        }}
+        to="/airdrop">
+        Claim Airdrop
+      </Link>
+    </Menu.Item>
     {/*
     <Menu.Item key="/">
       <Link

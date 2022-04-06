@@ -1,3 +1,36 @@
-.ant-steps{
-  margin-bottom: 50px;
+.ant-steps {
+    margin-bottom: 50px!important;
+}
+
+.ant-statistic-content-value {
+    font-size: 16px;
+}
+
+.ant-card-head-title {
+    font-size: 20px;
+}
+
+.dbutton {
+    background: #403AF4;
+    border-radius: 3.44808px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 146%;
+    /* or 23px */
+    text-align: center;
+    text-transform: uppercase;
+    padding: 13px 70px 13px 70px;
+}
+
+.ant-tabs-tab {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 96%;
+}
+.ant-tabs{
+    margin-bottom: 50px;
 }

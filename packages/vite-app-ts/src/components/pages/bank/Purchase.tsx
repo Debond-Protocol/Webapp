@@ -1,4 +1,4 @@
-import {Button, Card, Col, Form, InputNumber, Row, Slider, Table, Tabs} from "antd";
+import {Button, Card, Col, Form, InputNumber, Row, Slider, Statistic, Table, Tabs} from "antd";
 import {formatEther} from "@ethersproject/units";
 import React, {FC, useContext, useEffect, useState} from "react";
 import {approveTransaction, depositTransaction} from "~~/components/main/web3/tx";
@@ -105,7 +105,7 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
     //const account: string = ethersContext?.account!;
     if (approved) {
       //const result = await depositTransaction(amountValue, props.selectedClass.id, selectedPurchaseClass.id, '0', tx, bankContract);
-      const result = await depositTransaction(amountValue, props.selectedClass.id, selectedPurchaseClass.id,activeMethod , tx, bankContract);
+      const result = await depositTransaction(amountValue, props.selectedClass.id, selectedPurchaseClass.id, activeMethod, tx, bankContract);
 
       if (result) {
         purchasableInfos.get(selectedPurchaseClass?.token).approved = false;
@@ -143,6 +143,16 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
     },
     {title: 'Interest Type', dataIndex: 'interestType', key: 'interest'},
     {title: 'Period', dataIndex: 'period', key: 'period', sorter: (a: any, b: any) => a.period - b.period},
+    {
+      title: 'APY', dataIndex: 'apy', key: 'apy', render: (apy: any) => {
+        return (apy*100+"%")
+      }
+    },
+    {
+      title: 'Face Value', dataIndex: 'value', key: 'facevalue', render: (infos: any) => {
+        return ((infos.apy + 1) * amountValue).toFixed(5)
+      }
+    },
   ];
 
   const selectRow = (record: any) => {
@@ -172,109 +182,137 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
       <Tabs centered activeKey={activeMethod} onChange={(activeKey) => {
         setActiveMethod(activeKey)
       }}>
-        <Tabs.TabPane tab="Staking" key="0">
-          <Card title={'Stake ' + props.selectedClass?.token + ' Bond with ' + selectedPurchaseClass?.token}>
+        <Tabs.TabPane tab={'Staking ' + props.selectedClass?.token + ' Bond with ' + selectedPurchaseClass?.token} key="0">
+          {/*} <Card title={'Stake ' + props.selectedClass?.token + ' Bond with ' + selectedPurchaseClass?.token}>
             <Card.Grid>{'Period : ' + props.selectedClass?.period + ' s'} </Card.Grid>
             <Card.Grid>{'Interest Type : ' + props.selectedClass?.interestType} </Card.Grid>
             <Card.Grid>{'Token : ' + props.selectedClass?.token} </Card.Grid>
             <Card.Grid>{'Your ' + selectedPurchaseClass?.token + ' balance : ' + purchasableInfos.get(selectedPurchaseClass?.token)?.balance} </Card.Grid>
-          </Card>
+          </Card>*/}
         </Tabs.TabPane>
-        <Tabs.TabPane tab="Buying" key="1">
-          <Card title={'Buy ' + props.selectedClass?.token + ' Bond with ' + selectedPurchaseClass?.token}>
+        <Tabs.TabPane tab={'Buying ' + props.selectedClass?.token + ' Bond with ' + selectedPurchaseClass?.token} key="1">
+          {/*<Card title={'Buy ' + props.selectedClass?.token + ' Bond with ' + selectedPurchaseClass?.token}>
             <Card.Grid>{'Period : ' + props.selectedClass?.period + ' s'} </Card.Grid>
             <Card.Grid>{'Interest Type : ' + props.selectedClass?.interestType} </Card.Grid>
             <Card.Grid>{'Token : ' + props.selectedClass?.token} </Card.Grid>
             <Card.Grid>{'Your ' + selectedPurchaseClass?.token + ' balance : ' + purchasableInfos.get(selectedPurchaseClass?.token)?.balance} </Card.Grid>
-          </Card>
+          </Card>*/}
         </Tabs.TabPane>
-
       </Tabs>
 
+      <Row>
+        <Col span={12}>
 
-      <Form
-        name="getBondModal"
-        layout="inline"
-        labelCol={{span: 8}}
-        wrapperCol={{span: 16}}
-        style={{width: '100%'}}
-        initialValues={{period: '60'}}
-        form={form}
-        //onFinish={onFinish}
-        // onFinishFailed={onFinishFailed}
-        autoComplete="off">
+          <div>
+            <Table
+              rowSelection={rowSelection}
+              columns={columns}
+              dataSource={tableValues}
+              pagination={false}
+              scroll={{x: 30, y: 300}}
+              onRow={(record) => ({
+                onClick: () => {
+                  selectRow(record);
+                }
+              })}
+            />
+          </div>
 
-        <Table
-          rowSelection={rowSelection}
-          columns={columns}
-          dataSource={tableValues}
-          pagination={false}
-          scroll={{x: 30, y: 300}}
-          onRow={(record) => ({
-            onClick: () => {
-              selectRow(record);
-            }
-          })}
-        />
-        <Form.Item
-          label="Amount"
-          name="amount"
-          style={{width: "100%"}}
-          // rules={[{required: true, message: 'Please choose a  amount!'}]}
-        >
-          <Row>
-            <Col span={8}>
-              <Slider
-                min={0}
-                max={purchasableInfos.get(selectedPurchaseClass?.token)?.balance}
-                onChange={onChange}
-                value={typeof amountValue === 'number' ? amountValue : 0}
-                step={0.001}
-              />
-            </Col>
-            <Col span={4}>
-              <InputNumber
-                min={0}
-                max={purchasableInfos.get(selectedPurchaseClass?.token)?.balance}
-                style={{margin: '0 16px'}}
-                step={0.001}
-                value={amountValue}
-                onChange={onChange}
-                prefix={<span style={{fontSize: '8px'}}>{selectedPurchaseClass?.token}</span>}
-              />
-            </Col>
-            <Col span={4}>
-              <InputNumber
-                min={0}
-                max={100}
-                style={{margin: '0 0 0 40px'}}
-                //step={0.001}
-                value={amountValue / purchasableInfos.get(selectedPurchaseClass?.token)?.balance}
-                disabled
-                prefix={<span>%</span>}
-              />
-            </Col>
-            <Col span={4}>
-              <InputNumber
-                min={0}
-                max={100}
-                style={{margin: '0 0 0 40px'}}
-                //step={0.001}
-                value={amountValue}
-                disabled
-                prefix={<span style={{fontSize: '8px'}}>ETH</span>}
-              />
-            </Col>
-          </Row>
-        </Form.Item>
+        </Col>
+        <Col span={12}>
 
-        <Form.Item wrapperCol={{offset: 8, span: 16}}>
-          {approved ? <Button onClick={deposit}>Deposit</Button> :
-            <Button onClick={approve}>Approve</Button>}
-        </Form.Item>
+          <div style={{marginLeft: 50}}>
+            <Form
+              name="getBondModal"
+              layout="inline"
+              labelCol={{span: 8}}
+              wrapperCol={{span: 16}}
+              style={{width: '100%', textAlign: "center"}}
+              initialValues={{period: '60'}}
+              form={form}
+              //onFinish={onFinish}
+              // onFinishFailed={onFinishFailed}
+              autoComplete="off">
+              <Card title={"Your bond"} bordered={false}>
 
-      </Form>
+              <Row gutter={16}>
+                <Col span={12}>
+                  <Statistic title="Period" value={props.selectedClass?.period + ' s'} />
+                </Col>
+                <Col span={12}>
+                  <Statistic title="Interest Type" value={props.selectedClass?.interestType}  />
+                </Col>
+                <Col span={12}>
+                  <Statistic title="Token" value={props.selectedClass?.token}  />
+                </Col>
+                <Col span={12}>
+                  <Statistic title={"Your " + selectedPurchaseClass?.token + " balance"} value={purchasableInfos.get(selectedPurchaseClass?.token)?.balance}  />
+                </Col>
+              </Row>
+              </Card>
 
+              <Form.Item
+                label="Amount"
+                name="amount"
+                style={{width: "100%", marginBottom: 40}}
+                // rules={[{required: true, message: 'Please choose a  amount!'}]}
+              >
+
+                <Slider
+                  min={0}
+                  max={purchasableInfos.get(selectedPurchaseClass?.token)?.balance}
+                  onChange={onChange}
+                  value={typeof amountValue === 'number' ? amountValue : 0}
+                  step={0.001}
+                />
+              </Form.Item>
+              <Form.Item style={{width: "100%"}}>
+                <Row>
+                  <Col span={8}>
+                    <InputNumber
+                      min={0}
+                      max={purchasableInfos.get(selectedPurchaseClass?.token)?.balance}
+                      style={{margin: '0 16px'}}
+                      step={0.001}
+                      value={amountValue}
+                      onChange={onChange}
+                      prefix={<span style={{fontSize: '8px'}}>{selectedPurchaseClass?.token}</span>}
+                    />
+                  </Col>
+                  <Col span={8}>
+                    <InputNumber
+                      min={0}
+                      max={100}
+                      style={{margin: '0 0 0 40px'}}
+                      //step={0.001}
+                      value={amountValue / purchasableInfos.get(selectedPurchaseClass?.token)?.balance}
+                      disabled
+                      prefix={<span>%</span>}
+                    />
+                  </Col>
+                  <Col span={8}>
+                    <InputNumber
+                      min={0}
+                      max={100}
+                      style={{margin: '0 0 0 40px'}}
+                      //step={0.001}
+                      value={amountValue}
+                      disabled
+                      prefix={<span style={{fontSize: '8px'}}>ETH</span>}
+                    />
+                  </Col>
+                </Row>
+              </Form.Item>
+            </Form>
+          </div>
+
+        </Col>
+      </Row>
+
+      <div style={{display:"flex", justifyContent:"center" , margin:70}}>
+        {approved ? <button className="dbutton" onClick={deposit}>Deposit</button> :
+          <button className={"dbutton"} onClick={approve}>Approve</button>}
+      </div>
     </>
   );
 }

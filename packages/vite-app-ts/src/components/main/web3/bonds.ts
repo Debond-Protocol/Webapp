@@ -68,10 +68,16 @@ export const fetchBondDetails = async (bondIds: any[], debondBondContract: any, 
         maturity: _bond?._maturityDate,
         progress: progress
       },
-      redeem: {progress: progress, classId: args[idx][0], nonceId: args[idx][1],balance:_bond?._balance },
+      redeem: {progress: progress, classId: args[idx][0], nonceId: args[idx][1], balance: _bond?._balance},
       classId: args[idx][0],
       bondId: args[idx][1],
       balance: _bond?._balance,
+      //mocked
+      issuer: "debond",
+      typePeriod: {
+        interestRateType: interestRatesEnum.get(_bond?._interestRateType.toString()),
+        period: _bond?._periodTimestamp.toString()
+      }
     }
     bonds.push(_bondInfos);
   }

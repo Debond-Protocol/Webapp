@@ -11,12 +11,10 @@ export interface IWalletUIProps {
 }
 
 export const WalletUI: FC<IWalletUIProps> = (props) => {
-    const columns = ["token", "interest", "period","balance", "issuanceDate", "progress", "redeem"]
+    const columns = ["issuer","token", "typePeriod","balance", "issuanceDate", "progress", "redeem"]
 
     return (
-      <div>
-        <Layout className={'pageLayout'}>
-          <Layout.Content>
+      <>
             <Layout.Header>
               <div className={'pageInfos'}>
                 <div className={'pageTitle'}>Your wallet</div>
@@ -26,9 +24,8 @@ export const WalletUI: FC<IWalletUIProps> = (props) => {
               </div>
             </Layout.Header>
             <DebondWallet columns={columns}/>
-          </Layout.Content>
-        </Layout>
-      </div>
+
+      </>
     )
       ;
   }

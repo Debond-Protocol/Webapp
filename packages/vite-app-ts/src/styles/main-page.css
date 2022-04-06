@@ -3,20 +3,52 @@
 }
 
 
+.dlayoutContent{
+    background: linear-gradient(180deg, #16153D 0%, #000000 100%)!important;
+    margin: 0px 30px 50px 10px!important;
+    padding: 20px 10px 20px 20px
+}
+
 * {
     font-family: 'Inter' !important;
     font-style: normal !important;
 }
 
-.ant-menu-item span a {
-    font-family: 'Inter' !important;
-    font-style: normal !important;
-    font-weight: 600 !important;
-    font-size: 18px !important;
-    line-height: 146% !important;
-    /* identical to box height, or 26px */
-    text-transform: uppercase;
-    color: #7A7A7A !important;
+.ant-menu-item  {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 146%;
+    /* identical to box height, or 20px */
+    text-transform: capitalize;
+    text-align: left;
+}
+.ant-menu-item a{
+    color: #7A7A7A;
+}
+
+.ant-layout-sider{
+    width: 272px!important;
+    flex:unset!important;
+    max-width: unset!important;
+    min-width: unset!important;
+}
+
+.ant-layout-sider .ant-menu .ant-menu-item img{
+    width:14px;
+}
+
+.ant-layout-sider .ant-menu-item-selected{
+    background: rgba(66, 66, 66, 0.3)!important;
+}
+
+.ant-layout-sider .ant-menu-item-selected a{
+    color: #DFDFDF;
+}
+
+.ant-layout-sider .ant-menu-item img{
+    display: inline;
 }
 
 .ant-menu-item-selected span a {
@@ -26,7 +58,7 @@
 .ant-layout-content {
     /*flex:unset!important;
     width: 70%!important;*/
-    margin: 20px 30px 10px 20px !important;
+    margin: 20px 30px 10px 20px ;
 }
 
 button {
@@ -34,9 +66,6 @@ button {
     border-radius: 2.9px;
 }
 
-.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
-    background-color: unset !important;
-}
 
 .pageTitle {
     font-family: 'Inter' !important;
@@ -81,7 +110,7 @@ button {
 }
 
 
-.pageLayout .ant-layout-header {
+.dlayoutContent .ant-layout-header {
     height: unset !important;
     padding: unset;
 }
@@ -143,8 +172,10 @@ button {
     width: fit-content;
     min-width: 288px;
     position:fixed;
-    right: 190px;
     top: 40px;
+    right: 360px;
+    background-color: black;
+
     /*top:-30px;
     right: 20px;*/
 }
@@ -163,7 +194,7 @@ button {
     box-sizing: border-box;
     width: 150px;
     position:fixed;
-    right: 490px;
+    right:190px;
     top: 40px;
     font-family: 'Inter';
     font-style: normal;
@@ -175,4 +206,8 @@ button {
 
     /* Debond Grey */
     color: #DFDFDF;
+}
+
+.layout-sider .ant-menu{
+    font-size: 14px;
 }

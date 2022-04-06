@@ -5,12 +5,14 @@ import React, {useContext, useEffect, useState} from 'react';
 
 import {fetchBondDetails, fetchBondsIds} from '~~/components/main/web3/bonds';
 import {useAppContracts} from '~~/config/contractContext';
-import {getAllClasses} from "~~/components/main/web3/classes";
-import {mapClassesToRow, toStringArray} from "~~/components/main/utils/utils";
+import {getAllClasses, mapClassesToRow} from "~~/components/main/web3/classes";
+import {issuerMap,  toStringArray} from "~~/components/main/utils/utils";
 import {redeemTransaction} from "~~/components/main/web3/tx";
 import {formatEther} from "@ethersproject/units";
 import {EthComponentsSettingsContext} from "eth-components/models";
 import {transactor} from "eth-components/functions";
+import {Tooltip} from "recharts";
+import moment from 'moment';
 
 
 export const DebondWallet = (props: any) => {
@@ -50,12 +52,12 @@ export const DebondWallet = (props: any) => {
         })
       );
       const [_tableValues, _filters] = await mapClassesToRow(bondClasses);
-      //console.log(_tableValues)
+      console.log(_tableValues)
       setTableClasses(_tableValues)
       setTokenFilters(_filters)
 
       const [_bondsIds, _bondIdsMap] = await fetchBondsIds(classesOwned, debondBondContract, address, ethersContext.provider!);
-      const _bonds = await fetchBondDetails(_bondsIds, debondBondContract, ethersContext.provider!,address );
+      const _bonds = await fetchBondDetails(_bondsIds, debondBondContract, ethersContext.provider!, address);
       var _bondsMap = new Map(_bonds.map(i => [i.key, i]));
       //console.log(result)
       setBondIdsMap(_bondIdsMap);
@@ -90,6 +92,11 @@ export const DebondWallet = (props: any) => {
     sorter: (a: any, b: any) => a.token.length - b.token.length,
     filters: tokenFilters, onFilter: onFilter,
   })
+  columns.set("issuer", {
+    title: 'Issuer', dataIndex: 'issuer', key: 'issuer', width: _width, render: (_issuer: any) => {
+      return <span><b><img style={styles.issuerImg} src={"/issuer/" + issuerMap.get(_issuer) + ".png"}/></b></span>
+    }
+  })
   columns.set("progress", {title: 'Progress', dataIndex: 'progress', key: 'progress', width: _width,})
   columns.set("issuanceDate", {title: 'Issuance Date', dataIndex: 'issuanceDate', key: 'issuanceDate', width: _width,})
   columns.set("interest", {title: 'Interest Type', dataIndex: 'interestType', key: 'interest', width: _width})
@@ -98,22 +105,34 @@ export const DebondWallet = (props: any) => {
   })
   columns.set("redeem", {title: 'Redeem', dataIndex: 'redeem', key: 'redeem', width: _width})
   columns.set("balance", {title: 'Balance', dataIndex: 'balance', key: 'balance', width: _width})
-
+  columns.set("typePeriod", {
+    title: 'Bond', dataIndex: 'typePeriod', key: 'typePeriod', width: _width, render: (input: any) => {
+      return input.interestRateType + " (" + input.period + ")";
+    }
+  })
   const columnsBond = new Map<string, any>();
+  columnsBond.set("issuer", {
+    title: 'Issuer', dataIndex: 'issuer', key: 'issuer', width: _width, render: (_issuer: any) => {
+      return <span><b><img style={styles.issuerImg} src={"/issuer/" + issuerMap.get(_issuer) + ".png"}/></b></span>
+    }
+  })
   columnsBond.set("token", {title: 'Token', dataIndex: 'symbol', key: 'token', width: _width})
   columnsBond.set("amount", {title: 'Amount', dataIndex: 'balance', key: 'amount', width: _width})
   columnsBond.set("interest", {title: 'Interest Type', dataIndex: 'interestRateType', key: 'interest', width: _width})
+  columnsBond.set("typePeriod", {
+    title: 'Bond',
+    dataIndex: 'typePeriod',
+    key: 'typePeriod',
+    width: _width,
+    render: (input: any) => {
+      return input.interestRateType + " (" + input.period + ")";
+    }
+  })
   columnsBond.set("issuanceDate", {
-    title: 'Issuance Date', dataIndex: 'issuanceDate', key: 'issuanceDate', width: _width,render: (_date: any) => {
-    var date = new Date(_date*1000);
-
-    //console.log(date)
-    return date.getDate()+
-      "/"+(date.getMonth()+1)+
-      "/"+date.getFullYear()+
-      " "+date.getHours()+
-      ":"+date.getMinutes()+
-      ":"+date.getSeconds()}
+    title: 'Issuance Date', dataIndex: 'issuanceDate', key: 'issuanceDate', width: _width, render: (_date: any) => {
+      var date = new Date(_date * 1000);
+      return moment(date).format("DD-MM-YYYY hh:mm:ss")
+    }
   })
   columnsBond.set("period", {
     title: 'Period', dataIndex: 'period', key: 'period', width: _width, sorter: (a: any, b: any) => a.period - b.period
@@ -139,8 +158,11 @@ export const DebondWallet = (props: any) => {
       )
     },
   })
-  columnsBond.set("balance", {title: 'Balance', dataIndex: 'balance', key: 'balance', width: _width, render: (_balance: any) => {
-      return (formatEther(_balance))}})
+  columnsBond.set("balance", {
+    title: 'Balance', dataIndex: 'balance', key: 'balance', width: _width, render: (_balance: any) => {
+      return (formatEther(_balance))
+    }
+  })
 
 
   const selectedClassColumns = selectedColumnsName.map((name) => {
@@ -169,4 +191,8 @@ export const DebondWallet = (props: any) => {
 
   return (<Table columns={selectedClassColumns} dataSource={tableClasses} expandedRowRender={expandRowRenderer}
                  pagination={false}/>)
+}
+
+const styles = {
+  issuerImg: {width: 16}
 }

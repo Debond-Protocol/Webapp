@@ -1,26 +1,26 @@
-import React, { FC, useEffect, useState } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React, {FC, useEffect, useState} from 'react';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 import '~~/styles/main-page.css';
 
-import { useBalance, useEthersAdaptorFromProviderOrSigners } from 'eth-hooks';
-import { useEthersContext } from 'eth-hooks/context';
-import { useDexEthPrice } from 'eth-hooks/dapps';
-import { asEthersAdaptor } from 'eth-hooks/functions';
+import {useBalance, useEthersAdaptorFromProviderOrSigners} from 'eth-hooks';
+import {useEthersContext} from 'eth-hooks/context';
+import {useDexEthPrice} from 'eth-hooks/dapps';
+import {asEthersAdaptor} from 'eth-hooks/functions';
 
-import { MainPageMenu, MainPageFooter, MainPageHeader } from './components/main';
-import { useScaffoldHooksExamples as useScaffoldHooksExamples } from './components/main/hooks/useScaffoldHooksExamples';
+import {MainPageMenu, MainPageFooter, MainPageHeader} from './components/main';
+import {useScaffoldHooksExamples as useScaffoldHooksExamples} from './components/main/hooks/useScaffoldHooksExamples';
 
-import { useBurnerFallback } from '~~/components/main/hooks/useBurnerFallback';
-import { useScaffoldProviders as useScaffoldAppProviders } from '~~/components/main/hooks/useScaffoldAppProviders';
-import { Hints, ExampleUI } from '~~/components/pages';
-import { BankUI } from '~~/components/pages/bank/BankUI';
-import { DashboardUI } from '~~/components/pages/dashboard/DashboardUI';
-import { WalletUI } from '~~/components/pages/wallet/WalletUI';
-import { BURNER_FALLBACK_ENABLED, MAINNET_PROVIDER } from '~~/config/appConfig';
-import { useAppContracts, useConnectAppContracts, useLoadAppContracts } from '~~/config/contractContext';
+import {useBurnerFallback} from '~~/components/main/hooks/useBurnerFallback';
+import {useScaffoldProviders as useScaffoldAppProviders} from '~~/components/main/hooks/useScaffoldAppProviders';
+//import { Hints, ExampleUI } from '~~/components/pages';
+import {BankUI} from '~~/components/pages/bank/BankUI';
+import {DashboardUI} from '~~/components/pages/dashboard/DashboardUI';
+import {WalletUI} from '~~/components/pages/wallet/WalletUI';
+import {BURNER_FALLBACK_ENABLED, MAINNET_PROVIDER} from '~~/config/appConfig';
+import {useAppContracts, useConnectAppContracts, useLoadAppContracts} from '~~/config/contractContext';
 
-import { Layout } from 'antd';
+import {Layout} from 'antd';
 
 /**
  * ⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️
@@ -96,81 +96,65 @@ export const Main: FC = () => {
 
   return (
     <Layout>
-      <Layout.Header style={{ height: '30vh' }}>
-        <MainPageHeader scaffoldAppProviders={scaffoldAppProviders} price={ethPrice} />
+      <Layout.Header style={{height: '30vh'}}>
+        <MainPageHeader scaffoldAppProviders={scaffoldAppProviders} price={ethPrice}/>
       </Layout.Header>
       <Layout.Content>
         <Layout>
           {/* Routes should be added between the <Switch> </Switch> as seen below */}
           <BrowserRouter>
             <Layout.Sider>
-              <MainPageMenu route={route} setRoute={setRoute} />
+              <MainPageMenu route={route} setRoute={setRoute}/>
             </Layout.Sider>
-            <Layout.Content>
-              <Switch>
-                {/* <Route exact path="/">
+            <Layout.Content className={"dlayoutContent"}>
+              <Layout.Content>
+                <Switch>
+                  {/* <Route exact path="/">
                   <MainPageContracts scaffoldAppProviders={scaffoldAppProviders} />
                 </Route>
                  you can add routes here like the below examlples */}
-                <Route path="/hints">
-                  <Hints
-                    address={ethersContext?.account ?? ''}
-                    yourCurrentBalance={yourCurrentBalance}
-                    mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-                    price={ethPrice}
-                  />
-                </Route>
-                <Route path="/bank">
-                  <BankUI
-                    mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-                    yourCurrentBalance={yourCurrentBalance}
-                    price={ethPrice}
-                  />
-                </Route>
-                <Route path="/wallet">
-                  <WalletUI
-                    mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-                    yourCurrentBalance={yourCurrentBalance}
-                    price={ethPrice}
-                  />
-                </Route>
-                <Route path="/">
-                  <DashboardUI
-                    mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-                    yourCurrentBalance={yourCurrentBalance}
-                    price={ethPrice}
-                  />
-                </Route>
 
-                <Route path="/exampleui">
-                  <ExampleUI
-                    mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-                    yourCurrentBalance={yourCurrentBalance}
-                    price={ethPrice}
-                  />
-                </Route>
-                {/* <Route path="/mainnetdai">
-                  {MAINNET_PROVIDER != null && (
-                    <GenericContract
-                      contractName="DAI"
-                      contract={mainnetDai}
-                      mainnetAdaptor={scaffoldAppProviders.mainnetAdaptor}
-                      blockExplorer={NETWORKS.mainnet.blockExplorer}
+                  <Route path="/bank">
+                    <BankUI
+                      mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
+                      yourCurrentBalance={yourCurrentBalance}
+                      price={ethPrice}
                     />
-                  )}
-                </Route>*/}
-                {/* Subgraph also disabled in MainPageMenu, it does not work, see github issue! */}
-                {/*
-          <Route path="/subgraph">
-            <Subgraph subgraphUri={subgraphUri} mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider} />
-          </Route>
-          */}
-              </Switch>
+                  </Route>
+                  <Route path="/wallet">
+                    <WalletUI
+                      mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
+                      yourCurrentBalance={yourCurrentBalance}
+                      price={ethPrice}
+                    />
+                  </Route>
+                  <Route path="/swap">
+                    Swap
+                  </Route>
+                  <Route path="/governance">
+                    Governance
+                  </Route>
+                  <Route path="/loan">
+                    Loan
+                  </Route>
+                  <Route path="/airdrop">
+                    Airdrop
+                  </Route>
+                  <Route path="/">
+                    <DashboardUI
+                      mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
+                      yourCurrentBalance={yourCurrentBalance}
+                      price={ethPrice}
+                    />
+                  </Route>
+
+                </Switch>
+              </Layout.Content>
             </Layout.Content>
           </BrowserRouter>
         </Layout>
       </Layout.Content>
-      <MainPageFooter scaffoldAppProviders={scaffoldAppProviders} price={ethPrice} />
+      <MainPageFooter scaffoldAppProviders={scaffoldAppProviders} price={ethPrice}/>
     </Layout>
   );
 };

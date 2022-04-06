@@ -4,11 +4,12 @@ import {useEthersContext} from 'eth-hooks/context';
 import {BigNumber} from 'ethers';
 import React, {FC, useEffect, useState} from 'react';
 
-import {getAllClasses} from '~~/components/main/web3/classes';
+import {getAllClasses, mapClassesToRow} from '~~/components/main/web3/classes';
 import {useAppContracts} from '~~/config/contractContext';
 import '~~/styles/css/bank.css';
-import {mapClassesToRow, toStringArray} from "~~/components/main/utils/utils";
+import { toStringArray} from "~~/components/main/utils/utils";
 import {Purchase} from "~~/components/pages/bank/Purchase";
+import {DoubleLeftOutlined} from "@ant-design/icons/lib";
 
 export interface IBankUIProps {
   mainnetProvider: StaticJsonRpcProvider | undefined;
@@ -123,9 +124,7 @@ export const BankUI: FC<IBankUIProps> = (props) => {
   };
 
   return (
-    <div>
-      <Layout className={'pageLayout'}>
-        <Layout.Content>
+    <>
           <Layout.Header>
             <div className={'pageInfos'}>
               <div className={'pageTitle'}>Stake & Buy D/BONDs</div>
@@ -145,14 +144,11 @@ export const BankUI: FC<IBankUIProps> = (props) => {
 
           <div className="steps-action">
             {current > 0 && (
-              <Button style={{margin: '0 8px'}} onClick={() => prev()}>
-                Previous
-              </Button>
+              <Button icon={<DoubleLeftOutlined />} style={{margin: '0 8px'}} onClick={() => prev()}/>
+
             )}
           </div>
           <div className="steps-content">{steps[current].content}</div>
-        </Layout.Content>
-      </Layout>
-    </div>
+</>
   );
 };

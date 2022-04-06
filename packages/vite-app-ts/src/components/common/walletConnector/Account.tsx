@@ -117,7 +117,8 @@ export const Address: FC<IAddressProps> = ({minimized = false, punkBlockie = fal
   const columns = ["token", "progress", "balance"]
 
   const text = (<>
-    <Menu id="walletConnector" mode="inline" style={{zIndex:10, }}
+
+    <Menu id="walletConnector" mode="inline" style={{zIndex:10, }} triggerSubMenuAction={"click"}
           inlineCollapsed={collapsed}>
       <Menu.SubMenu icon={<img width={20} src={"/small_logo.png"}/>} key="sub0"  title={<span>{displayAddress}</span>}>
         <Menu.Item key="0" style={{height:"fit-content"}}><DebondWallet columns={columns}/></Menu.Item>
