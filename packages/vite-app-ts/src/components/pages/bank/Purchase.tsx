@@ -2,7 +2,7 @@ import {Button, Card, Col, Form, InputNumber, Row, Slider, Statistic, Table, Tab
 import {formatEther} from "@ethersproject/units";
 import React, {FC, useContext, useEffect, useState} from "react";
 import {approveTransaction, depositTransaction} from "~~/components/main/web3/tx";
-import {mapClassesToRow, toStringArray} from "~~/components/main/utils/utils";
+import { toStringArray} from "~~/components/main/utils/utils";
 import {transactor} from "eth-components/functions";
 import {useAppContracts} from "~~/config/contractContext";
 import {useEthersContext} from "eth-hooks/context";
@@ -10,6 +10,7 @@ import {EthComponentsSettingsContext} from "eth-components/models";
 import {useGasPrice, useSignerAddress} from "eth-hooks";
 import {useTokenBalance} from "eth-hooks/erc";
 import {BigNumber} from "ethers";
+import {mapClassesToRow} from "~~/components/main/web3/classes";
 
 export interface IPurchaseProps {
   selectedClass: any;

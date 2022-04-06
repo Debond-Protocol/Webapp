@@ -34,3 +34,10 @@
 .ant-tabs{
     margin-bottom: 50px;
 }
+
+.purchaseContent .ant-input-number{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 22px!important;
+}

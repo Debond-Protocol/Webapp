@@ -10,7 +10,6 @@ export const getAllClasses = async (debondDataContract: any, provider: any) => {
   const allClasses = new Map<string, any>();
   const classIds = await debondDataContract?.getAllClassesIds()!
   //temporary
-  const apys = [0.05, 0.03, 0.08, 0.03, 0.04, 0.02, 0.10]
   const results = await getMultiCallResults0(classIds, debondDataContract, 'getClassFromId', provider);
   for (const [idx, _classId] of classIds.entries()) {
     const classInfos = results[idx];
@@ -20,9 +19,6 @@ export const getAllClasses = async (debondDataContract: any, provider: any) => {
       interestType: interestRatesEnum.get(classInfos.interestRateType.toString()),
       period: classInfos.periodTimestamp.toNumber(),
       balance: "...",
-      apy: apys[idx],
-
-
     };
     allClasses.set(_classId.toString(), _class);
   }
@@ -36,6 +32,9 @@ export const getAllClasses = async (debondDataContract: any, provider: any) => {
 export const mapClassesToRow = (classes: any): any[] => {
   const _filters: any[] = [];
   const _values: any[] = [];
+  const apys = [0.05, 0.03, 0.08, 0.03, 0.04, 0.02, 0.10];
+  const ratings = ["AAA", "AA", "AAA", "A", "AAA", "A"];
+  let idx = 0;
   for (const [_classId, _class] of classes) {
     _values.push({
       key: _classId,
@@ -44,15 +43,18 @@ export const mapClassesToRow = (classes: any): any[] => {
       interestType: _class.interestType,
       period: _class.period,
       deposit: {classId: _classId},
-      value: {apy: _class.apy},
-      apy: _class.apy,
-      issuer: "debond",
       typePeriod: {
         interestRateType: _class.interestType,
         period: _class.period.toString()
-      }
+      },
+      //mocked
+      issuer: "debond",
+      apy: apys[idx % apys.length],
+      rating: ratings[idx%ratings.length],
+      value: {apy: apys[idx % apys.length]},
     });
     _filters.push({text: _class.token, value: _class.token});
+    idx += 1
   }
   return [_values, _filters];
 };

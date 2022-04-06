@@ -137,6 +137,9 @@ export const Main: FC = () => {
                   <Route path="/loan">
                     Loan
                   </Route>
+                  <Route path="/dex">
+                    Decentralized Exchange
+                  </Route>
                   <Route path="/airdrop">
                     Airdrop
                   </Route>

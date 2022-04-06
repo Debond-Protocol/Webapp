@@ -77,7 +77,8 @@ export const fetchBondDetails = async (bondIds: any[], debondBondContract: any, 
       typePeriod: {
         interestRateType: interestRatesEnum.get(_bond?._interestRateType.toString()),
         period: _bond?._periodTimestamp.toString()
-      }
+      },
+      maturityCountdown: _bond?._maturityDate,
     }
     bonds.push(_bondInfos);
   }

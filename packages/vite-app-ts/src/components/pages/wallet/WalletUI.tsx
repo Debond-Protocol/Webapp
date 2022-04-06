@@ -11,7 +11,7 @@ export interface IWalletUIProps {
 }
 
 export const WalletUI: FC<IWalletUIProps> = (props) => {
-    const columns = ["issuer","token", "typePeriod","balance", "issuanceDate", "progress", "redeem"]
+    const columns = ["issuer","token", "rating", "typePeriod","balance", "maturityCountdown", "progress", "redeem"]
 
     return (
       <>

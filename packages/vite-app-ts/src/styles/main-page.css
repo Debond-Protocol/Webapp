@@ -174,10 +174,12 @@ button {
     position:fixed;
     top: 40px;
     right: 360px;
-    background-color: black;
-
     /*top:-30px;
     right: 20px;*/
+}
+
+.dheader .ant-menu{
+    background-color: #000000;
 }
 
 #walletConnector .ant-menu-item{

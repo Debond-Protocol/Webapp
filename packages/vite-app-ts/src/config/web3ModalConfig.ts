@@ -2,6 +2,7 @@ import { ICoreOptions } from 'web3modal';
 
 import { LOCAL_PROVIDER } from '~~/config/appConfig';
 import { NETWORKS } from '~~/models/constants/networks';
+import LedgerProvider from "@web3modal/ledger-provider";
 
 const INFURA_ID = import.meta.env.VITE_KEY_INFURA;
 
@@ -104,6 +105,22 @@ export const getWeb3ModalConfig = async (): Promise<Partial<ICoreOptions>> => {
   } catch (e) {
     console.log('Failed to load config for web3 connector Authereum: ', e);
   }
+  // === Ledger
+  try {
+    const Ledger = (await import('authereum')).default;
+     providerOptions.ledger = {
+      ledger: {
+        package: LedgerProvider, // required
+        options: {
+          rpcUrl: `https://mainnet.infura.io/v3/${INFURA_ID}` // required
+        }
+      }
+    };
+
+  } catch (e) {
+    console.log('Failed to load config for web3 connector Authereum: ', e);
+  }
+
 
   // === LOCALHOST STATIC
   try {
@@ -130,6 +147,8 @@ export const getWeb3ModalConfig = async (): Promise<Partial<ICoreOptions>> => {
   } catch (e) {
     console.log('Failed to load config for Localhost Static Connector: ', e);
   }
+
+
 
   // network: 'mainnet', // Optional. If using WalletConnect on xDai, change network to "xdai" and add RPC info below for xDai chain.
 

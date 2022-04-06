@@ -94,10 +94,10 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
   }
 
   return (
-    <>
+    <div className={"dheader"}>
       {left}
       {networkDisplay}
       {right}
-    </>
+    </div>
   );
 };

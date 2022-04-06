@@ -6,7 +6,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {fetchBondDetails, fetchBondsIds} from '~~/components/main/web3/bonds';
 import {useAppContracts} from '~~/config/contractContext';
 import {getAllClasses, mapClassesToRow} from "~~/components/main/web3/classes";
-import {issuerMap,  toStringArray} from "~~/components/main/utils/utils";
+import {issuerMap, toStringArray} from "~~/components/main/utils/utils";
 import {redeemTransaction} from "~~/components/main/web3/tx";
 import {formatEther} from "@ethersproject/units";
 import {EthComponentsSettingsContext} from "eth-components/models";
@@ -100,6 +100,13 @@ export const DebondWallet = (props: any) => {
   columns.set("progress", {title: 'Progress', dataIndex: 'progress', key: 'progress', width: _width,})
   columns.set("issuanceDate", {title: 'Issuance Date', dataIndex: 'issuanceDate', key: 'issuanceDate', width: _width,})
   columns.set("interest", {title: 'Interest Type', dataIndex: 'interestType', key: 'interest', width: _width})
+  columns.set("rating", {title: 'Rating', dataIndex: 'rating', key: 'rating', width: _width})
+  columns.set("maturityCountdown", {
+    title: 'Maturity in',
+    dataIndex: 'maturityCountdown',
+    key: 'maturityCountdown',
+    width: _width
+  })
   columns.set("period", {
     title: 'Period', dataIndex: 'period', key: 'period', width: _width, sorter: (a: any, b: any) => a.period - b.period
   })
@@ -116,6 +123,7 @@ export const DebondWallet = (props: any) => {
       return <span><b><img style={styles.issuerImg} src={"/issuer/" + issuerMap.get(_issuer) + ".png"}/></b></span>
     }
   })
+  columnsBond.set("rating", {title: 'Rating', dataIndex: 'rating', key: 'rating', width: _width})
   columnsBond.set("token", {title: 'Token', dataIndex: 'symbol', key: 'token', width: _width})
   columnsBond.set("amount", {title: 'Amount', dataIndex: 'balance', key: 'amount', width: _width})
   columnsBond.set("interest", {title: 'Interest Type', dataIndex: 'interestRateType', key: 'interest', width: _width})
@@ -132,6 +140,18 @@ export const DebondWallet = (props: any) => {
     title: 'Issuance Date', dataIndex: 'issuanceDate', key: 'issuanceDate', width: _width, render: (_date: any) => {
       var date = new Date(_date * 1000);
       return moment(date).format("DD-MM-YYYY hh:mm:ss")
+    }
+  })
+  columnsBond.set("maturityCountdown", {
+    title: 'Maturity in',
+    dataIndex: 'maturityCountdown',
+    key: 'maturityCountdown',
+    width: _width,
+    render: (_maturity: any) => {
+      const _maturityDate = moment(_maturity.toNumber() * 1000);
+      const duration = _maturityDate.diff(moment())
+      console.log(_maturityDate.fromNow() )
+      return _maturityDate.fromNow();
     }
   })
   columnsBond.set("period", {
