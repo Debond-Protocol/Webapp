@@ -105,22 +105,6 @@ export const getWeb3ModalConfig = async (): Promise<Partial<ICoreOptions>> => {
   } catch (e) {
     console.log('Failed to load config for web3 connector Authereum: ', e);
   }
-  // === Ledger
-  try {
-    const Ledger = (await import('authereum')).default;
-     providerOptions.ledger = {
-      ledger: {
-        package: LedgerProvider, // required
-        options: {
-          rpcUrl: `https://mainnet.infura.io/v3/${INFURA_ID}` // required
-        }
-      }
-    };
-
-  } catch (e) {
-    console.log('Failed to load config for web3 connector Authereum: ', e);
-  }
-
 
   // === LOCALHOST STATIC
   try {
