@@ -253,13 +253,11 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
                   step={0.001}
                 />
               </Form.Item>
-              <Form.Item style={{width: "100%"}}>
-                <Row>
-                  <Col span={8}>
+              <Row gutter={24} >
+                 <Col span={8}>
                     <InputNumber
                       min={0}
                       max={purchasableInfos.get(selectedPurchaseClass?.token)?.balance}
-                      style={{margin: '0 16px'}}
                       step={0.001}
                       value={amountValue}
                       onChange={onChange}
@@ -270,7 +268,6 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
                     <InputNumber
                       min={0}
                       max={100}
-                      style={{margin: '0 0 0 40px'}}
                       step={0.001}
                       value={parseFloat((amountValue / purchasableInfos.get(selectedPurchaseClass?.token)?.balance).toFixed(3))}
                       disabled
@@ -281,15 +278,13 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
                     <InputNumber
                       min={0}
                       max={100}
-                      style={{margin: '0 0 0 40px'}}
                       step={0.001}
                       value={amountValue}
                       disabled
                       prefix={<span style={{fontSize: '8px'}}>USD</span>}
                     />
                   </Col>
-                </Row>
-              </Form.Item>
+              </Row>
             </Form>
           </div>
         </Col>
