@@ -2,7 +2,7 @@ import {Button, Card, Col, Form, InputNumber, Row, Slider, Statistic, Table, Tab
 import {formatEther} from "@ethersproject/units";
 import React, {FC, useContext, useEffect, useState} from "react";
 import {approveTransaction, depositTransaction} from "~~/components/main/web3/tx";
-import { toStringArray} from "~~/components/main/utils/utils";
+import {toStringArray} from "~~/components/main/utils/utils";
 import {transactor} from "eth-components/functions";
 import {useAppContracts} from "~~/config/contractContext";
 import {useEthersContext} from "eth-hooks/context";
@@ -11,6 +11,7 @@ import {useGasPrice, useSignerAddress} from "eth-hooks";
 import {useTokenBalance} from "eth-hooks/erc";
 import {BigNumber} from "ethers";
 import {mapClassesToRow} from "~~/components/main/web3/classes";
+import {getTableColumns} from "~~/components/main/utils/tableColumns";
 
 export interface IPurchaseProps {
   selectedClass: any;
@@ -77,11 +78,10 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
           return _purchasableClassIds!.includes(k)
         })
       );
-      const [_tableValues, _filters] = await mapClassesToRow(_purchasableClasses);
-      setTableValues(_tableValues);
+      const [classesMap, _filters] = mapClassesToRow(_purchasableClasses);
+      setTableValues(Array.from(classesMap.values()));
       setTokenFilters(_filters);
     }
-
     _init();
   }, []);
 
@@ -125,7 +125,6 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
     await purchasableInfos.get(selectedPurchaseClass?.token)?.contract!.mint(account, BigNumber.from("10000000000000000000"));
   }
 
-
   /**
    * Function to filter the tokens in the table
    */
@@ -133,28 +132,16 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
     return record.token == value;
   };
 
-  const columns = [
-    {
-      title: 'Token',
-      dataIndex: 'token',
-      key: 'token',
-      sorter: (a: any, b: any) => a.token.length - b.token.length,
-      filters: tokenFilters,
-      onFilter: onFilter,
-    },
-    {title: 'Interest Type', dataIndex: 'interestType', key: 'interest'},
-    {title: 'Period', dataIndex: 'period', key: 'period', sorter: (a: any, b: any) => a.period - b.period},
-    {
-      title: 'APY', dataIndex: 'apy', key: 'apy', render: (apy: any) => {
-        return (apy*100+"%")
-      }
-    },
-    {
-      title: 'Face Value', dataIndex: 'value', key: 'facevalue', render: (infos: any) => {
-        return ((infos.apy + 1) * amountValue).toFixed(5)
-      }
-    },
-  ];
+
+  const faceValueFunction = (infos: any) => {
+    return ((infos.apy + 1) * amountValue).toFixed(5)
+  }
+
+  const selectedColumnsName = ["token", "maturityCountdown", "apy", "faceValue"]
+
+  const width = 100 / selectedColumnsName.length + "%"
+  const tableColumns = getTableColumns({width, tokenFilters, selectedColumnsName, faceValueFunction})
+
 
   const selectRow = (record: any) => {
     setSelectedRowKeys([record.key]);
@@ -173,7 +160,10 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
     onChange: onSelectedRowKeysChange,
     type: "radio"
   };
-
+  console.log("111")
+  console.log(selectedPurchaseClass);
+  console.log(tableValues);
+  console.log("222")
 
   return (
     <>
@@ -183,21 +173,11 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
       <Tabs centered activeKey={activeMethod} onChange={(activeKey) => {
         setActiveMethod(activeKey)
       }}>
-        <Tabs.TabPane tab={'Staking ' + props.selectedClass?.token + ' Bond with ' + selectedPurchaseClass?.token} key="0">
-          {/*} <Card title={'Stake ' + props.selectedClass?.token + ' Bond with ' + selectedPurchaseClass?.token}>
-            <Card.Grid>{'Period : ' + props.selectedClass?.period + ' s'} </Card.Grid>
-            <Card.Grid>{'Interest Type : ' + props.selectedClass?.interestType} </Card.Grid>
-            <Card.Grid>{'Token : ' + props.selectedClass?.token} </Card.Grid>
-            <Card.Grid>{'Your ' + selectedPurchaseClass?.token + ' balance : ' + purchasableInfos.get(selectedPurchaseClass?.token)?.balance} </Card.Grid>
-          </Card>*/}
+        <Tabs.TabPane tab={'Staking ' + props.selectedClass?.token + ' Bond with ' + selectedPurchaseClass?.token}
+                      key="0">
         </Tabs.TabPane>
-        <Tabs.TabPane tab={'Buying ' + props.selectedClass?.token + ' Bond with ' + selectedPurchaseClass?.token} key="1">
-          {/*<Card title={'Buy ' + props.selectedClass?.token + ' Bond with ' + selectedPurchaseClass?.token}>
-            <Card.Grid>{'Period : ' + props.selectedClass?.period + ' s'} </Card.Grid>
-            <Card.Grid>{'Interest Type : ' + props.selectedClass?.interestType} </Card.Grid>
-            <Card.Grid>{'Token : ' + props.selectedClass?.token} </Card.Grid>
-            <Card.Grid>{'Your ' + selectedPurchaseClass?.token + ' balance : ' + purchasableInfos.get(selectedPurchaseClass?.token)?.balance} </Card.Grid>
-          </Card>*/}
+        <Tabs.TabPane tab={'Buying ' + props.selectedClass?.token + ' Bond with ' + selectedPurchaseClass?.token}
+                      key="1">
         </Tabs.TabPane>
       </Tabs>
 
@@ -207,7 +187,7 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
           <div>
             <Table
               rowSelection={rowSelection}
-              columns={columns}
+              columns={tableColumns.classColumns}
               dataSource={tableValues}
               pagination={false}
               scroll={{x: 30, y: 300}}
@@ -222,7 +202,31 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
         </Col>
         <Col span={12}>
 
-          <div style={{marginLeft: 50}}>
+          <div  style={{marginLeft: 50, width: '100%', textAlign: "center"}}>
+
+              <div>
+                <Row gutter={24}>
+                  <Col span={24}>
+                    <Statistic title="APY" valueStyle={{fontSize: 32}}
+                               value={(selectedPurchaseClass?.apy * 100 + "%")}/>
+                  </Col>
+                </Row>
+                <Row gutter={16}>
+                  <Col span={12}>
+                    <Statistic title="Period" value={props.selectedClass?.period + ' s'}/>
+                  </Col>
+                  <Col span={12}>
+                    <Statistic title="Interest Type" value={props.selectedClass?.interestType}/>
+                  </Col>
+                  <Col span={12}>
+                    <Statistic title="Token" value={props.selectedClass?.token}/>
+                  </Col>
+                  <Col span={12}>
+                    <Statistic title={"Your " + selectedPurchaseClass?.token + " balance"}
+                               value={purchasableInfos.get(selectedPurchaseClass?.token)?.balance}/>
+                  </Col>
+                </Row>
+              </div>
             <Form
               name="getBondModal"
               layout="inline"
@@ -234,24 +238,6 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
               //onFinish={onFinish}
               // onFinishFailed={onFinishFailed}
               autoComplete="off">
-              <Card title={"Your bond"} bordered={false}>
-
-              <Row gutter={16}>
-                <Col span={12}>
-                  <Statistic title="Period" value={props.selectedClass?.period + ' s'} />
-                </Col>
-                <Col span={12}>
-                  <Statistic title="Interest Type" value={props.selectedClass?.interestType}  />
-                </Col>
-                <Col span={12}>
-                  <Statistic title="Token" value={props.selectedClass?.token}  />
-                </Col>
-                <Col span={12}>
-                  <Statistic title={"Your " + selectedPurchaseClass?.token + " balance"} value={purchasableInfos.get(selectedPurchaseClass?.token)?.balance}  />
-                </Col>
-              </Row>
-              </Card>
-
               <Form.Item
                 label="Amount"
                 name="amount"
@@ -286,7 +272,7 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
                       max={100}
                       style={{margin: '0 0 0 40px'}}
                       step={0.001}
-                      value={amountValue / purchasableInfos.get(selectedPurchaseClass?.token)?.balance}
+                      value={parseFloat((amountValue / purchasableInfos.get(selectedPurchaseClass?.token)?.balance).toFixed(3))}
                       disabled
                       prefix={<span>%</span>}
                     />
@@ -299,7 +285,7 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
                       step={0.001}
                       value={amountValue}
                       disabled
-                      prefix={<span style={{fontSize: '8px'}}>ETH</span>}
+                      prefix={<span style={{fontSize: '8px'}}>USD</span>}
                     />
                   </Col>
                 </Row>
@@ -310,7 +296,7 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
         </Col>
       </Row>
 
-      <div style={{display:"flex", justifyContent:"center" , margin:70}}>
+      <div style={{display: "flex", justifyContent: "center", margin: 70}}>
         {approved ? <button className="dbutton" onClick={deposit}>Deposit</button> :
           <button className={"dbutton"} onClick={approve}>Approve</button>}
       </div>

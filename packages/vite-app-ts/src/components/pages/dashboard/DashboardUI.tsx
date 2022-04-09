@@ -10,6 +10,7 @@ import dayjs from "dayjs";
 import {Graph} from "~~/components/pages/dashboard/Graph";
 import {getCoinSeries} from "~~/components/main/functions/utils";
 import {Area, AreaChart, Legend, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
+import {numberFormatter} from "~~/components/main/utils/utils";
 
 export interface IDashboardUIProps {
   mainnetProvider: StaticJsonRpcProvider | undefined;
@@ -32,7 +33,6 @@ export const DashboardUI: FC<IDashboardUIProps> = (props) => {
     const [error, setError] = useState(false);
     const endDate = dayjs();
     const startDate = dayjs(endDate).subtract(6, 'month');
-
 
     useEffect(() => {
       const getData = async () => {
@@ -75,7 +75,9 @@ export const DashboardUI: FC<IDashboardUIProps> = (props) => {
                         formatter={(value: any) => `$${value.toFixed(2)}`}
                     />
                     <XAxis dataKey="date" minTickGap={20}/>
-                    <Legend/>
+                    <YAxis type={"number"}  domain={['auto', 'auto']}  />
+
+                  <Legend/>
 
                     <Line
                         dataKey="bitcoin"
@@ -91,7 +93,7 @@ export const DashboardUI: FC<IDashboardUIProps> = (props) => {
                     <Line
                         dataKey="usd-coin"
                         type="monotone"
-                        stroke="#8884d8"
+                        stroke="#FAEBD7"
                     />
                 </LineChart>}
 
@@ -110,7 +112,8 @@ export const DashboardUI: FC<IDashboardUIProps> = (props) => {
                         formatter={(value: any) => `${value.toFixed(2)}`}
                     />
                     <XAxis dataKey="date" minTickGap={20}/>
-                    <Area
+                    <YAxis type={"number"}  domain={['auto', 'auto']} scale="log" tickFormatter={numberFormatter} />
+                  <Area
                         dataKey="bitcoin"
                         stroke="none"
                         fillOpacity={0.3}
@@ -135,7 +138,7 @@ export const DashboardUI: FC<IDashboardUIProps> = (props) => {
               <Card title="Total Volumes" bordered={false}>
                 {coinData && coinData.totalVolumes && coinData.totalVolumes.length > 0 &&
 
-                <AreaChart data={coinData.totalVolumes} height={150} width={400}>
+                <AreaChart data={coinData.totalVolumes} height={150} width={400} >
                     <Legend/>
 
                     <Tooltip
@@ -144,7 +147,8 @@ export const DashboardUI: FC<IDashboardUIProps> = (props) => {
                         formatter={(value: any) => `${value.toFixed(2)}`}
                     />
                     <XAxis dataKey="date" minTickGap={20}/>
-                    <Area
+                    <YAxis type={"number"}  domain={['auto', 'auto']} scale="log" tickFormatter={numberFormatter}/>
+                  <Area
                         dataKey="bitcoin"
                         stroke="none"
                         fillOpacity={0.3}

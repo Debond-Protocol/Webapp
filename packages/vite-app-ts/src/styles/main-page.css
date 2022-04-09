@@ -25,7 +25,7 @@
     text-align: left;
 }
 .ant-menu-item a{
-    color: #7A7A7A;
+    color: #7A7A7A!important;
 }
 
 .ant-layout-sider{
@@ -216,4 +216,11 @@ button {
 
 .ant-notification-notice{
     background-color: black!important;
+}
+
+.ant-tabs{
+    color:#7A7A7A;
+}
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+    color:#FFFFFF;
 }

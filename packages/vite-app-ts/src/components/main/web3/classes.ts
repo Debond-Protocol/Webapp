@@ -32,11 +32,12 @@ export const getAllClasses = async (debondDataContract: any, provider: any) => {
 export const mapClassesToRow = (classes: any): any[] => {
   const _filters: any[] = [];
   const _values: any[] = [];
+  let classesMap = new Map<string, any>();
   const apys = [0.05, 0.03, 0.08, 0.03, 0.04, 0.02, 0.10];
   const ratings = ["AAA", "AA", "AAA", "A", "AAA", "A"];
   let idx = 0;
   for (const [_classId, _class] of classes) {
-    _values.push({
+    const classInfos = {
       key: _classId,
       id: _classId,
       token: _class.token,
@@ -50,11 +51,15 @@ export const mapClassesToRow = (classes: any): any[] => {
       //mocked
       issuer: "debond",
       apy: apys[idx % apys.length],
-      rating: ratings[idx%ratings.length],
+      rating: ratings[idx % ratings.length],
       value: {apy: apys[idx % apys.length]},
-    });
+      maturityCountdown: _class.period
+    }
+    classesMap.set(_classId, classInfos);
+    _values.push(classInfos);
+
     _filters.push({text: _class.token, value: _class.token});
     idx += 1
   }
-  return [_values, _filters];
+  return [classesMap, _filters];
 };

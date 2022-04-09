@@ -23,3 +23,5 @@ export const toStringArray = (arr: any[]) => {
   return array;
 }
 
+export const numberFormatter = (item:number) => item.toExponential(0);
+
