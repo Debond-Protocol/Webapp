@@ -292,7 +292,6 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
               </Form.Item>
             </Form>
           </div>
-
         </Col>
       </Row>
 

@@ -11,6 +11,7 @@ import {Graph} from "~~/components/pages/dashboard/Graph";
 import {getCoinSeries} from "~~/components/main/functions/utils";
 import {Area, AreaChart, Legend, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
 import {numberFormatter} from "~~/components/main/utils/utils";
+import ContentLayout from "~~/components/main/layout/ContentLayout";
 
 export interface IDashboardUIProps {
   mainnetProvider: StaticJsonRpcProvider | undefined;
@@ -53,16 +54,8 @@ export const DashboardUI: FC<IDashboardUIProps> = (props) => {
 
 
     return (
-
-      <>
-        <Layout.Header>
-          <div className={'pageInfos'}>
-            <div className={'pageTitle'}>Dashboard</div>
-            <div className={'pageDescription'}>
-              Here are the statistics and different metrics to guide the user
-            </div>
-          </div>
-        </Layout.Header>
+      <ContentLayout title={"Dashboard"}
+                     description={"Here are the statistics and different metrics to guide the user."}>
         <Layout.Content>
           <Row gutter={24}>
             <Col span={12}>
@@ -172,7 +165,7 @@ export const DashboardUI: FC<IDashboardUIProps> = (props) => {
           </Row>
         </Layout.Content>
 
-      </>
+      </ContentLayout>
     );
   }
 ;

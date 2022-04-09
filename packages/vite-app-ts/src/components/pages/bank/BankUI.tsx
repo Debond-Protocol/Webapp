@@ -11,6 +11,8 @@ import {toStringArray} from "~~/components/main/utils/utils";
 import {Purchase} from "~~/components/pages/bank/Purchase";
 import {DoubleLeftOutlined} from "@ant-design/icons/lib";
 import {getTableColumns} from "~~/components/main/utils/tableColumns";
+import ContentLayout from "~~/components/main/layout/ContentLayout";
+import {Route} from "react-router-dom";
 
 export interface IBankUIProps {
   mainnetProvider: StaticJsonRpcProvider | undefined;
@@ -35,7 +37,7 @@ export const BankUI: FC<IBankUIProps> = (props) => {
   useEffect(() => {
     async function _init() {
       const _allClasses = await getAllClasses(debondDataContract, provider);
-      const [classesMap, ] = mapClassesToRow(_allClasses);
+      const [classesMap,] = mapClassesToRow(_allClasses);
       setAllClasses(classesMap);
 
       const _debondClassesIds = toStringArray(await debondDataContract?.getDebondClasses()!);
@@ -44,7 +46,7 @@ export const BankUI: FC<IBankUIProps> = (props) => {
           return _debondClassesIds!.includes(k)
         })
       );
-      const _filters=_debondClassesIds.map((id) => {
+      const _filters = _debondClassesIds.map((id) => {
         return {text: classesMap.get(id).token, value: classesMap.get(id).token};
       })
       setDebondClasses(_debondClasses);
@@ -113,16 +115,10 @@ export const BankUI: FC<IBankUIProps> = (props) => {
   };
 
   return (
-    <>
-      <Layout.Header>
-        <div className={'pageInfos'}>
-          <div className={'pageTitle'}>Stake & Buy D/BONDs</div>
-          <div className={'pageDescription'}>
-            Decentralized Financial markets are extremely volatile today. In TradFi, bonds play that role with their
-            predictable yields.
-          </div>
-        </div>
-      </Layout.Header>
+
+    <ContentLayout title={"Stake & Buy D/BONDs"}
+                   description={"Decentralized Financial markets are extremely volatile today. In TradFi, bonds play that role with their\n" +
+                   "            predictable yields."}>
 
 
       <Steps current={current}>
@@ -138,6 +134,6 @@ export const BankUI: FC<IBankUIProps> = (props) => {
         )}
       </div>
       <div className="steps-content">{steps[current].content}</div>
-    </>
+    </ContentLayout>
   );
 };

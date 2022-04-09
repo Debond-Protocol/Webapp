@@ -21,6 +21,7 @@ import {BURNER_FALLBACK_ENABLED, MAINNET_PROVIDER} from '~~/config/appConfig';
 import {useAppContracts, useConnectAppContracts, useLoadAppContracts} from '~~/config/contractContext';
 
 import {Layout} from 'antd';
+import ContentLayout from "~~/components/main/layout/ContentLayout";
 
 /**
  * ⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️
@@ -129,21 +130,27 @@ export const Main: FC = () => {
                     />
                   </Route>
                   <Route path="/swap">
-                    Swap
+                    <ContentLayout title={"Swap"}
+                                   description={"Here you can swap different currencies"}/>
                   </Route>
                   <Route path="/governance">
-                    Governance
+                    <ContentLayout title={"Governance"}
+                                   description={"Here is the governance part"}/>
                   </Route>
                   <Route path="/loan">
-                    Loan
+                    <ContentLayout title={"Loan"} description={"Here you can get a loan"}/>
                   </Route>
                   <Route path="/dex">
-                    Decentralized Exchange
+                    <ContentLayout title={"Decentralized Exchange"} description={""}/>
+
+
                   </Route>
                   <Route path="/airdrop">
-                    Airdrop
+                    <ContentLayout title={"Airdrop"} description={""}/>
+
                   </Route>
                   <Route path="/">
+
                     <DashboardUI
                       mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
                       yourCurrentBalance={yourCurrentBalance}
