@@ -1,4 +1,5 @@
 import {parseEther} from '@ethersproject/units';
+import {BigNumberish} from "ethers";
 
 export const depositTransaction = async (purchaseTokenAmount: Number, debondTokenClassId: string, purchaseTokenClassId: string, method: string, tx: any, bankContract: any) => {
 
@@ -67,14 +68,16 @@ export const approveTransaction = async (amount: Number, tx: any, tokenContract:
 }
 
 
-export const redeemTransaction = async (amount: Number,classId:Number, nonceId:Number,  tx: any, bankContract: any) => {
-  const _amount = parseEther(amount.toString()).toHexString();
+export const redeemTransaction = async (amount:BigNumberish,classId:Number, nonceId:Number,  tx: any, bankContract: any) => {
+  //const _amount = parseEther(amount.toString()).toHexString();
+  //console.log(parseEther(amount.toString()).toString())
   console.log(amount)
+  console.log(amount.toString())
   console.log(classId)
   console.log(nonceId)
 
   //const l = await tokenContract?.approve(spender, purchaseAmount);
-  const result = tx?.(bankContract?.sellBonds(classId, nonceId,_amount),
+  const result = tx?.(bankContract?.sellBonds(classId, nonceId,amount),
     (update: any) => {
       console.log('📡 Transaction Update:', update);
     })

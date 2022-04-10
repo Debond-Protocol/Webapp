@@ -1,4 +1,4 @@
-import {interestRatesEnum} from '~~/components/main/utils/utils';
+import {interestRatesEnum, ratings} from '~~/components/main/utils/utils';
 import {getMultiCallResults} from '~~/components/main/web3/multicall';
 import {useSignerAddress} from "eth-hooks";
 
@@ -60,7 +60,7 @@ export const fetchBondDetails = async (bondIds: any[], debondBondContract: any, 
       //balance: _bond?.balance.toString(),
       symbol: _bond?._symbol,
       interestRateType: interestRatesEnum.get(_bond?._interestRateType.toString()),
-      period: _bond?._periodTimestamp.toString(),
+      period: _bond?._periodTimestamp,
       issuanceDate: _bond?._issuanceDate.toString(),
       progress: {
         issuance: _bond?._issuanceDate,
@@ -78,6 +78,7 @@ export const fetchBondDetails = async (bondIds: any[], debondBondContract: any, 
         interestRateType: interestRatesEnum.get(_bond?._interestRateType.toString()),
         period: _bond?._periodTimestamp.toString()
       },
+      rating: ratings[idx % ratings.length],
       maturityCountdown: _bond?._maturityDate,
     }
     bonds.push(_bondInfos);

@@ -139,8 +139,7 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
 
   const selectedColumnsName = ["token", "maturityCountdown", "apy", "faceValue"]
 
-  const width = 100 / selectedColumnsName.length + "%"
-  const tableColumns = getTableColumns({width, tokenFilters, selectedColumnsName, faceValueFunction})
+  const tableColumns = getTableColumns({tokenFilters, selectedColumnsName, faceValueFunction})
 
 
   const selectRow = (record: any) => {

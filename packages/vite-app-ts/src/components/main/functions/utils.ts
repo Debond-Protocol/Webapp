@@ -37,7 +37,7 @@ export const fetchCoins = async (currencies: string[]) => {
   const endDate = dayjs();
   const startDate = dayjs(endDate).subtract(6, 'month');
 
-  for (var currency of currencies) {
+  for (let currency of currencies) {
     const infos = await getCoinData(startDate, endDate, currency, APIURL)
     coinsMap.set(currency, infos[0])
   }

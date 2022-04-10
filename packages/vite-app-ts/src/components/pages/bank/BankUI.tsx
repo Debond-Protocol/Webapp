@@ -89,8 +89,7 @@ export const BankUI: FC<IBankUIProps> = (props) => {
   )
 
   const selectedColumnsName = ["issuer", "typePeriod", "rating", "token", "apy", "maturityCountdown", "selectBond"]
-  const width = 100 / selectedColumnsName.length + "%"
-  const tableColumns = getTableColumns({selectedColumnsName, width, tokenFilters, selectBondFunction})
+  const tableColumns = getTableColumns({selectedColumnsName, tokenFilters, selectBondFunction})
 
 
   const steps = [

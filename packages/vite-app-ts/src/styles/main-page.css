@@ -180,6 +180,9 @@ button {
 
 .dheader .ant-menu{
     background-color: #000000;
+    border: 0.2px solid #FFFFFF;
+    box-sizing: border-box;
+    border-radius: 4px;
 }
 
 #walletConnector .ant-menu-item{

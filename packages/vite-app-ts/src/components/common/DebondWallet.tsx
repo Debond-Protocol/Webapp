@@ -11,6 +11,7 @@ import {redeemTransaction} from "~~/components/main/web3/tx";
 import {EthComponentsSettingsContext} from "eth-components/models";
 import {transactor} from "eth-components/functions";
 import {getTableColumns} from "~~/components/main/utils/tableColumns";
+import {BigNumber, constants} from "ethers";
 
 
 export const DebondWallet = (props: any) => {
@@ -49,14 +50,15 @@ export const DebondWallet = (props: any) => {
           return _classOwned!.includes(k)
         })
       );
-      const [classesMap, _filters] = mapClassesToRow(bondClasses);
-      //_tableValues=;
-      console.log(Array.from(classesMap.values()))
+      let [classesMap, _filters] = mapClassesToRow(bondClasses);
+      const [_bondsIds, _bondIdsMap] = await fetchBondsIds(classesOwned, debondBondContract, address, ethersContext.provider!);
+      //console.log(_bondsIds)
+      const _bonds = await fetchBondDetails(_bondsIds, debondBondContract, ethersContext.provider!, address);
+      let _bondsMap = new Map(_bonds.map(_bond => [_bond.key, _bond]));
+      completeClassWithBondsInfos(_bondIdsMap, _bondsMap, classesMap)
+      console.log(_bondIdsMap)
       setTableClasses(Array.from(classesMap.values()))
       setTokenFilters(_filters)
-      const [_bondsIds, _bondIdsMap] = await fetchBondsIds(classesOwned, debondBondContract, address, ethersContext.provider!);
-      const _bonds = await fetchBondDetails(_bondsIds, debondBondContract, ethersContext.provider!, address);
-      var _bondsMap = new Map(_bonds.map(i => [i.key, i]));
       setBondIdsMap(_bondIdsMap);
       setBondsOwned(_bondsMap);
     };
@@ -65,24 +67,48 @@ export const DebondWallet = (props: any) => {
     }
   }, [debondDataContract, provider, classesOwned]);
 
+  const completeClassWithBondsInfos = (_bondIdsMap: any, _bondsMap: any, _classMap: any) => {
+    //const bondsPerClassMap=new Map(Array.from(_classesMap.keys()).map(_class => [_class, {}]));
+
+
+    for (let [classId, _bondIds] of _bondIdsMap) {
+      let completedClass = _classMap.get(classId)
+      const maxMaturity = _bondIds.reduce((a: any, i: any) =>  (Math.max(a,_bondsMap.get(Number(i.toString())).maturityCountdown.toNumber())), 0);
+      const minProgress = _bondIds.reduce((a: any, i: any) => Math.min(a, _bondsMap.get(Number(i.toString())).progress.progress), 100);
+      const sumBalance = _bondIds.reduce((a: any, i: any) => a + _bondsMap.get(Number(i.toString())).balance, 0);
+      console.log(_bondsMap.get(0).maturityCountdown.toString())
+      console.log(maxMaturity)
+
+      completedClass.maturityCountdown = BigNumber.from(maxMaturity);
+      completedClass.progress = minProgress
+      completedClass.balance = sumBalance
+
+    }
+
+    return _classMap
+  }
 
   /**
    * Function called to redeem the bond
    * @param inputValue: bond Id (nonce)
    */
   const redeem = (values: any) => {
+    console.log("values.balance")
+    console.log(values.balance.toString())
+    console.log("values.balance")
     redeemTransaction(values.balance, values.classId, values.nonceId, tx, bankContract)
   };
 
-  const width = 100 / selectedColumnsName.length + "%"
-  const tableColumns = getTableColumns({selectedColumnsName, width, tokenFilters, redeem})
+  const tableColumns = getTableColumns({selectedColumnsName, tokenFilters, redeem})
 
 
   const expandRowRenderer = (record: any, i: any) => {
 
     const _bonds = bondIdsMap.get(record.id).map((bondId: string) => {
+
       return bondsOwned.get(Number(bondId.toString()));
     });
+
 
     return (<Table
         bordered={false}

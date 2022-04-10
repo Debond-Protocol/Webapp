@@ -25,3 +25,7 @@ export const toStringArray = (arr: any[]) => {
 
 export const numberFormatter = (item:number) => item.toExponential(0);
 
+
+// mocked
+export const apys = [0.05, 0.03, 0.08, 0.03, 0.04, 0.02, 0.10];
+export const ratings = ["AAA", "AA", "AAA", "A", "AAA", "A"];
