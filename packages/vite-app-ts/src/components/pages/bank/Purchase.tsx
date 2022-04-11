@@ -55,13 +55,6 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
   purchasableInfos.set("DAI", {balance: Number(formatEther(balanceDAI)), contract: daiContract, approved: false})
 
 
-  /*console.log("balance")
-  console.log(parseFloat(ethers.utils.formatEther(balanceUSDT)))
-  console.log(parseFloat(ethers.utils.formatEther(balanceUSDC)))
-  console.log(parseFloat(ethers.utils.formatEther(balanceDAI)))
-  console.log("balance")
-*/
-
   //console.log(balance)
   const onChange = (inputValue: any) => {
     setAmountValue(inputValue);
@@ -73,13 +66,16 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
     async function _init() {
       const _purchasableClassIds = toStringArray(await debondDataContract?.getPurchasableClasses(props.selectedClass.id)!);
 
-      const _purchasableClasses = new Map(
+      const _purchasableClasses :Map<string,any>= new Map(
         [...props.classes].filter(([k,]) => {
           return _purchasableClassIds!.includes(k)
         })
       );
-      const [classesMap, _filters] = mapClassesToRow(_purchasableClasses);
-      setTableValues(Array.from(classesMap.values()));
+      const _filters = _purchasableClassIds.map((id) => {
+        return {text: _purchasableClasses.get(id).token, value: _purchasableClasses.get(id).token};
+      })
+
+      setTableValues(Array.from(_purchasableClasses.values()));
       setTokenFilters(_filters);
     }
     _init();
@@ -107,7 +103,6 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
     if (approved) {
       //const result = await depositTransaction(amountValue, props.selectedClass.id, selectedPurchaseClass.id, '0', tx, bankContract);
       const result = await depositTransaction(amountValue, props.selectedClass.id, selectedPurchaseClass.id, activeMethod, tx, bankContract);
-
       if (result) {
         purchasableInfos.get(selectedPurchaseClass?.token).approved = false;
       }
@@ -137,7 +132,7 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
     return ((infos.apy + 1) * amountValue).toFixed(5)
   }
 
-  const selectedColumnsName = ["token", "maturityCountdown", "apy", "faceValue"]
+  const selectedColumnsName = ["token", "maturityCountdown",  "faceValue","apy"]
 
   const tableColumns = getTableColumns({tokenFilters, selectedColumnsName, faceValueFunction})
 
@@ -159,10 +154,6 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
     onChange: onSelectedRowKeysChange,
     type: "radio"
   };
-  console.log("111")
-  console.log(selectedPurchaseClass);
-  console.log(tableValues);
-  console.log("222")
 
   return (
     <>

@@ -114,6 +114,7 @@ export const getTableColumns = (props: ITableColumnsProps) => {
     key: 'maturityCountdown',
 
     render: (_maturity: any) => {
+
       const _maturityDate = moment(_maturity.toNumber() * 1000);
       return _maturityDate.fromNow();
     }
