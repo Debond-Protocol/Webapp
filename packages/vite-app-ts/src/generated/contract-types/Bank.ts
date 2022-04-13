@@ -25,7 +25,7 @@ export interface BankInterface extends utils.Interface {
     "RATE()": FunctionFragment;
     "amountOfDBITToMint(uint256)": FunctionFragment;
     "buyBond(uint256,uint256,uint256,uint256,uint8)": FunctionFragment;
-    "sellBonds(uint256,uint256,uint256)": FunctionFragment;
+    "redeemBonds(uint256,uint256,uint256)": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -52,7 +52,7 @@ export interface BankInterface extends utils.Interface {
     ]
   ): string;
   encodeFunctionData(
-    functionFragment: "sellBonds",
+    functionFragment: "redeemBonds",
     values: [BigNumberish, BigNumberish, BigNumberish]
   ): string;
 
@@ -70,7 +70,10 @@ export interface BankInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "buyBond", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "sellBonds", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "redeemBonds",
+    data: BytesLike
+  ): Result;
 
   events: {};
 }
@@ -123,9 +126,9 @@ export interface Bank extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    sellBonds(
-      _TokenClassId: BigNumberish,
-      _TokenNonceId: BigNumberish,
+    redeemBonds(
+      classId: BigNumberish,
+      nonceId: BigNumberish,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -151,9 +154,9 @@ export interface Bank extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  sellBonds(
-    _TokenClassId: BigNumberish,
-    _TokenNonceId: BigNumberish,
+  redeemBonds(
+    classId: BigNumberish,
+    nonceId: BigNumberish,
     amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -179,9 +182,9 @@ export interface Bank extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    sellBonds(
-      _TokenClassId: BigNumberish,
-      _TokenNonceId: BigNumberish,
+    redeemBonds(
+      classId: BigNumberish,
+      nonceId: BigNumberish,
       amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -210,9 +213,9 @@ export interface Bank extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    sellBonds(
-      _TokenClassId: BigNumberish,
-      _TokenNonceId: BigNumberish,
+    redeemBonds(
+      classId: BigNumberish,
+      nonceId: BigNumberish,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -241,9 +244,9 @@ export interface Bank extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    sellBonds(
-      _TokenClassId: BigNumberish,
-      _TokenNonceId: BigNumberish,
+    redeemBonds(
+      classId: BigNumberish,
+      nonceId: BigNumberish,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;

@@ -49,6 +49,7 @@ export const fetchBondDetails = async (bondIds: any[], debondBondContract: any, 
     const {classId, bondId} = bondInfos;
     return [classId.toString(), bondId.toString(), address];
   });
+  console.log(args)
 
   const results = await getMultiCallResults(bondIds, debondBondContract, 'nonceDetails', provider, args);
   for (const [idx, _bond] of results.entries()) {

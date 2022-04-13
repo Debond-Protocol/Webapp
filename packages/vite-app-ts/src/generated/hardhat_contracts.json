@@ -179,7 +179,7 @@
           ]
         },
         "Bank": {
-          "address": "0xFE93d11bdEA97F75f182B03B4c2a0aaC0346e4D5",
+          "address": "0x0bEFe1AC20E1175ED4aa2dA7000d45CAc1fa3264",
           "abi": [
             {
               "inputs": [
@@ -297,12 +297,12 @@
               "inputs": [
                 {
                   "internalType": "uint256",
-                  "name": "_TokenClassId",
+                  "name": "classId",
                   "type": "uint256"
                 },
                 {
                   "internalType": "uint256",
-                  "name": "_TokenNonceId",
+                  "name": "nonceId",
                   "type": "uint256"
                 },
                 {
@@ -311,7 +311,7 @@
                   "type": "uint256"
                 }
               ],
-              "name": "sellBonds",
+              "name": "redeemBonds",
               "outputs": [],
               "stateMutability": "nonpayable",
               "type": "function"
@@ -669,7 +669,7 @@
           ]
         },
         "DBIT": {
-          "address": "0x722cBd66BDF00D30adcA93401ae869aEE216fdbb",
+          "address": "0xcD498a6CBce692F17D99aD9bA491668C7FfA7789",
           "abi": [
             {
               "inputs": [],
@@ -699,6 +699,25 @@
                 }
               ],
               "name": "Approval",
+              "type": "event"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": true,
+                  "internalType": "address",
+                  "name": "previousOwner",
+                  "type": "address"
+                },
+                {
+                  "indexed": true,
+                  "internalType": "address",
+                  "name": "newOwner",
+                  "type": "address"
+                }
+              ],
+              "name": "OwnershipTransferred",
               "type": "event"
             },
             {
@@ -1048,6 +1067,26 @@
               "type": "function"
             },
             {
+              "inputs": [],
+              "name": "owner",
+              "outputs": [
+                {
+                  "internalType": "address",
+                  "name": "",
+                  "type": "address"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "renounceOwnership",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
               "inputs": [
                 {
                   "internalType": "bytes32",
@@ -1180,11 +1219,24 @@
               ],
               "stateMutability": "nonpayable",
               "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "address",
+                  "name": "newOwner",
+                  "type": "address"
+                }
+              ],
+              "name": "transferOwnership",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
             }
           ]
         },
         "DebondBond": {
-          "address": "0x8493253952Aa5540EeB028E1C1f813428c4aF7c0",
+          "address": "0xB439ecb88CA875A991293201A81605e1C7677998",
           "abi": [
             {
               "inputs": [
@@ -2578,7 +2630,7 @@
           ]
         },
         "DebondData": {
-          "address": "0xBcBF83D085DDCE6DeC2e59897D0b913CAc5C7cbC",
+          "address": "0x1289721b95c4c78f522A83084a7E2D5d6fdB729c",
           "abi": [
             {
               "inputs": [

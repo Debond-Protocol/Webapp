@@ -3,7 +3,11 @@
 }
 
 .ant-statistic-content {
-    font-size: 16px;
+    font-size: 14px;
+}
+
+.ant-statistic-title{
+    font-size:13px
 }
 
 .ant-card-head-title {
@@ -25,11 +29,11 @@
 }
 
 .ant-tabs-tab {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 22px;
-    line-height: 96%;
+    font-family: 'Inter'!important;
+    font-style: normal!important;
+    font-weight: 700!important;
+    font-size: 22px!important;
+    line-height: 96%!important;
 }
 .ant-tabs{
     margin-bottom: 50px;
@@ -39,10 +43,22 @@
     font-family: 'Inter';
     font-style: normal;
     font-weight: 300;
-    font-size: 22px!important;
+    /*font-size: 22px!important;*/
     /*width: fit-content!important;*/
+}
+.ant-input-number-affix-wrapper{
+    font-size: 20px;
 }
 
 #getBondModal .ant-input-number-affix-wrapper{
     width: 70%;
+}
+
+.ant-tabs-nav-list{
+    width: 100%;
+    border-bottom: solid 1px #6c757d;
+
+}
+.ant-tabs-nav-list .ant-tabs-tab{
+    width:50%
 }

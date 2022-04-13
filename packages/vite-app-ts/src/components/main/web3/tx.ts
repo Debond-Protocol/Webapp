@@ -77,7 +77,7 @@ export const redeemTransaction = async (amount:BigNumberish,classId:Number, nonc
   console.log(nonceId)
 
   //const l = await tokenContract?.approve(spender, purchaseAmount);
-  const result = tx?.(bankContract?.sellBonds(classId, nonceId,amount),
+  const result = tx?.(bankContract?.redeemBonds(classId, nonceId,amount),
     (update: any) => {
       console.log('📡 Transaction Update:', update);
     })

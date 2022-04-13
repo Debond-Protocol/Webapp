@@ -41,7 +41,7 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         Ops governance
       </Link>
     </Menu.Item>
-    <Menu.Item key="/swap" icon={<img src={"./menu/swap2.png"}/>}>
+    <Menu.Item key="/swap" icon={<img src={"./menu/swap.png"}/>}>
       <Link
         onClick={(): void => {
           props.setRoute('/swap');

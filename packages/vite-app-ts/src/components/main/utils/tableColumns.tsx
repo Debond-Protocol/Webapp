@@ -145,6 +145,7 @@ export const getTableColumns = (props: ITableColumnsProps) => {
   })
   columnsBond.set("balance", {
     title: 'Balance', dataIndex: 'balance', key: 'balance', render: (_balance: any) => {
+      console.log(_balance)
       return (formatEther(_balance))
     }
   })

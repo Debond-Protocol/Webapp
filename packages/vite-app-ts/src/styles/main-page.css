@@ -227,3 +227,13 @@ button {
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
     color:#FFFFFF;
 }
+
+button:disabled{
+    color:lightgrey!important;
+    background-color: #6c757d!important;
+}
+
+.ant-tabs{
+    margin: 5vh 0 20vh 0;
+    border-bottom: 3px #6c757d;
+}

@@ -33,6 +33,8 @@ export interface DBITInterface extends utils.Interface {
     "increaseAllowance(address,uint256)": FunctionFragment;
     "mint(address,uint256)": FunctionFragment;
     "name()": FunctionFragment;
+    "owner()": FunctionFragment;
+    "renounceOwnership()": FunctionFragment;
     "renounceRole(bytes32,address)": FunctionFragment;
     "revokeRole(bytes32,address)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
@@ -40,6 +42,7 @@ export interface DBITInterface extends utils.Interface {
     "totalSupply()": FunctionFragment;
     "transfer(address,uint256)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
+    "transferOwnership(address)": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -85,6 +88,11 @@ export interface DBITInterface extends utils.Interface {
     values: [string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
+  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "renounceOwnership",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "renounceRole",
     values: [BytesLike, string]
@@ -109,6 +117,10 @@ export interface DBITInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "transferFrom",
     values: [string, string, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "transferOwnership",
+    values: [string]
   ): string;
 
   decodeFunctionResult(
@@ -139,6 +151,11 @@ export interface DBITInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "renounceOwnership",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "renounceRole",
     data: BytesLike
@@ -158,9 +175,14 @@ export interface DBITInterface extends utils.Interface {
     functionFragment: "transferFrom",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "transferOwnership",
+    data: BytesLike
+  ): Result;
 
   events: {
     "Approval(address,address,uint256)": EventFragment;
+    "OwnershipTransferred(address,address)": EventFragment;
     "RoleAdminChanged(bytes32,bytes32,bytes32)": EventFragment;
     "RoleGranted(bytes32,address,address)": EventFragment;
     "RoleRevoked(bytes32,address,address)": EventFragment;
@@ -168,6 +190,7 @@ export interface DBITInterface extends utils.Interface {
   };
 
   getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RoleAdminChanged"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RoleGranted"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RoleRevoked"): EventFragment;
@@ -180,6 +203,14 @@ export type ApprovalEvent = TypedEvent<
 >;
 
 export type ApprovalEventFilter = TypedEventFilter<ApprovalEvent>;
+
+export type OwnershipTransferredEvent = TypedEvent<
+  [string, string],
+  { previousOwner: string; newOwner: string }
+>;
+
+export type OwnershipTransferredEventFilter =
+  TypedEventFilter<OwnershipTransferredEvent>;
 
 export type RoleAdminChangedEvent = TypedEvent<
   [string, string, string],
@@ -292,6 +323,12 @@ export interface DBIT extends BaseContract {
 
     name(overrides?: CallOverrides): Promise<[string]>;
 
+    owner(overrides?: CallOverrides): Promise<[string]>;
+
+    renounceOwnership(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     renounceRole(
       role: BytesLike,
       account: string,
@@ -323,6 +360,11 @@ export interface DBIT extends BaseContract {
       from: string,
       to: string,
       amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    transferOwnership(
+      newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
@@ -381,6 +423,12 @@ export interface DBIT extends BaseContract {
 
   name(overrides?: CallOverrides): Promise<string>;
 
+  owner(overrides?: CallOverrides): Promise<string>;
+
+  renounceOwnership(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   renounceRole(
     role: BytesLike,
     account: string,
@@ -412,6 +460,11 @@ export interface DBIT extends BaseContract {
     from: string,
     to: string,
     amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  transferOwnership(
+    newOwner: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -470,6 +523,10 @@ export interface DBIT extends BaseContract {
 
     name(overrides?: CallOverrides): Promise<string>;
 
+    owner(overrides?: CallOverrides): Promise<string>;
+
+    renounceOwnership(overrides?: CallOverrides): Promise<void>;
+
     renounceRole(
       role: BytesLike,
       account: string,
@@ -503,6 +560,11 @@ export interface DBIT extends BaseContract {
       amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
+
+    transferOwnership(
+      newOwner: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
   filters: {
@@ -516,6 +578,15 @@ export interface DBIT extends BaseContract {
       spender?: string | null,
       value?: null
     ): ApprovalEventFilter;
+
+    "OwnershipTransferred(address,address)"(
+      previousOwner?: string | null,
+      newOwner?: string | null
+    ): OwnershipTransferredEventFilter;
+    OwnershipTransferred(
+      previousOwner?: string | null,
+      newOwner?: string | null
+    ): OwnershipTransferredEventFilter;
 
     "RoleAdminChanged(bytes32,bytes32,bytes32)"(
       role?: BytesLike | null,
@@ -620,6 +691,12 @@ export interface DBIT extends BaseContract {
 
     name(overrides?: CallOverrides): Promise<BigNumber>;
 
+    owner(overrides?: CallOverrides): Promise<BigNumber>;
+
+    renounceOwnership(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     renounceRole(
       role: BytesLike,
       account: string,
@@ -651,6 +728,11 @@ export interface DBIT extends BaseContract {
       from: string,
       to: string,
       amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    transferOwnership(
+      newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
@@ -718,6 +800,12 @@ export interface DBIT extends BaseContract {
 
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    renounceOwnership(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     renounceRole(
       role: BytesLike,
       account: string,
@@ -749,6 +837,11 @@ export interface DBIT extends BaseContract {
       from: string,
       to: string,
       amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    transferOwnership(
+      newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };

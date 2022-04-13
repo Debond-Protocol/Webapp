@@ -19,15 +19,24 @@ export interface CDPInterface extends utils.Interface {
   contractName: "CDP";
   functions: {
     "BondExchangeRate(uint256)": FunctionFragment;
+    "amountOfDBIT(uint256,uint256)": FunctionFragment;
   };
 
   encodeFunctionData(
     functionFragment: "BondExchangeRate",
     values: [BigNumberish]
   ): string;
+  encodeFunctionData(
+    functionFragment: "amountOfDBIT",
+    values: [BigNumberish, BigNumberish]
+  ): string;
 
   decodeFunctionResult(
     functionFragment: "BondExchangeRate",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "amountOfDBIT",
     data: BytesLike
   ): Result;
 
@@ -66,6 +75,12 @@ export interface CDP extends BaseContract {
       dbitTotalSupply: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { amount_bond: BigNumber }>;
+
+    amountOfDBIT(
+      _amountToken: BigNumberish,
+      _dbitTotalSupply: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { amountDBIT: BigNumber }>;
   };
 
   BondExchangeRate(
@@ -73,9 +88,21 @@ export interface CDP extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  amountOfDBIT(
+    _amountToken: BigNumberish,
+    _dbitTotalSupply: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
   callStatic: {
     BondExchangeRate(
       dbitTotalSupply: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    amountOfDBIT(
+      _amountToken: BigNumberish,
+      _dbitTotalSupply: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
@@ -87,11 +114,23 @@ export interface CDP extends BaseContract {
       dbitTotalSupply: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    amountOfDBIT(
+      _amountToken: BigNumberish,
+      _dbitTotalSupply: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     BondExchangeRate(
       dbitTotalSupply: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    amountOfDBIT(
+      _amountToken: BigNumberish,
+      _dbitTotalSupply: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };
