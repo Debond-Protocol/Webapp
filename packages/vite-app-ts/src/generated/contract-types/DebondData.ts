@@ -20,6 +20,7 @@ import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
 export interface DebondDataInterface extends utils.Interface {
   contractName: "DebondData";
   functions: {
+    "ONE_HOUR_PERIOD()": FunctionFragment;
     "SIX_M_PERIOD()": FunctionFragment;
     "TEST_PERIOD()": FunctionFragment;
     "TWO_MIN_PERIOD()": FunctionFragment;
@@ -39,6 +40,10 @@ export interface DebondDataInterface extends utils.Interface {
     "updateTokenAllowed(address,address,bool)": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "ONE_HOUR_PERIOD",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "SIX_M_PERIOD",
     values?: undefined
@@ -108,6 +113,10 @@ export interface DebondDataInterface extends utils.Interface {
     values: [string, string, boolean]
   ): string;
 
+  decodeFunctionResult(
+    functionFragment: "ONE_HOUR_PERIOD",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "SIX_M_PERIOD",
     data: BytesLike
@@ -199,6 +208,8 @@ export interface DebondData extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    ONE_HOUR_PERIOD(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     SIX_M_PERIOD(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     TEST_PERIOD(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -310,6 +321,8 @@ export interface DebondData extends BaseContract {
     ): Promise<ContractTransaction>;
   };
 
+  ONE_HOUR_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
+
   SIX_M_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
 
   TEST_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
@@ -418,6 +431,8 @@ export interface DebondData extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    ONE_HOUR_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
+
     SIX_M_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
 
     TEST_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
@@ -532,6 +547,8 @@ export interface DebondData extends BaseContract {
   filters: {};
 
   estimateGas: {
+    ONE_HOUR_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
+
     SIX_M_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
 
     TEST_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
@@ -612,6 +629,8 @@ export interface DebondData extends BaseContract {
   };
 
   populateTransaction: {
+    ONE_HOUR_PERIOD(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     SIX_M_PERIOD(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     TEST_PERIOD(overrides?: CallOverrides): Promise<PopulatedTransaction>;

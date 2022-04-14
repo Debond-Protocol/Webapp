@@ -93,7 +93,8 @@ export const getTableColumns = (props: ITableColumnsProps) => {
     dataIndex: 'typePeriod',
     key: 'typePeriod',
     render: (input: any) => {
-      return input.interestRateType + ' (' + moment.duration(input.period.toNumber()).humanize() + ')';
+      console.log(input.period.toNumber())
+      return input.interestRateType + ' (' + moment.duration(input.period.toNumber()*1000).humanize() + ')';
     },
   });
   columns.set('apy', {
@@ -142,7 +143,7 @@ export const getTableColumns = (props: ITableColumnsProps) => {
     dataIndex: 'typePeriod',
     key: 'typePeriod',
     render: (input: any) => {
-      return input.interestRateType + ' (' + moment.duration(input.period).humanize() + ')';
+      return input.interestRateType + ' (' + moment.duration(input.period*1000).humanize() + ')';
     },
   });
 

@@ -179,7 +179,7 @@
           ]
         },
         "Bank": {
-          "address": "0xb36FEFf5f72E5b5c4f0E4B5bC1fEa480024DbCa3",
+          "address": "0x07F494b84d7237233D8da23fb775B244df450654",
           "abi": [
             {
               "inputs": [
@@ -1236,7 +1236,7 @@
           ]
         },
         "DebondBond": {
-          "address": "0xc57017E9898C1500dcb0587Ca3e6A18ad94f2E34",
+          "address": "0x69E09C107304C9456e6A2644281cc129A792d1Cc",
           "abi": [
             {
               "inputs": [
@@ -1545,6 +1545,19 @@
                   "internalType": "bytes32",
                   "name": "",
                   "type": "bytes32"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "ONE_HOUR_PERIOD",
+              "outputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
                 }
               ],
               "stateMutability": "view",
@@ -2630,7 +2643,7 @@
           ]
         },
         "DebondData": {
-          "address": "0xB9BA3D0cEE167a357cDc5E2581D351aCE158B2C3",
+          "address": "0x1fB196de317FDd5F014B7edf68B7f5b809C90076",
           "abi": [
             {
               "inputs": [
@@ -2657,6 +2670,19 @@
               ],
               "stateMutability": "nonpayable",
               "type": "constructor"
+            },
+            {
+              "inputs": [],
+              "name": "ONE_HOUR_PERIOD",
+              "outputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
             },
             {
               "inputs": [],
