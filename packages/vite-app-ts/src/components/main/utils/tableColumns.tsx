@@ -55,7 +55,7 @@ export const getTableColumns = (props: ITableColumnsProps) => {
       //const progress= Math.min((Date.now() - infos.issuance)/infos.period*100,100)
       return (
         <div>
-          <Progress percent={progress} showInfo={true} />
+          <Progress percent={progress.toFixed(0)} showInfo={true} />
         </div>
       );
     },
@@ -93,7 +93,7 @@ export const getTableColumns = (props: ITableColumnsProps) => {
     dataIndex: 'typePeriod',
     key: 'typePeriod',
     render: (input: any) => {
-      console.log(input.period.toNumber())
+      //console.log(input.period.toNumber())
       return input.interestRateType + ' (' + moment.duration(input.period.toNumber()*1000).humanize() + ')';
     },
   });
@@ -177,10 +177,9 @@ export const getTableColumns = (props: ITableColumnsProps) => {
     dataIndex: 'progress',
     key: 'progress',
     render: (infos: any) => {
-      //const progress= Math.min((Date.now() - infos.issuance)/infos.period*100,100)
       return (
         <div>
-          <Progress percent={infos.progress} showInfo={true} />
+          <Progress percent={infos.progress.toFixed(0)} showInfo={true} />
         </div>
       );
     },

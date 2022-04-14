@@ -84,6 +84,10 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
    * Approve the transaction
    */
   const approve = async () => {
+    if (!amountValue || amountValue<=0){
+      alert("Please select an amount.")
+      return ;
+    }
     const account: string = ethersContext?.account!;
     setLoading(true);
     //const infos={amount:amountValue, purchaseToken: purchasableInfos, classId:props.selectedClass}
