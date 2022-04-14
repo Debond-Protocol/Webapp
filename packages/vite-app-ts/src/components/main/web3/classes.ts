@@ -1,7 +1,7 @@
-import { apys, interestRatesEnum, ratings } from '~~/components/main/utils/utils';
-import { getMultiCallResults0 } from '~~/components/main/web3/multicall';
+import {apys, interestRatesEnum, ratings} from '~~/components/main/utils/utils';
+import {getMultiCallResults0} from '~~/components/main/web3/multicall';
 import moment from 'moment';
-import { BigNumber } from 'ethers';
+import {BigNumber} from 'ethers';
 
 /**
  * Multi call to get all classes
@@ -49,7 +49,7 @@ export const mapClassesToRow = (classes: any): any[] => {
       token: _class.token,
       interestType: _class.interestType,
       period: _class.period,
-      deposit: { classId: _classId },
+      deposit: {classId: _classId},
       typePeriod: {
         interestRateType: _class.interestType,
         period: _class.period,
@@ -58,13 +58,13 @@ export const mapClassesToRow = (classes: any): any[] => {
       issuer: 'debond',
       apy: apys[idx % apys.length],
       rating: ratings[idx % ratings.length],
-      value: { apy: apys[idx % apys.length] },
+      value: {apy: apys[idx % apys.length]},
       maturityCountdown: _class.maturityDate,
     };
     classesMap.set(_classId, classInfos);
     _values.push(classInfos);
 
-    _filters.push({ text: _class.token, value: _class.token });
+    _filters.push({text: _class.token, value: _class.token});
     idx += 1;
   }
   return [classesMap, _filters];

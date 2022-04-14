@@ -83,5 +83,6 @@ export const fetchBondDetails = async (bondIds: any[], debondBondContract: any, 
     };
     bonds.push(_bondInfos);
   }
+  //console.log(bonds)
   return bonds;
 };

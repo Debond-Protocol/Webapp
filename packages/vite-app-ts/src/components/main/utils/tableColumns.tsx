@@ -93,7 +93,6 @@ export const getTableColumns = (props: ITableColumnsProps) => {
     dataIndex: 'typePeriod',
     key: 'typePeriod',
     render: (input: any) => {
-      //console.log(input.period.toNumber())
       return input.interestRateType + ' (' + moment.duration(input.period.toNumber()*1000).humanize() + ')';
     },
   });
@@ -189,6 +188,7 @@ export const getTableColumns = (props: ITableColumnsProps) => {
     dataIndex: 'redeem',
     key: 'redeem',
     render: (infos: any) => {
+      //console.log(infos)
       return (
         <div>
           <Button
