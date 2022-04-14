@@ -2,7 +2,7 @@ import { ICoreOptions } from 'web3modal';
 
 import { LOCAL_PROVIDER } from '~~/config/appConfig';
 import { NETWORKS } from '~~/models/constants/networks';
-import LedgerProvider from "@web3modal/ledger-provider";
+import LedgerProvider from '@web3modal/ledger-provider';
 
 const INFURA_ID = import.meta.env.VITE_KEY_INFURA;
 
@@ -131,8 +131,6 @@ export const getWeb3ModalConfig = async (): Promise<Partial<ICoreOptions>> => {
   } catch (e) {
     console.log('Failed to load config for Localhost Static Connector: ', e);
   }
-
-
 
   // network: 'mainnet', // Optional. If using WalletConnect on xDai, change network to "xdai" and add RPC info below for xDai chain.
 

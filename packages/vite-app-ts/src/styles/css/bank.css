@@ -1,64 +1,63 @@
 .ant-steps {
-    margin-bottom: 50px!important;
+  margin-bottom: 50px !important;
 }
 
 .ant-statistic-content {
-    font-size: 14px!important;
+  font-size: 14px !important;
 }
 
-.ant-statistic-title{
-    font-size:13px
+.ant-statistic-title {
+  font-size: 13px;
 }
 
 .ant-card-head-title {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 .dbutton {
-    background: #403AF4;
-    border-radius: 3.44808px;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 146%;
-    /* or 23px */
-    text-align: center;
-    text-transform: uppercase;
-    padding: 13px 70px 13px 70px;
+  background: #403af4;
+  border-radius: 3.44808px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 146%;
+  /* or 23px */
+  text-align: center;
+  text-transform: uppercase;
+  padding: 13px 70px 13px 70px;
 }
 
 .ant-tabs-tab {
-    font-family: 'Inter'!important;
-    font-style: normal!important;
-    font-weight: 700!important;
-    font-size: 22px!important;
-    line-height: 96%!important;
+  font-family: 'Inter' !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: 22px !important;
+  line-height: 96% !important;
 }
-.ant-tabs{
-    margin-bottom: 50px;
-}
-
-#getBondModal .ant-input-number{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 300;
-    /*font-size: 22px!important;*/
-    /*width: fit-content!important;*/
-}
-.ant-input-number-affix-wrapper{
-    font-size: 20px;
+.ant-tabs {
+  margin-bottom: 50px;
 }
 
-#getBondModal .ant-input-number-affix-wrapper{
-    width: 70%;
+#getBondModal .ant-input-number {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  /*font-size: 22px!important;*/
+  /*width: fit-content!important;*/
+}
+.ant-input-number-affix-wrapper {
+  font-size: 20px;
 }
 
-.ant-tabs-nav-list{
-    width: 100%;
-    border-bottom: solid 1px #6c757d;
-
+#getBondModal .ant-input-number-affix-wrapper {
+  width: 70%;
 }
-.ant-tabs-nav-list .ant-tabs-tab{
-    width:50%
+
+.ant-tabs-nav-list {
+  width: 100%;
+  border-bottom: solid 1px #6c757d;
+}
+.ant-tabs-nav-list .ant-tabs-tab {
+  width: 50%;
 }

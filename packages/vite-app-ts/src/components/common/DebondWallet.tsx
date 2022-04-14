@@ -1,21 +1,19 @@
-import {Table} from 'antd';
-import {useContractReader, useGasPrice} from 'eth-hooks';
-import {useEthersContext} from 'eth-hooks/context';
-import React, {useContext, useEffect, useState} from 'react';
+import { Table } from 'antd';
+import { useContractReader, useGasPrice } from 'eth-hooks';
+import { useEthersContext } from 'eth-hooks/context';
+import React, { useContext, useEffect, useState } from 'react';
 
-import {fetchBondDetails, fetchBondsIds} from '~~/components/main/web3/bonds';
-import {useAppContracts} from '~~/config/contractContext';
-import {getAllClasses, mapClassesToRow} from "~~/components/main/web3/classes";
-import {toStringArray} from "~~/components/main/utils/utils";
-import {redeemTransaction} from "~~/components/main/web3/tx";
-import {EthComponentsSettingsContext} from "eth-components/models";
-import {transactor} from "eth-components/functions";
-import {getTableColumns} from "~~/components/main/utils/tableColumns";
-import {BigNumber, constants} from "ethers";
-
+import { fetchBondDetails, fetchBondsIds } from '~~/components/main/web3/bonds';
+import { useAppContracts } from '~~/config/contractContext';
+import { getAllClasses, mapClassesToRow } from '~~/components/main/web3/classes';
+import { toStringArray } from '~~/components/main/utils/utils';
+import { redeemTransaction } from '~~/components/main/web3/tx';
+import { EthComponentsSettingsContext } from 'eth-components/models';
+import { transactor } from 'eth-components/functions';
+import { getTableColumns } from '~~/components/main/utils/tableColumns';
+import { BigNumber, constants } from 'ethers';
 
 export const DebondWallet = (props: any) => {
-
   const selectedColumnsName: [] = props.columns;
   const ethersContext = useEthersContext();
   const provider = ethersContext!.provider!;
@@ -31,7 +29,9 @@ export const DebondWallet = (props: any) => {
 
   const address = ethersContext?.account!;
 
-  const [classesOwned]: any[] = useContractReader(debondBondContract, debondBondContract?.getClassesPerAddress, [address]);
+  const [classesOwned]: any[] = useContractReader(debondBondContract, debondBondContract?.getClassesPerAddress, [
+    address,
+  ]);
 
   const [allClasses, setAllClasses]: any[] = useState(new Map<string, any>());
   const [bondIdsMap, setBondIdsMap]: any[] = useState(new Map<string, any>());
@@ -44,20 +44,25 @@ export const DebondWallet = (props: any) => {
     const loadAllBonds = async () => {
       const _allClasses = await getAllClasses(debondDataContract, provider);
       setAllClasses(_allClasses);
-      const _classOwned = toStringArray(classesOwned)
+      const _classOwned = toStringArray(classesOwned);
       const bondClasses = new Map(
-        [..._allClasses].filter(([k,]) => {
-          return _classOwned!.includes(k)
+        [..._allClasses].filter(([k]) => {
+          return _classOwned!.includes(k);
         })
       );
       let [classesMap, _filters] = mapClassesToRow(bondClasses);
-      const [_bondsIds, _bondIdsMap] = await fetchBondsIds(classesOwned, debondBondContract, address, ethersContext.provider!);
+      const [_bondsIds, _bondIdsMap] = await fetchBondsIds(
+        classesOwned,
+        debondBondContract,
+        address,
+        ethersContext.provider!
+      );
       const _bonds = await fetchBondDetails(_bondsIds, debondBondContract, ethersContext.provider!, address);
-      let _bondsMap = new Map(_bonds.map(_bond => [_bond.bondId, _bond]));
+      let _bondsMap = new Map(_bonds.map((_bond) => [_bond.bondId, _bond]));
 
-      completeClassWithBondsInfos(_bondIdsMap, _bondsMap, classesMap)
-      setTableClasses(Array.from(classesMap.values()))
-      setTokenFilters(_filters)
+      completeClassWithBondsInfos(_bondIdsMap, _bondsMap, classesMap);
+      setTableClasses(Array.from(classesMap.values()));
+      setTokenFilters(_filters);
       setBondIdsMap(_bondIdsMap);
       setBondsOwned(_bondsMap);
     };
@@ -69,51 +74,57 @@ export const DebondWallet = (props: any) => {
   const completeClassWithBondsInfos = (_bondIdsMap: any, _bondsMap: any, _classMap: any) => {
     //const bondsPerClassMap=new Map(Array.from(_classesMap.keys()).map(_class => [_class, {}]));
     for (let [classId, _bondIds] of _bondIdsMap) {
-
-      let completedClass = _classMap.get(classId)
-      const maxMaturity = _bondIds.reduce((a: any, i: any) => (Math.max(a, _bondsMap.get(i.toString()).maturityCountdown.toNumber())), 0);
-      const minProgress = _bondIds.reduce((a: any, i: any) => Math.min(a, _bondsMap.get(i.toString()).progress.progress), 100);
+      let completedClass = _classMap.get(classId);
+      const maxMaturity = _bondIds.reduce(
+        (a: any, i: any) => Math.max(a, _bondsMap.get(i.toString()).maturityCountdown.toNumber()),
+        0
+      );
+      const minProgress = _bondIds.reduce(
+        (a: any, i: any) => Math.min(a, _bondsMap.get(i.toString()).progress.progress),
+        100
+      );
       const sumBalance = _bondIds.reduce((a: any, i: any) => a + _bondsMap.get(i.toString()).balance, 0);
 
       completedClass.maturityCountdown = BigNumber.from(maxMaturity);
-      completedClass.progress = minProgress
-      completedClass.balance = sumBalance
+      completedClass.progress = minProgress;
+      completedClass.balance = sumBalance;
     }
 
-    return _classMap
-  }
+    return _classMap;
+  };
 
   /**
    * Function called to redeem the bond
    * @param inputValue: bond Id (nonce)
    */
   const redeem = (values: any) => {
-    redeemTransaction(values.balance, values.classId, values.nonceId, tx, bankContract)
+    redeemTransaction(values.balance, values.classId, values.nonceId, tx, bankContract);
   };
 
-  const tableColumns = getTableColumns({selectedColumnsName, tokenFilters, redeem})
-
+  const tableColumns = getTableColumns({ selectedColumnsName, tokenFilters, redeem });
 
   const expandRowRenderer = (record: any, i: any) => {
-
     const _bonds = bondIdsMap.get(record.id).map((bondId: string) => {
-
       return bondsOwned.get(bondId.toString());
     });
 
-
-    return (<Table
+    return (
+      <Table
         bordered={false}
         columns={tableColumns.bondColumns}
         dataSource={_bonds}
         showHeader={false}
         pagination={false}
       />
-    )
-  }
+    );
+  };
 
-
-  return (<Table columns={tableColumns.classColumns} dataSource={tableClasses} expandedRowRender={expandRowRenderer}
-                 pagination={false}/>)
-}
-
+  return (
+    <Table
+      columns={tableColumns.classColumns}
+      dataSource={tableClasses}
+      expandedRowRender={expandRowRenderer}
+      pagination={false}
+    />
+  );
+};

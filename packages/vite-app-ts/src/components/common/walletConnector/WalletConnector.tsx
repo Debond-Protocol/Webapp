@@ -9,8 +9,8 @@ import { useThemeSwitcher } from 'react-css-theme-switcher';
 import { invariant } from 'ts-invariant';
 import { useDebounce } from 'use-debounce';
 import { useIsMounted } from 'usehooks-ts';
-import { Balance, Wallet  } from 'eth-components/ant';
-import {Address} from "~~/components/common/walletConnector/Account";
+import { Balance, Wallet } from 'eth-components/ant';
+import { Address } from '~~/components/common/walletConnector/Account';
 
 //import { Address, Balance, Wallet } from '.';
 

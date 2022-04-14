@@ -1,27 +1,27 @@
-import React, {FC, useEffect, useState} from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import React, { FC, useEffect, useState } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import '~~/styles/main-page.css';
 
-import {useBalance, useEthersAdaptorFromProviderOrSigners} from 'eth-hooks';
-import {useEthersContext} from 'eth-hooks/context';
-import {useDexEthPrice} from 'eth-hooks/dapps';
-import {asEthersAdaptor} from 'eth-hooks/functions';
+import { useBalance, useEthersAdaptorFromProviderOrSigners } from 'eth-hooks';
+import { useEthersContext } from 'eth-hooks/context';
+import { useDexEthPrice } from 'eth-hooks/dapps';
+import { asEthersAdaptor } from 'eth-hooks/functions';
 
-import {MainPageMenu, MainPageFooter, MainPageHeader} from './components/main';
-import {useScaffoldHooksExamples as useScaffoldHooksExamples} from './components/main/hooks/useScaffoldHooksExamples';
+import { MainPageMenu, MainPageFooter, MainPageHeader } from './components/main';
+import { useScaffoldHooksExamples as useScaffoldHooksExamples } from './components/main/hooks/useScaffoldHooksExamples';
 
-import {useBurnerFallback} from '~~/components/main/hooks/useBurnerFallback';
-import {useScaffoldProviders as useScaffoldAppProviders} from '~~/components/main/hooks/useScaffoldAppProviders';
+import { useBurnerFallback } from '~~/components/main/hooks/useBurnerFallback';
+import { useScaffoldProviders as useScaffoldAppProviders } from '~~/components/main/hooks/useScaffoldAppProviders';
 //import { Hints, ExampleUI } from '~~/components/pages';
-import {BankUI} from '~~/components/pages/bank/BankUI';
-import {DashboardUI} from '~~/components/pages/dashboard/DashboardUI';
-import {WalletUI} from '~~/components/pages/wallet/WalletUI';
-import {BURNER_FALLBACK_ENABLED, MAINNET_PROVIDER} from '~~/config/appConfig';
-import {useAppContracts, useConnectAppContracts, useLoadAppContracts} from '~~/config/contractContext';
+import { BankUI } from '~~/components/pages/bank/BankUI';
+import { DashboardUI } from '~~/components/pages/dashboard/DashboardUI';
+import { WalletUI } from '~~/components/pages/wallet/WalletUI';
+import { BURNER_FALLBACK_ENABLED, MAINNET_PROVIDER } from '~~/config/appConfig';
+import { useAppContracts, useConnectAppContracts, useLoadAppContracts } from '~~/config/contractContext';
 
-import {Layout} from 'antd';
-import ContentLayout from "~~/components/main/layout/ContentLayout";
+import { Layout } from 'antd';
+import ContentLayout from '~~/components/main/layout/ContentLayout';
 
 /**
  * ⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️
@@ -97,17 +97,17 @@ export const Main: FC = () => {
 
   return (
     <Layout>
-      <Layout.Header style={{height: '30vh'}}>
-        <MainPageHeader scaffoldAppProviders={scaffoldAppProviders} price={ethPrice}/>
+      <Layout.Header style={{ height: '30vh' }}>
+        <MainPageHeader scaffoldAppProviders={scaffoldAppProviders} price={ethPrice} />
       </Layout.Header>
       <Layout.Content>
         <Layout>
           {/* Routes should be added between the <Switch> </Switch> as seen below */}
           <BrowserRouter>
             <Layout.Sider>
-              <MainPageMenu route={route} setRoute={setRoute}/>
+              <MainPageMenu route={route} setRoute={setRoute} />
             </Layout.Sider>
-            <Layout.Content className={"dlayoutContent"}>
+            <Layout.Content className={'dlayoutContent'}>
               <Layout.Content>
                 <Switch>
                   {/* <Route exact path="/">
@@ -130,41 +130,34 @@ export const Main: FC = () => {
                     />
                   </Route>
                   <Route path="/swap">
-                    <ContentLayout title={"Swap"}
-                                   description={"Here you can swap different currencies"}/>
+                    <ContentLayout title={'Swap'} description={'Here you can swap different currencies'} />
                   </Route>
                   <Route path="/governance">
-                    <ContentLayout title={"Governance"}
-                                   description={"Here is the governance part"}/>
+                    <ContentLayout title={'Governance'} description={'Here is the governance part'} />
                   </Route>
                   <Route path="/loan">
-                    <ContentLayout title={"Loan"} description={"Here you can get a loan"}/>
+                    <ContentLayout title={'Loan'} description={'Here you can get a loan'} />
                   </Route>
                   <Route path="/dex">
-                    <ContentLayout title={"Decentralized Exchange"} description={""}/>
-
-
+                    <ContentLayout title={'Decentralized Exchange'} description={''} />
                   </Route>
                   <Route path="/airdrop">
-                    <ContentLayout title={"Airdrop"} description={""}/>
-
+                    <ContentLayout title={'Airdrop'} description={''} />
                   </Route>
                   <Route path="/">
-
                     <DashboardUI
                       mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
                       yourCurrentBalance={yourCurrentBalance}
                       price={ethPrice}
                     />
                   </Route>
-
                 </Switch>
               </Layout.Content>
             </Layout.Content>
           </BrowserRouter>
         </Layout>
       </Layout.Content>
-      <MainPageFooter scaffoldAppProviders={scaffoldAppProviders} price={ethPrice}/>
+      <MainPageFooter scaffoldAppProviders={scaffoldAppProviders} price={ethPrice} />
     </Layout>
   );
 };

@@ -1,6 +1,6 @@
-import {interestRatesEnum, ratings} from '~~/components/main/utils/utils';
-import {getMultiCallResults} from '~~/components/main/web3/multicall';
-import {useSignerAddress} from "eth-hooks";
+import { interestRatesEnum, ratings } from '~~/components/main/utils/utils';
+import { getMultiCallResults } from '~~/components/main/web3/multicall';
+import { useSignerAddress } from 'eth-hooks';
 
 /**
  * Multicall to get all the user's Nonce Ids
@@ -22,12 +22,12 @@ export const fetchBondsIds = async (
   });
   const results = await getMultiCallResults(classesOwned, debondBondContract, 'getNoncesPerAddress', provider, args);
   for (const [idx, _classId] of classesOwned.entries()) {
-    let _bondsPerClass = []
+    let _bondsPerClass = [];
 
     const arrayOfBonds = results[idx];
     for (const _bondId of arrayOfBonds) {
-      _bondsPerClass.push(_bondId)
-      bondsIds.push({classId: _classId, bondId: _bondId});
+      _bondsPerClass.push(_bondId);
+      bondsIds.push({ classId: _classId, bondId: _bondId });
     }
     bondsIdsMap.set(_classId.toString(), _bondsPerClass);
   }
@@ -46,15 +46,14 @@ export const fetchBondDetails = async (bondIds: any[], debondBondContract: any, 
   //const bondsMap:Map<string,any[]> =new  Map<string,any[]>();
 
   const args = bondIds?.map((bondInfos: any) => {
-    const {classId, bondId} = bondInfos;
+    const { classId, bondId } = bondInfos;
     return [classId.toString(), bondId.toString(), address];
   });
-  console.log(args)
+  console.log(args);
 
   const results = await getMultiCallResults(bondIds, debondBondContract, 'nonceDetails', provider, args);
   for (const [idx, _bond] of results.entries()) {
-
-    const progress = Math.min((Date.now() - _bond?._issuanceDate) / _bond?._periodTimestamp * 100, 100)
+    const progress = Math.min(((Date.now() - _bond?._issuanceDate) / _bond?._periodTimestamp) * 100, 100);
     const _bondInfos = {
       key: idx,
       maturityDate: _bond?._maturityDate,
@@ -67,21 +66,21 @@ export const fetchBondDetails = async (bondIds: any[], debondBondContract: any, 
         issuance: _bond?._issuanceDate,
         period: _bond?._periodTimestamp.toString(),
         maturity: _bond?._maturityDate,
-        progress: progress
+        progress: progress,
       },
-      redeem: {progress: progress, classId: args[idx][0], nonceId: args[idx][1], balance: _bond?._balance},
+      redeem: { progress: progress, classId: args[idx][0], nonceId: args[idx][1], balance: _bond?._balance },
       classId: args[idx][0],
       bondId: args[idx][1],
       balance: _bond?._balance,
       //mocked
-      issuer: "debond",
+      issuer: 'debond',
       typePeriod: {
         interestRateType: interestRatesEnum.get(_bond?._interestRateType.toString()),
-        period: _bond?._periodTimestamp.toString()
+        period: _bond?._periodTimestamp.toString(),
       },
       rating: ratings[idx % ratings.length],
       maturityCountdown: _bond?._maturityDate,
-    }
+    };
     bonds.push(_bondInfos);
   }
   return bonds;

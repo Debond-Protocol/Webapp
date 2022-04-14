@@ -12,44 +12,32 @@ import {
   PopulatedTransaction,
   Signer,
   utils,
-} from "ethers";
-import { FunctionFragment, Result } from "@ethersproject/abi";
-import { Listener, Provider } from "@ethersproject/providers";
-import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
+} from 'ethers';
+import { FunctionFragment, Result } from '@ethersproject/abi';
+import { Listener, Provider } from '@ethersproject/providers';
+import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
 export interface MigrationsInterface extends utils.Interface {
-  contractName: "Migrations";
+  contractName: 'Migrations';
   functions: {
-    "last_completed_migration()": FunctionFragment;
-    "owner()": FunctionFragment;
-    "setCompleted(uint256)": FunctionFragment;
+    'last_completed_migration()': FunctionFragment;
+    'owner()': FunctionFragment;
+    'setCompleted(uint256)': FunctionFragment;
   };
 
-  encodeFunctionData(
-    functionFragment: "last_completed_migration",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "setCompleted",
-    values: [BigNumberish]
-  ): string;
+  encodeFunctionData(functionFragment: 'last_completed_migration', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'owner', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'setCompleted', values: [BigNumberish]): string;
 
-  decodeFunctionResult(
-    functionFragment: "last_completed_migration",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "setCompleted",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'last_completed_migration', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setCompleted', data: BytesLike): Result;
 
   events: {};
 }
 
 export interface Migrations extends BaseContract {
-  contractName: "Migrations";
+  contractName: 'Migrations';
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -62,13 +50,9 @@ export interface Migrations extends BaseContract {
     toBlock?: string | number | undefined
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -100,10 +84,7 @@ export interface Migrations extends BaseContract {
 
     owner(overrides?: CallOverrides): Promise<string>;
 
-    setCompleted(
-      completed: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setCompleted(completed: BigNumberish, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {};
@@ -120,9 +101,7 @@ export interface Migrations extends BaseContract {
   };
 
   populateTransaction: {
-    last_completed_migration(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    last_completed_migration(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

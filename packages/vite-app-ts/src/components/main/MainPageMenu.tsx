@@ -14,7 +14,7 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
     }}
     selectedKeys={[props.route]}
     mode="vertical">
-    <Menu.Item key="/" icon={<img src={"./menu/dashboard.png"}/>}>
+    <Menu.Item key="/" icon={<img src={'./menu/dashboard.png'} />}>
       <Link
         onClick={(): void => {
           props.setRoute('/');
@@ -23,7 +23,7 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         Dashboard
       </Link>
     </Menu.Item>
-    <Menu.Item key="/bank" icon={<img src={"./menu/bond.png"}/>}>
+    <Menu.Item key="/bank" icon={<img src={'./menu/bond.png'} />}>
       <Link
         onClick={(): void => {
           props.setRoute('/bank');
@@ -32,7 +32,7 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         Bonds
       </Link>
     </Menu.Item>
-    <Menu.Item key="/governance" icon={<img src={"./menu/governance.png"}/>}>
+    <Menu.Item key="/governance" icon={<img src={'./menu/governance.png'} />}>
       <Link
         onClick={(): void => {
           props.setRoute('/governance');
@@ -41,7 +41,7 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         Ops governance
       </Link>
     </Menu.Item>
-    <Menu.Item key="/swap" icon={<img src={"./menu/swap.png"}/>}>
+    <Menu.Item key="/swap" icon={<img src={'./menu/swap.png'} />}>
       <Link
         onClick={(): void => {
           props.setRoute('/swap');
@@ -50,7 +50,7 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         Swap
       </Link>
     </Menu.Item>
-    <Menu.Item key="/wallet" icon={<img src={"./menu/wallet.png"}/>}>
+    <Menu.Item key="/wallet" icon={<img src={'./menu/wallet.png'} />}>
       <Link
         onClick={(): void => {
           props.setRoute('/wallet');
@@ -59,7 +59,7 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         Wallet
       </Link>
     </Menu.Item>
-    <Menu.Item key="/dex" icon={<img src={"./menu/exchange.png"}/>}>
+    <Menu.Item key="/dex" icon={<img src={'./menu/exchange.png'} />}>
       <Link
         onClick={(): void => {
           props.setRoute('/dex');
@@ -68,7 +68,7 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         Bond Exchange
       </Link>
     </Menu.Item>
-    <Menu.Item key="/loan" icon={<img src={"./menu/loan.png"}/>}>
+    <Menu.Item key="/loan" icon={<img src={'./menu/loan.png'} />}>
       <Link
         onClick={(): void => {
           props.setRoute('/loan');
@@ -77,7 +77,7 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         Loan
       </Link>
     </Menu.Item>
-    <Menu.Item key="/airdrop" icon={<img src={"./menu/airdrop.png"}/>}>
+    <Menu.Item key="/airdrop" icon={<img src={'./menu/airdrop.png'} />}>
       <Link
         onClick={(): void => {
           props.setRoute('/airdrop');
