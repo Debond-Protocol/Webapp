@@ -221,9 +221,7 @@ button {
     background-color: black!important;
 }
 
-.ant-tabs{
-    color:#7A7A7A;
-}
+
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
     color:#FFFFFF;
 }
@@ -234,6 +232,10 @@ button:disabled{
 }
 
 .ant-tabs{
-    margin: 5vh 0 20vh 0;
+    margin: 5vh 0 5vh 0!important;
     border-bottom: 3px #6c757d;
+}
+
+.stats-header .ant-statistic-content-value{
+    font-size: 22px;
 }
