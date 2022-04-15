@@ -17,7 +17,7 @@ export const getMultiCallResults0 = async (arr: number[], _contract: any, _funct
   for (const item of arr) {
     inputs.push({target: _address, function: _functionName, args: [item]});
   }
-  const [blockNumber, result] = await multi.multiCall(_interface , inputs);
+  const [blockNumber, result] = await multi.multiCall(_interface, inputs);
   return result;
 };
 
@@ -27,7 +27,7 @@ export const getMultiCallResults = async (
   _functionName: string,
   provider: any,
   args: any
-) => {
+): Promise<any[]> => {
   const multi = new MultiCall(provider);
   const _address = await _contract?.resolvedAddress;
   const _interface = await _contract?.interface as Interface;
@@ -38,6 +38,6 @@ export const getMultiCallResults = async (
     inputs.push({target: _address, function: _functionName, args: args[i]});
     i += 1;
   }
-  const [blockNumber, result] = await multi.multiCall(_interface , inputs);
+  const [blockNumber, result] = await multi.multiCall(_interface, inputs);
   return result;
 };
