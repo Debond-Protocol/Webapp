@@ -1,17 +1,17 @@
-import { Button, Card, Col, Divider, Form, InputNumber, Row, Slider, Statistic, Table, Tabs } from 'antd';
-import { formatEther } from '@ethersproject/units';
-import React, { FC, useContext, useEffect, useState } from 'react';
-import { approveTransaction, depositTransaction } from '~~/components/main/web3/tx';
-import { toStringArray } from '~~/components/main/utils/utils';
-import { transactor } from 'eth-components/functions';
-import { useAppContracts } from '~~/config/contractContext';
-import { useEthersContext } from 'eth-hooks/context';
-import { EthComponentsSettingsContext } from 'eth-components/models';
-import { useGasPrice, useSignerAddress } from 'eth-hooks';
-import { useTokenBalance } from 'eth-hooks/erc';
-import { BigNumber } from 'ethers';
-import { mapClassesToRow } from '~~/components/main/web3/classes';
-import { getTableColumns } from '~~/components/main/utils/tableColumns';
+import {Button, Card, Col, Divider, Form, InputNumber, Row, Slider, Statistic, Table, Tabs} from 'antd';
+import {formatEther} from '@ethersproject/units';
+import React, {FC, useContext, useEffect, useState} from 'react';
+import {approveTransaction, depositTransaction} from '~~/components/main/web3/tx';
+import {toStringArray} from '~~/components/main/utils/utils';
+import {transactor} from 'eth-components/functions';
+import {useAppContracts} from '~~/config/contractContext';
+import {useEthersContext} from 'eth-hooks/context';
+import {EthComponentsSettingsContext} from 'eth-components/models';
+import {useGasPrice, useSignerAddress} from 'eth-hooks';
+import {useTokenBalance} from 'eth-hooks/erc';
+import {BigNumber} from 'ethers';
+import {mapClassesToRow} from '~~/components/main/web3/classes';
+import {getTableColumns} from '~~/components/main/utils/tableColumns';
 
 export interface IPurchaseProps {
   selectedClass: any;
@@ -49,9 +49,9 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
   const [balanceDAI, ,] = useTokenBalance(daiContract!, address ?? '');
 
   const purchasableInfos = new Map<string, any>();
-  purchasableInfos.set('USDC', { balance: Number(formatEther(balanceUSDC)), contract: usdcContract, approved: false });
-  purchasableInfos.set('USDT', { balance: Number(formatEther(balanceUSDT)), contract: usdtContract, approved: false });
-  purchasableInfos.set('DAI', { balance: Number(formatEther(balanceDAI)), contract: daiContract, approved: false });
+  purchasableInfos.set('USDC', {balance: Number(formatEther(balanceUSDC)), contract: usdcContract, approved: false});
+  purchasableInfos.set('USDT', {balance: Number(formatEther(balanceUSDT)), contract: usdtContract, approved: false});
+  purchasableInfos.set('DAI', {balance: Number(formatEther(balanceDAI)), contract: daiContract, approved: false});
 
   //console.log(balance)
   const onChange = (inputValue: any) => {
@@ -70,7 +70,7 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
         })
       );
       const _filters = _purchasableClassIds.map((id) => {
-        return { text: _purchasableClasses.get(id).token, value: _purchasableClasses.get(id).token };
+        return {text: _purchasableClasses.get(id).token, value: _purchasableClasses.get(id).token};
       });
 
       setTableValues(Array.from(_purchasableClasses.values()));
@@ -84,9 +84,9 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
    * Approve the transaction
    */
   const approve = async () => {
-    if (!amountValue || amountValue<=0){
+    if (!amountValue || amountValue <= 0) {
       alert("Please select an amount.")
-      return ;
+      return;
     }
     const account: string = ethersContext?.account!;
     setLoading(true);
@@ -135,7 +135,7 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
     const account: string = ethersContext?.account!;
     await purchasableInfos
       .get(selectedPurchaseClass?.token)
-      ?.contract!.mint(account, BigNumber.from('100000000000000000000000'));
+      ?.contract!.mint(account, BigNumber.from('1000000000000000000000'));
   };
 
   /**
@@ -151,7 +151,7 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
 
   const selectedColumnsName = ['token', 'maturityCountdown', 'faceValue', 'apy'];
 
-  const tableColumns = getTableColumns({ tokenFilters, selectedColumnsName, faceValueFunction });
+  const tableColumns = getTableColumns({tokenFilters, selectedColumnsName, faceValueFunction});
 
   const selectRow = (record: any) => {
     setSelectedRowKeys([record.key]);
@@ -174,14 +174,14 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
   return (
     <>
       <Button
-        style={{ position: 'fixed', left: 40 }}
+        style={{position: 'fixed', left: 40}}
         onClick={async () => {
           await handleFaucet();
         }}>
         {'Get some ' + selectedPurchaseClass?.token + ' tokens'}{' '}
       </Button>
       <Tabs
-        style={{ width: '100%' }}
+        style={{width: '100%'}}
         activeKey={activeMethod}
         onChange={(activeKey) => {
           setActiveMethod(activeKey);
@@ -190,7 +190,7 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
           tab={'Staking ' + props.selectedClass?.token + ' Bond with ' + selectedPurchaseClass?.token}
           key="0"></Tabs.TabPane>
         <Tabs.TabPane
-          style={{ width: '50%' }}
+          style={{width: '50%'}}
           tab={'Buying ' + props.selectedClass?.token + ' Bond with ' + selectedPurchaseClass?.token}
           key="1"></Tabs.TabPane>
       </Tabs>
@@ -198,10 +198,10 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
       <Form
         name="getBondModal"
         layout="vertical"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        style={{ width: '100%', textAlign: 'center' }}
-        initialValues={{ period: '60' }}
+        labelCol={{span: 8}}
+        wrapperCol={{span: 16}}
+        style={{width: '100%', textAlign: 'center'}}
+        initialValues={{period: '60'}}
         form={form}
         //onFinish={onFinish}
         // onFinishFailed={onFinishFailed}
@@ -211,12 +211,14 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
             <div>
               <Table
                 bordered={true}
+                //rowClassName={"table-row-bordered"}
+                //className={"table-bordered"}
                 rowSelection={rowSelection}
                 columns={tableColumns.classColumns}
                 dataSource={tableValues}
                 pagination={false}
-                scroll={{ x: 30, y: 300 }}
-                style={{ width: '98%' }}
+                scroll={{x: 30, y: 300}}
+                style={{width: '100%'}}
                 onRow={(record) => ({
                   onClick: () => {
                     selectRow(record);
@@ -225,29 +227,29 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
               />
             </div>
           </Col>
-          <Col span={12} style={{ padding: '0px 50px 0 50px' }}>
-            <div style={{ width: '100%', textAlign: 'center' }}>
+          <Col span={12} style={{padding: '0px 50px 0 50px'}}>
+            <div style={{width: '100%', textAlign: 'center'}}>
               <div>
                 <Row gutter={24}>
                   <Col span={24}>
                     <Statistic
                       className={'stats-header'}
                       title="APY"
-                      valueStyle={{ fontSize: 32 }}
+                      valueStyle={{fontSize: 32}}
                       value={selectedPurchaseClass?.apy * 100 + '%'}
                     />
-                    <Divider style={{ margin: '6px 0px 24px 0px' }} />
+                    <Divider style={{margin: '6px 0px 24px 0px'}}/>
                   </Col>
                 </Row>
                 <Row gutter={16}>
                   <Col span={12}>
-                    <Statistic title="Period" value={props.selectedClass?.period + ' s'} />
+                    <Statistic title="Period" value={props.selectedClass?.period + ' s'}/>
                   </Col>
                   <Col span={12}>
-                    <Statistic title="Interest Type" value={props.selectedClass?.interestType} />
+                    <Statistic title="Interest Type" value={props.selectedClass?.interestType}/>
                   </Col>
                   <Col span={12}>
-                    <Statistic title="Token" value={props.selectedClass?.token} />
+                    <Statistic title="Token" value={props.selectedClass?.token}/>
                   </Col>
                   <Col span={12}>
                     <Statistic
@@ -259,8 +261,8 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
               </div>
 
               <Row gutter={24} align={'middle'}>
-                <Col span={24} style={{ textAlign: 'center' }}>
-                  <Divider plain style={{ fontSize: 13, color: 'rgba(255, 255, 255, 0.45)' }}>
+                <Col span={24} style={{textAlign: 'center'}}>
+                  <Divider plain style={{fontSize: 13, color: 'rgba(255, 255, 255, 0.45)'}}>
                     Change Value
                   </Divider>
                   <Slider
@@ -273,7 +275,7 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
                 </Col>
               </Row>
 
-              <Row gutter={24} style={{ marginTop: 20 }}>
+              <Row gutter={24} style={{marginTop: 20}}>
                 <Col span={8}>
                   <InputNumber
                     min={0}
@@ -281,7 +283,7 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
                     step={0.001}
                     value={amountValue}
                     onChange={onChange}
-                    prefix={<span style={{ fontSize: '8px' }}>{selectedPurchaseClass?.token}</span>}
+                    prefix={<span style={{fontSize: '8px'}}>{selectedPurchaseClass?.token}</span>}
                   />
                 </Col>
                 <Col span={8}>
@@ -303,7 +305,7 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
                     step={0.001}
                     value={amountValue}
                     disabled
-                    prefix={<span style={{ fontSize: '8px' }}>USD</span>}
+                    prefix={<span style={{fontSize: '8px'}}>USD</span>}
                   />
                 </Col>
               </Row>
@@ -312,7 +314,7 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
         </Row>
       </Form>
 
-      <div style={{ display: 'flex', justifyContent: 'center', margin: 70 }}>
+      <div style={{display: 'flex', justifyContent: 'center', margin: 70}}>
         {approved ? (
           <button className="dbutton" onClick={deposit}>
             Deposit

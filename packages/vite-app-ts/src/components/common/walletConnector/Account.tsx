@@ -114,7 +114,7 @@ export const Address: FC<IAddressProps> = ({ minimized = false, punkBlockie = fa
   );
    */
   const [collapsed, setCollapsed]: any[] = useState(false);
-  const columns = ['token', 'progress', 'balance'];
+  const columns = ['token', 'typePeriod', 'progress', 'balance'];
 
   const text = (
     <>

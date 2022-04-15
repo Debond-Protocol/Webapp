@@ -23,6 +23,7 @@ export interface DebondBondInterface extends utils.Interface {
     "DEFAULT_ADMIN_ROLE()": FunctionFragment;
     "ISSUER_ROLE()": FunctionFragment;
     "ONE_HOUR_PERIOD()": FunctionFragment;
+    "TWO_DAYS_PERIOD()": FunctionFragment;
     "_isActive()": FunctionFragment;
     "activeSupply(uint256,uint256)": FunctionFragment;
     "allowance(address,address,uint256,uint256)": FunctionFragment;
@@ -79,6 +80,10 @@ export interface DebondBondInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "ONE_HOUR_PERIOD",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "TWO_DAYS_PERIOD",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "_isActive", values?: undefined): string;
@@ -262,6 +267,10 @@ export interface DebondBondInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "ONE_HOUR_PERIOD",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "TWO_DAYS_PERIOD",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "_isActive", data: BytesLike): Result;
@@ -535,6 +544,8 @@ export interface DebondBond extends BaseContract {
     ISSUER_ROLE(overrides?: CallOverrides): Promise<[string]>;
 
     ONE_HOUR_PERIOD(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    TWO_DAYS_PERIOD(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     _isActive(overrides?: CallOverrides): Promise<[boolean]>;
 
@@ -828,6 +839,8 @@ export interface DebondBond extends BaseContract {
 
   ONE_HOUR_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
 
+  TWO_DAYS_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
+
   _isActive(overrides?: CallOverrides): Promise<boolean>;
 
   activeSupply(
@@ -1119,6 +1132,8 @@ export interface DebondBond extends BaseContract {
     ISSUER_ROLE(overrides?: CallOverrides): Promise<string>;
 
     ONE_HOUR_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
+
+    TWO_DAYS_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
 
     _isActive(overrides?: CallOverrides): Promise<boolean>;
 
@@ -1523,6 +1538,8 @@ export interface DebondBond extends BaseContract {
 
     ONE_HOUR_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
 
+    TWO_DAYS_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
+
     _isActive(overrides?: CallOverrides): Promise<BigNumber>;
 
     activeSupply(
@@ -1797,6 +1814,8 @@ export interface DebondBond extends BaseContract {
     ISSUER_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     ONE_HOUR_PERIOD(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    TWO_DAYS_PERIOD(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     _isActive(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

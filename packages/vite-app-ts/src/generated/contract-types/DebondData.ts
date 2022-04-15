@@ -23,6 +23,7 @@ export interface DebondDataInterface extends utils.Interface {
     "ONE_HOUR_PERIOD()": FunctionFragment;
     "SIX_M_PERIOD()": FunctionFragment;
     "TEST_PERIOD()": FunctionFragment;
+    "TWO_DAYS_PERIOD()": FunctionFragment;
     "TWO_MIN_PERIOD()": FunctionFragment;
     "addClass(uint256,string,uint8,address,uint256)": FunctionFragment;
     "classes(uint256)": FunctionFragment;
@@ -50,6 +51,10 @@ export interface DebondDataInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "TEST_PERIOD",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "TWO_DAYS_PERIOD",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -123,6 +128,10 @@ export interface DebondDataInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "TEST_PERIOD",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "TWO_DAYS_PERIOD",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -213,6 +222,8 @@ export interface DebondData extends BaseContract {
     SIX_M_PERIOD(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     TEST_PERIOD(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    TWO_DAYS_PERIOD(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     TWO_MIN_PERIOD(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -327,6 +338,8 @@ export interface DebondData extends BaseContract {
 
   TEST_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
 
+  TWO_DAYS_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
+
   TWO_MIN_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
 
   addClass(
@@ -436,6 +449,8 @@ export interface DebondData extends BaseContract {
     SIX_M_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
 
     TEST_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
+
+    TWO_DAYS_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
 
     TWO_MIN_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -553,6 +568,8 @@ export interface DebondData extends BaseContract {
 
     TEST_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
 
+    TWO_DAYS_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
+
     TWO_MIN_PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
 
     addClass(
@@ -634,6 +651,8 @@ export interface DebondData extends BaseContract {
     SIX_M_PERIOD(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     TEST_PERIOD(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    TWO_DAYS_PERIOD(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     TWO_MIN_PERIOD(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

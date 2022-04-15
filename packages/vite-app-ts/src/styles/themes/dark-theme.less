@@ -2,7 +2,7 @@
 
 //@primary-color: #403AF4;
 @primary-color: #403af4;
-@border-radius-base: 4px;
+@border-radius-base: 0px;
 
 @component-background: transparent;
 @body-background: #000000;
@@ -26,6 +26,7 @@
   @layout-body-background: linear-gradient(180deg, #16153d 0%, #000000 100%);
   background: linear-gradient(180deg, #16153d 0%, #000000 100%);
 }
+
 /*.highlight {
   background-color: #3f3f3f;
 }*/
@@ -40,4 +41,63 @@
 
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
   color: #fff;
+}
+
+.ant-menu-item .anticon + span {
+  margin-left: 0px;
+}
+
+.ant-btn:hover {
+  color: grey;
+}
+
+.ant-table {
+  border: 1px solid #4A4A4B !important;
+
+  & table {
+    border-collapse: collapse;
+  }
+}
+
+.ant-dropdown {
+  background: #000c17;
+}
+
+
+.ant-table.ant-table-bordered > .ant-table-container > .ant-table-body > table > tbody > tr > td,
+.ant-table.ant-table-bordered > .ant-table-container > .ant-table-header > table > thead > tr > th,
+.ant-table.ant-table-bordered > .ant-table-container > .ant-table-content > table > tbody > tr > td,
+.ant-table.ant-table-bordered > .ant-table-container > .ant-table-content > table > thead > tr > th{
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: #4A4A4B;
+  border-right: none;
+}
+
+.ant-table-expanded-row > .ant-table-cell > .ant-table.ant-table-bordered > .ant-table-container > .ant-table-body > table > tbody > tr > td,
+.ant-table-expanded-row .ant-table.ant-table-bordered > .ant-table-container > .ant-table-header > table > thead > tr > th,
+.ant-table-expanded-row .ant-table.ant-table-bordered > .ant-table-container > .ant-table-content > table > tbody > tr > td,
+.ant-table-expanded-row .ant-table.ant-table-bordered > .ant-table-container > .ant-table-content > table > thead > tr > th{
+border:none;
+}
+
+
+.ant-table-expanded-row .ant-table {
+  border: none!important;
+}
+
+button:disabled {
+  color: white !important;
+}
+
+button {
+  border-radius: 4px!important;
+}
+
+.ant-dropdown {
+  background: #16153D !important;
+}
+
+.ant-dropdown .ant-dropdown-menu-item:hover {
+  background: #0a0775 !important;
 }

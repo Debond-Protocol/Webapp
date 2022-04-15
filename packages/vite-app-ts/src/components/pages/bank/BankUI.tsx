@@ -9,7 +9,7 @@ import { useAppContracts } from '~~/config/contractContext';
 import '~~/styles/css/bank.css';
 import { toStringArray } from '~~/components/main/utils/utils';
 import { Purchase } from '~~/components/pages/bank/Purchase';
-import { DoubleLeftOutlined } from '@ant-design/icons/lib';
+import {DoubleLeftOutlined, LeftOutlined} from '@ant-design/icons/lib';
 import { getTableColumns } from '~~/components/main/utils/tableColumns';
 import ContentLayout from '~~/components/main/layout/ContentLayout';
 import { Route } from 'react-router-dom';
@@ -92,7 +92,7 @@ export const BankUI: FC<IBankUIProps> = (props) => {
   const steps = [
     {
       title: 'Choose Bond type',
-      content: <Table columns={tableColumns.classColumns} dataSource={tableValues} />,
+      content: <Table bordered={true} columns={tableColumns.classColumns} dataSource={tableValues} />,
     },
     {
       title: 'Buy/Stake Bond',
@@ -124,7 +124,7 @@ export const BankUI: FC<IBankUIProps> = (props) => {
       </Steps>
 
       <div className="steps-action">
-        {current > 0 && <Button icon={<DoubleLeftOutlined />} style={{ margin: '0 8px' }} onClick={() => prev()} />}
+        {current > 0 && <Button icon={<DoubleLeftOutlined />}  style={{ margin: '0 8px' }} onClick={() => prev()} />}
       </div>
       <div className="steps-content">{steps[current].content}</div>
     </ContentLayout>

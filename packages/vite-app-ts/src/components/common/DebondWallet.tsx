@@ -111,6 +111,7 @@ export const DebondWallet = (props: any) => {
 
     return (
       <Table
+        className={"table-bordered"}
         bordered={false}
         columns={tableColumns.bondColumns}
         dataSource={_bonds}
@@ -122,6 +123,8 @@ export const DebondWallet = (props: any) => {
 
   return (
     <Table
+      bordered={true}
+      className={"table-bordered"}
       columns={tableColumns.classColumns}
       dataSource={tableClasses}
       expandedRowRender={expandRowRenderer}
