@@ -32,6 +32,12 @@ export interface IDashboardUIProps {
   price: number;
 }
 
+/**
+ * Dashboard view
+ * Show useful metrics for the user
+ * @param props: props
+ * @constructor
+ */
 export const DashboardUI: FC<IDashboardUIProps> = (props) => {
   const ethersContext = useEthersContext();
   const freqInDays = 15;

@@ -20,6 +20,12 @@ export interface IBankUIProps {
   price: number;
 }
 
+/**
+ * Bank page
+ * Show all classes and allow the bond purchase
+ * @param props: props
+ * @constructor
+ */
 export const BankUI: FC<IBankUIProps> = (props) => {
   const ethersContext = useEthersContext();
   const provider = ethersContext.provider!;

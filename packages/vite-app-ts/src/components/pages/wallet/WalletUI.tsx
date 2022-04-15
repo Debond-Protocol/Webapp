@@ -10,6 +10,11 @@ export interface IWalletUIProps {
   price: number;
 }
 
+/**
+ * Wallet view showing user's assets
+ * @param props
+ * @constructor
+ */
 export const WalletUI: FC<IWalletUIProps> = (props) => {
   const columns = ['issuer', 'token', 'rating', 'typePeriod', 'balance', 'maturityCountdown', 'progress', 'redeem'];
 

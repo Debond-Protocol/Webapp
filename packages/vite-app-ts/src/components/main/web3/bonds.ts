@@ -3,10 +3,10 @@ import {getMultiCallResults} from '~~/components/main/web3/multicall';
 
 /**
  * Multicall to get all the user's Nonce Ids
- * @param classesOwned
- * @param debondBondContract
- * @param address
- * @param provider
+ * @param classesOwned: classes owned by the user
+ * @param debondBondContract: Bond contract
+ * @param address: address
+ * @param provider: provider
  */
 export const fetchBondsIds = async (
   classesOwned: number[],
@@ -81,7 +81,6 @@ export const fetchBondDetails = async (bondIds: number[], debondBondContract: an
     };
     bonds.push(_bondInfos);
   }
-  //console.log(bonds)
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return bonds;
 };

@@ -3,10 +3,10 @@ import {Interface} from "@ethersproject/abi";
 
 /**
  * Multicall
- * @param arr
- * @param _contract
- * @param _functionName
- * @param provider
+ * @param arr: array of inputs to call
+ * @param _contract: contract to call
+ * @param _functionName: name of the function of the contract
+ * @param provider: provider
  */
 export const getMultiCallResults0 = async (arr: number[], _contract: any, _functionName: string, provider: any): Promise<any[]> => {
   const multi = new MultiCall(provider);
@@ -17,10 +17,19 @@ export const getMultiCallResults0 = async (arr: number[], _contract: any, _funct
   for (const item of arr) {
     inputs.push({target: _address, function: _functionName, args: [item]});
   }
-  const [blockNumber, result] = await multi.multiCall(_interface, inputs);
+  const [blockNumber, result]: [number, any[]] = await multi.multiCall(_interface, inputs);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return result;
 };
 
+/**
+ *  Get multicall results
+ * @param arr: inputs array
+ * @param _contract contract to call
+ * @param _functionName: name of the function to call
+ * @param provider: eth provider
+ * @param args: args to send to the contract
+ */
 export const getMultiCallResults = async (
   arr: number[],
   _contract: any,
@@ -39,5 +48,6 @@ export const getMultiCallResults = async (
     i += 1;
   }
   const [blockNumber, result] = await multi.multiCall(_interface, inputs);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return result;
 };

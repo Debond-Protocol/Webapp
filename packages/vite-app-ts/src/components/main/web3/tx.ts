@@ -1,6 +1,15 @@
 import {parseEther} from '@ethersproject/units';
 import {BigNumberish} from 'ethers';
 
+/**
+ * Function to buy/stake bond
+ * @param purchaseTokenAmount: amount to deposit
+ * @param debondTokenClassId: debond token id
+ * @param purchaseTokenClassId: purchase token id
+ * @param method: method (buy/stake)
+ * @param tx: transactor
+ * @param bankContract: bank contract
+ */
 export const depositTransaction = (
   purchaseTokenAmount: number,
   debondTokenClassId: string,
@@ -8,7 +17,7 @@ export const depositTransaction = (
   method: string,
   tx: any,
   bankContract: any
-): any[] => {
+): any => {
 
   const _debondTokenMinAmount = parseEther('0');
   const _purchaseTokenAmount = parseEther(purchaseTokenAmount.toString());
@@ -36,10 +45,15 @@ export const depositTransaction = (
     }
   );
   return result;
-  /* console.log(infos);*/
-  /* await bankContract?.buyBond(_purchaseTokenClassId, _debondTokenClassId, _purchaseTokenAmount, _debondTokenMinAmount, _method);*/
 };
 
+/**
+ * Approve first transaction calling the token contract
+ * @param amount: amount to approve
+ * @param tx: transactor
+ * @param tokenContract: contract of the token
+ * @param spender: address of the spender
+ */
 export const approveTransaction = (amount: number, tx: any, tokenContract: any, spender: any): any => {
   const purchaseAmount = parseEther(amount.toString());
   //const l = await tokenContract?.approve(spender, purchaseAmount);
@@ -49,21 +63,22 @@ export const approveTransaction = (amount: number, tx: any, tokenContract: any, 
   return result;
 };
 
+/**
+ * Function to redeem Bond
+ * @param amount: amount to redeem
+ * @param classId: id of the class
+ * @param nonceId: id of the nonce
+ * @param tx: transactor
+ * @param bankContract: bank contract to call
+ */
 export const redeemTransaction = (
   amount: BigNumberish,
   classId: number,
   nonceId: number,
   tx: any,
   bankContract: any
-) => {
-  //const _amount = parseEther(amount.toString()).toHexString();
-  //console.log(parseEther(amount.toString()).toString())
-  console.log(amount);
-  console.log(amount.toString());
-  console.log(classId);
-  console.log(nonceId);
+): any => {
 
-  //const l = await tokenContract?.approve(spender, purchaseAmount);
   const result = tx?.(bankContract?.redeemBonds(classId, nonceId, amount), (update: any) => {
     console.log('📡 Transaction Update:', update);
   });

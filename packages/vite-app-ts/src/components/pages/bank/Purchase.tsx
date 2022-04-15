@@ -17,6 +17,12 @@ export interface IPurchaseProps {
   classes: any;
 }
 
+/**
+ * Purchase view for the bank page
+ * Allow to buy and stake bonds given ERC20
+ * @param props: properties from the bank
+ * @constructor
+ */
 export const Purchase: FC<IPurchaseProps> = (props) => {
   const [form] = Form.useForm();
 
