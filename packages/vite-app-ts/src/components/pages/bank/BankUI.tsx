@@ -1,18 +1,18 @@
-import { StaticJsonRpcProvider } from '@ethersproject/providers';
-import { Button, Layout, Steps, Table } from 'antd';
-import { useEthersContext } from 'eth-hooks/context';
-import { BigNumber } from 'ethers';
-import React, { FC, useEffect, useState } from 'react';
+import {StaticJsonRpcProvider} from '@ethersproject/providers';
+import {Button, Layout, Steps, Table} from 'antd';
+import {useEthersContext} from 'eth-hooks/context';
+import {BigNumber} from 'ethers';
+import React, {FC, useEffect, useState} from 'react';
 
-import { getAllClasses, mapClassesToRow } from '~~/components/main/web3/classes';
-import { useAppContracts } from '~~/config/contractContext';
+import {getAllClasses, mapClassesToRow} from '~~/components/main/web3/classes';
+import {useAppContracts} from '~~/config/contractContext';
 import '~~/styles/css/bank.css';
-import { toStringArray } from '~~/components/main/utils/utils';
-import { Purchase } from '~~/components/pages/bank/Purchase';
+import {toStringArray} from '~~/components/main/utils/utils';
+import {Purchase} from '~~/components/pages/bank/Purchase';
 import {DoubleLeftOutlined, LeftOutlined} from '@ant-design/icons/lib';
-import { getTableColumns } from '~~/components/main/utils/tableColumns';
+import {getTableColumns} from '~~/components/main/utils/tableColumns';
 import ContentLayout from '~~/components/main/layout/ContentLayout';
-import { Route } from 'react-router-dom';
+import {Route} from 'react-router-dom';
 
 export interface IBankUIProps {
   mainnetProvider: StaticJsonRpcProvider | undefined;
@@ -22,7 +22,7 @@ export interface IBankUIProps {
 
 export const BankUI: FC<IBankUIProps> = (props) => {
   const ethersContext = useEthersContext();
-  const provider = ethersContext!.provider!;
+  const provider = ethersContext.provider!;
 
   const debondDataContract = useAppContracts('DebondData', ethersContext.chainId);
 
@@ -34,19 +34,19 @@ export const BankUI: FC<IBankUIProps> = (props) => {
   const [tokenFilters, setTokenFilters]: any[] = useState([]);
 
   useEffect(() => {
-    async function _init() {
+    async function _init(): Promise<void> {
       const _allClasses = await getAllClasses(debondDataContract, provider);
       const [classesMap] = mapClassesToRow(_allClasses);
       setAllClasses(classesMap);
 
-      const _debondClassesIds = toStringArray(await debondDataContract?.getDebondClasses()!);
+      const _debondClassesIds = toStringArray(await debondDataContract!.getDebondClasses()!);
       const _debondClasses = new Map(
         [...classesMap].filter(([k]) => {
-          return _debondClassesIds!.includes(k);
+          return _debondClassesIds.includes(k as string);
         })
       );
       const _filters = _debondClassesIds.map((id) => {
-        return { text: classesMap.get(id).token, value: classesMap.get(id).token };
+        return {text: classesMap.get(id).token, value: classesMap.get(id).token};
       });
       setDebondClasses(_debondClasses);
 
@@ -56,28 +56,38 @@ export const BankUI: FC<IBankUIProps> = (props) => {
     }
 
     if (provider && debondDataContract) {
-      _init();
+      void _init();
     }
   }, [provider, debondDataContract]);
+
+  const [current, setCurrent] = useState(0);
+
+  const next = (): void => {
+    setCurrent(current + 1);
+  };
+
+  const prev = (): void => {
+    setCurrent(current - 1);
+  };
 
   /**
    * Handle clicking on get bonds button
    * @param infos: infos from the chosen bond class
    */
-  const handleGetBonds = async (infos: any) => {
-    const purchasableClassIds = await debondDataContract?.getPurchasableClasses(infos.classId);
+  const handleGetBonds = async (infos: any): Promise<void> => {
+    const purchasableClassIds = await debondDataContract?.getPurchasableClasses(infos.classId as BigNumber);
 
     const _symbols = purchasableClassIds?.map((id) => {
-      return { key: id.toString(), value: allClasses.get(id.toString()).token };
+      return {key: id.toString(), value: allClasses.get(id.toString()).token};
     });
     setSymbols(_symbols);
     setSelectedClass(allClasses.get(infos.classId.toString()));
   };
 
-  const selectBondFunction = (infos: any) => (
+  const selectBondFunction = (infos: any): any => (
     <div>
       <Button
-        onClick={async () => {
+        onClick={async (): Promise<void> => {
           await handleGetBonds(infos);
           next();
         }}>
@@ -87,28 +97,19 @@ export const BankUI: FC<IBankUIProps> = (props) => {
   );
 
   const selectedColumnsName = ['issuer', 'typePeriod', 'rating', 'token', 'apy', 'maturityCountdown', 'selectBond'];
-  const tableColumns = getTableColumns({ selectedColumnsName, tokenFilters, selectBondFunction });
+  const tableColumns = getTableColumns({selectedColumnsName, tokenFilters, selectBondFunction});
 
   const steps = [
     {
       title: 'Choose Bond type',
-      content: <Table bordered={true} columns={tableColumns.classColumns} dataSource={tableValues} />,
+      content: <Table bordered={true} columns={tableColumns.classColumns} dataSource={tableValues}/>,
     },
     {
       title: 'Buy/Stake Bond',
-      content: <Purchase classes={allClasses} selectedClass={selectedClass} />,
+      content: <Purchase classes={allClasses} selectedClass={selectedClass}/>,
     },
   ];
 
-  const [current, setCurrent] = useState(0);
-
-  const next = () => {
-    setCurrent(current + 1);
-  };
-
-  const prev = () => {
-    setCurrent(current - 1);
-  };
 
   return (
     <ContentLayout
@@ -119,12 +120,12 @@ export const BankUI: FC<IBankUIProps> = (props) => {
       }>
       <Steps current={current}>
         {steps.map((item) => (
-          <Steps.Step key={item.title} title={item.title} />
+          <Steps.Step key={item.title} title={item.title}/>
         ))}
       </Steps>
 
       <div className="steps-action">
-        {current > 0 && <Button icon={<DoubleLeftOutlined />}  style={{ margin: '0 8px' }} onClick={() => prev()} />}
+        {current > 0 && <Button icon={<DoubleLeftOutlined/>} style={{margin: '0 8px'}} onClick={(): void => prev()}/>}
       </div>
       <div className="steps-content">{steps[current].content}</div>
     </ContentLayout>

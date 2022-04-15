@@ -1,7 +1,5 @@
 import {interestRatesEnum, ratings} from '~~/components/main/utils/utils';
 import {getMultiCallResults} from '~~/components/main/web3/multicall';
-import {useSignerAddress} from 'eth-hooks';
-import moment from "moment";
 
 /**
  * Multicall to get all the user's Nonce Ids
@@ -18,12 +16,12 @@ export const fetchBondsIds = async (
 ): Promise<[any[], Map<string, any[]>]> => {
   const bondsIds: any[] = [];
   const bondsIdsMap: Map<string, any[]> = new Map<string, any[]>();
-  const args = classesOwned?.map((classId: any) => {
-    return [address, classId];
+  const args = classesOwned?.map((classId: any): string[] => {
+    return [address, classId] as string[];
   });
   const results = await getMultiCallResults(classesOwned, debondBondContract, 'getNoncesPerAddress', provider, args);
   for (const [idx, _classId] of classesOwned.entries()) {
-    let _bondsPerClass = [];
+    const _bondsPerClass = [];
 
     const arrayOfBonds = results[idx];
     for (const _bondId of arrayOfBonds) {
@@ -42,13 +40,13 @@ export const fetchBondsIds = async (
  * @param provider: provider
  * @param args: list of args to send to the multicall
  */
-export const fetchBondDetails = async (bondIds: any[], debondBondContract: any, provider: any, address: any) => {
+export const fetchBondDetails = async (bondIds: number[], debondBondContract: any, provider: any, address: any): Promise<any[]> => {
   const bonds: any[] = [];
   //const bondsMap:Map<string,any[]> =new  Map<string,any[]>();
 
-  const args = bondIds?.map((bondInfos: any) => {
+  const args = bondIds?.map((bondInfos: any): string[] => {
     const {classId, bondId} = bondInfos;
-    return [classId.toString(), bondId.toString(), address];
+    return [classId.toString(), bondId.toString(), address] as string[];
   });
 
   const results = await getMultiCallResults(bondIds, debondBondContract, 'nonceDetails', provider, args);
@@ -59,7 +57,7 @@ export const fetchBondDetails = async (bondIds: any[], debondBondContract: any, 
       maturityDate: _bond?._maturityDate,
       //balance: _bond?.balance.toString(),
       symbol: _bond?._symbol,
-      interestRateType: interestRatesEnum.get(_bond?._interestRateType.toString()),
+      interestRateType: interestRatesEnum.get(_bond?._interestRateType.toString() as string),
       period: _bond?._periodTimestamp,
       issuanceDate: _bond?._issuanceDate.toString(),
       progress: {
@@ -75,7 +73,7 @@ export const fetchBondDetails = async (bondIds: any[], debondBondContract: any, 
       //mocked
       issuer: 'debond',
       typePeriod: {
-        interestRateType: interestRatesEnum.get(_bond?._interestRateType.toString()),
+        interestRateType: interestRatesEnum.get(_bond?._interestRateType.toString() as string),
         period: _bond?._periodTimestamp.toString(),
       },
       rating: ratings[idx % ratings.length],
@@ -84,5 +82,6 @@ export const fetchBondDetails = async (bondIds: any[], debondBondContract: any, 
     bonds.push(_bondInfos);
   }
   //console.log(bonds)
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return bonds;
 };

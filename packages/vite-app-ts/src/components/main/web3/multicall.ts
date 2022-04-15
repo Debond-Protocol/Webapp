@@ -1,4 +1,5 @@
-import { MultiCall } from '@indexed-finance/multicall';
+import {MultiCall} from '@indexed-finance/multicall';
+import {Interface} from "@ethersproject/abi";
 
 /**
  * Multicall
@@ -7,16 +8,16 @@ import { MultiCall } from '@indexed-finance/multicall';
  * @param _functionName
  * @param provider
  */
-export const getMultiCallResults0 = async (arr: number[], _contract: any, _functionName: string, provider: any) => {
+export const getMultiCallResults0 = async (arr: number[], _contract: any, _functionName: string, provider: any): Promise<any[]> => {
   const multi = new MultiCall(provider);
-  const _address = await _contract?.resolvedAddress!;
-  const _interface = await _contract?.interface!;
+  const _address = await _contract?.resolvedAddress;
+  const _interface = await _contract?.interface as Interface;
 
   const inputs = [];
   for (const item of arr) {
-    inputs.push({ target: _address, function: _functionName, args: [item] });
+    inputs.push({target: _address, function: _functionName, args: [item]});
   }
-  const [blockNumber, result] = await multi.multiCall(_interface, inputs);
+  const [blockNumber, result] = await multi.multiCall(_interface , inputs);
   return result;
 };
 
@@ -28,15 +29,15 @@ export const getMultiCallResults = async (
   args: any
 ) => {
   const multi = new MultiCall(provider);
-  const _address = await _contract?.resolvedAddress!;
-  const _interface = await _contract?.interface!;
+  const _address = await _contract?.resolvedAddress;
+  const _interface = await _contract?.interface as Interface;
 
   const inputs = [];
   let i = 0;
   for (const item of arr) {
-    inputs.push({ target: _address, function: _functionName, args: args[i] });
+    inputs.push({target: _address, function: _functionName, args: args[i]});
     i += 1;
   }
-  const [blockNumber, result] = await multi.multiCall(_interface, inputs);
+  const [blockNumber, result] = await multi.multiCall(_interface , inputs);
   return result;
 };

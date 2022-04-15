@@ -8,9 +8,9 @@ import {BigNumber} from 'ethers';
  * @param debondDataContract: DebondData smart contract
  * @param provider: provider
  */
-export const getAllClasses = async (debondDataContract: any, provider: any) => {
+export const getAllClasses = async (debondDataContract: any, provider: any): Promise<Map<string, any>> => {
   const allClasses = new Map<string, any>();
-  const classIds = await debondDataContract?.getAllClassesIds()!;
+  const classIds = await debondDataContract?.getAllClassesIds() as number[];
   //temporary
   const results = await getMultiCallResults0(classIds, debondDataContract, 'getClassFromId', provider);
   for (const [idx, _classId] of classIds.entries()) {
@@ -18,7 +18,7 @@ export const getAllClasses = async (debondDataContract: any, provider: any) => {
     const _class = {
       id: _classId,
       token: classInfos.symbol,
-      interestType: interestRatesEnum.get(classInfos.interestRateType.toString()),
+      interestType: interestRatesEnum.get(classInfos.interestRateType.toString() as string),
       period: classInfos.periodTimestamp,
       maturityDate: BigNumber.from(
         moment()
@@ -39,7 +39,7 @@ export const getAllClasses = async (debondDataContract: any, provider: any) => {
 export const mapClassesToRow = (classes: any): any[] => {
   const _filters: any[] = [];
   const _values: any[] = [];
-  let classesMap = new Map<string, any>();
+  const classesMap = new Map<string, any>();
 
   let idx = 0;
   for (const [_classId, _class] of classes) {
@@ -61,7 +61,7 @@ export const mapClassesToRow = (classes: any): any[] => {
       value: {apy: apys[idx % apys.length]},
       maturityCountdown: _class.maturityDate,
     };
-    classesMap.set(_classId, classInfos);
+    classesMap.set(_classId as string, classInfos);
     _values.push(classInfos);
 
     _filters.push({text: _class.token, value: _class.token});
