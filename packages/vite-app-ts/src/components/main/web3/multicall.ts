@@ -1,5 +1,5 @@
-import {MultiCall} from '@indexed-finance/multicall';
-import {Interface} from "@ethersproject/abi";
+import { Interface } from '@ethersproject/abi';
+import { MultiCall } from '@indexed-finance/multicall';
 
 /**
  * Multicall
@@ -8,14 +8,19 @@ import {Interface} from "@ethersproject/abi";
  * @param _functionName: name of the function of the contract
  * @param provider: provider
  */
-export const getMultiCallResults0 = async (arr: number[], _contract: any, _functionName: string, provider: any): Promise<any[]> => {
+export const getMultiCallResults0 = async (
+  arr: number[],
+  _contract: any,
+  _functionName: string,
+  provider: any
+): Promise<any[]> => {
   const multi = new MultiCall(provider);
   const _address = await _contract?.resolvedAddress;
-  const _interface = await _contract?.interface as Interface;
+  const _interface = (await _contract?.interface) as Interface;
 
   const inputs = [];
   for (const item of arr) {
-    inputs.push({target: _address, function: _functionName, args: [item]});
+    inputs.push({ target: _address, function: _functionName, args: [item] });
   }
   const [blockNumber, result]: [number, any[]] = await multi.multiCall(_interface, inputs);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
@@ -39,12 +44,12 @@ export const getMultiCallResults = async (
 ): Promise<any[]> => {
   const multi = new MultiCall(provider);
   const _address = await _contract?.resolvedAddress;
-  const _interface = await _contract?.interface as Interface;
+  const _interface = (await _contract?.interface) as Interface;
 
   const inputs = [];
   let i = 0;
   for (const item of arr) {
-    inputs.push({target: _address, function: _functionName, args: args[i]});
+    inputs.push({ target: _address, function: _functionName, args: args[i] });
     i += 1;
   }
   const [blockNumber, result] = await multi.multiCall(_interface, inputs);

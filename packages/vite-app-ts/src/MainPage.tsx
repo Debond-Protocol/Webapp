@@ -13,7 +13,8 @@ import { useScaffoldHooksExamples as useScaffoldHooksExamples } from './componen
 
 import { useBurnerFallback } from '~~/components/main/hooks/useBurnerFallback';
 import { useScaffoldProviders as useScaffoldAppProviders } from '~~/components/main/hooks/useScaffoldAppProviders';
-//import { Hints, ExampleUI } from '~~/components/pages';
+// import { Hints, ExampleUI } from '~~/components/pages';
+import ContentLayout from '~~/components/main/layout/ContentLayout';
 import { BankUI } from '~~/components/pages/bank/BankUI';
 import { DashboardUI } from '~~/components/pages/dashboard/DashboardUI';
 import { WalletUI } from '~~/components/pages/wallet/WalletUI';
@@ -21,7 +22,6 @@ import { BURNER_FALLBACK_ENABLED, MAINNET_PROVIDER } from '~~/config/appConfig';
 import { useAppContracts, useConnectAppContracts, useLoadAppContracts } from '~~/config/contractContext';
 
 import { Layout } from 'antd';
-import ContentLayout from '~~/components/main/layout/ContentLayout';
 
 /**
  * ⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️

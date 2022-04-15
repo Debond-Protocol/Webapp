@@ -15,6 +15,7 @@ export const useBalances = (contracts: Map<string, any>): Map<string, any> => {
   useEffect(() => {
     const _tokenBalances = new Map<string, any>();
     contracts.forEach((contract, name) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const balance = useTokenBalance(contract, address!);
       _tokenBalances.set(name, balance);
     });

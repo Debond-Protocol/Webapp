@@ -1,10 +1,10 @@
-import {BigNumberish} from '@ethersproject/bignumber';
-import {formatEther} from '@ethersproject/units';
-import {Button, Progress} from 'antd';
+import { BigNumberish } from '@ethersproject/bignumber';
+import { formatEther } from '@ethersproject/units';
+import { Button, Progress } from 'antd';
 import moment from 'moment';
 import React from 'react';
 
-import {issuerMap} from '~~/components/main/utils/utils';
+import { issuerMap } from '~~/components/main/utils/utils';
 
 export interface ITableColumnsProps {
   selectedColumnsName: string[];
@@ -15,7 +15,7 @@ export interface ITableColumnsProps {
 }
 
 const styles = {
-  issuerImg: {width: 16},
+  issuerImg: { width: 16 },
 };
 
 /**
@@ -32,17 +32,17 @@ export const getBondColumns = (redeem: any): any => {
       return (
         <span>
           <b>
-            <img style={styles.issuerImg} src={`/issuer/${issuerMap.get(_issuer)}.png`}/>
+            <img style={styles.issuerImg} src={`/issuer/${issuerMap.get(_issuer)}.png`} />
           </b>
         </span>
       );
     },
   });
-  columnsBond.set('rating', {title: 'Rating', dataIndex: 'rating', key: 'rating'});
-  columnsBond.set('token', {title: 'Token', dataIndex: 'symbol', key: 'token'});
+  columnsBond.set('rating', { title: 'Rating', dataIndex: 'rating', key: 'rating' });
+  columnsBond.set('token', { title: 'Token', dataIndex: 'symbol', key: 'token' });
   // columnsBond.set("amount", {title: 'Amount', dataIndex: 'balance', key: 'amount',})
-  columnsBond.set('interest', {title: 'Interest Type', dataIndex: 'interestRateType', key: 'interest'});
-  columnsBond.set('apy', {title: 'APY', dataIndex: 'apy', key: 'apy'});
+  columnsBond.set('interest', { title: 'Interest Type', dataIndex: 'interestRateType', key: 'interest' });
+  columnsBond.set('apy', { title: 'APY', dataIndex: 'apy', key: 'apy' });
   columnsBond.set('typePeriod', {
     title: 'Bond',
     dataIndex: 'typePeriod',
@@ -84,7 +84,7 @@ export const getBondColumns = (redeem: any): any => {
     render: (infos: any) => {
       return (
         <div>
-          <Progress percent={infos.progress.toFixed(0)} showInfo={true}/>
+          <Progress percent={infos.progress.toFixed(0)} showInfo={true} />
         </div>
       );
     },
@@ -137,7 +137,12 @@ export const getBondColumns = (redeem: any): any => {
  * @param selectBondFunction: selecting bond function
  * @param faceValueFunction: function for the face value
  */
-export const getClassColumns = (tokenFilters: any[], onFilter: any, selectBondFunction: any, faceValueFunction: any): any => {
+export const getClassColumns = (
+  tokenFilters: any[],
+  onFilter: any,
+  selectBondFunction: any,
+  faceValueFunction: any
+): any => {
   const columns = new Map<string, any>();
   columns.set('token', {
     title: 'Asset',
@@ -155,7 +160,7 @@ export const getClassColumns = (tokenFilters: any[], onFilter: any, selectBondFu
       return (
         <span>
           <b>
-            <img style={styles.issuerImg} src={`/issuer/${issuerMap.get(_issuer)}.png`}/>
+            <img style={styles.issuerImg} src={`/issuer/${issuerMap.get(_issuer)}.png`} />
           </b>
         </span>
       );
@@ -169,14 +174,14 @@ export const getClassColumns = (tokenFilters: any[], onFilter: any, selectBondFu
       // const progress= Math.min((Date.now() - infos.issuance)/infos.period*100,100)
       return (
         <div>
-          <Progress percent={progress.toFixed(0)} showInfo={true}/>
+          <Progress percent={progress.toFixed(0)} showInfo={true} />
         </div>
       );
     },
   });
-  columns.set('issuanceDate', {title: 'Issuance Date', dataIndex: 'issuanceDate', key: 'issuanceDate'});
-  columns.set('interest', {title: 'Interest Type', dataIndex: 'interestType', key: 'interest'});
-  columns.set('rating', {title: 'Rating', dataIndex: 'rating', key: 'rating'});
+  columns.set('issuanceDate', { title: 'Issuance Date', dataIndex: 'issuanceDate', key: 'issuanceDate' });
+  columns.set('interest', { title: 'Interest Type', dataIndex: 'interestType', key: 'interest' });
+  columns.set('rating', { title: 'Rating', dataIndex: 'rating', key: 'rating' });
   columns.set('maturityCountdown', {
     title: 'Maturity in',
     dataIndex: 'maturityCountdown',
@@ -192,7 +197,7 @@ export const getClassColumns = (tokenFilters: any[], onFilter: any, selectBondFu
     key: 'period',
     sorter: (a: any, b: any) => a.period - b.period,
   });
-  columns.set('redeem', {title: 'Redeem', dataIndex: 'redeem', key: 'redeem'});
+  columns.set('redeem', { title: 'Redeem', dataIndex: 'redeem', key: 'redeem' });
   columns.set('balance', {
     title: 'Balance',
     dataIndex: 'balance',
@@ -231,14 +236,14 @@ export const getClassColumns = (tokenFilters: any[], onFilter: any, selectBondFu
     render: faceValueFunction,
   });
   return columns;
-}
+};
 
 /**
  * Get classes and bonds columns for antd tables
  * @param props: functions and parameters necessary for table columns
  */
 export const getTableColumns = (props: ITableColumnsProps): any => {
-  const {selectedColumnsName, tokenFilters, redeem, selectBondFunction, faceValueFunction} = props;
+  const { selectedColumnsName, tokenFilters, redeem, selectBondFunction, faceValueFunction } = props;
   const width = `${100 / selectedColumnsName.length}%`;
 
   // width: string, tokenFilters: any, _functions:any
@@ -263,5 +268,5 @@ export const getTableColumns = (props: ITableColumnsProps): any => {
     return col;
   });
 
-  return {classColumns: selectedClassColumns, bondColumns: selectedNonceColumns};
+  return { classColumns: selectedClassColumns, bondColumns: selectedNonceColumns };
 };

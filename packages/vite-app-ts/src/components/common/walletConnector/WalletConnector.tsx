@@ -1,5 +1,6 @@
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { Button } from 'antd';
+import { Balance, Wallet } from 'eth-components/ant';
 import { useSignerAddress } from 'eth-hooks';
 import { useEthersContext, useBlockNumberContext } from 'eth-hooks/context';
 import { TCreateEthersModalConnector } from 'eth-hooks/models';
@@ -9,10 +10,10 @@ import { useThemeSwitcher } from 'react-css-theme-switcher';
 import { invariant } from 'ts-invariant';
 import { useDebounce } from 'use-debounce';
 import { useIsMounted } from 'usehooks-ts';
-import { Balance, Wallet } from 'eth-components/ant';
+
 import { Address } from '~~/components/common/walletConnector/Account';
 
-//import { Address, Balance, Wallet } from '.';
+// import { Address, Balance, Wallet } from '.';
 
 export interface IAccountProps {
   ensProvider: StaticJsonRpcProvider | undefined;

@@ -1,7 +1,7 @@
-import React from 'react';
 import { Layout } from 'antd';
+import React from 'react';
 
-function ContentLayout({ title, description, children }: any) {
+function ContentLayout({ title, description, children }: any): any {
   return (
     <>
       <Layout.Header>

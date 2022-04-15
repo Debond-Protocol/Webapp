@@ -23,7 +23,7 @@ import * as externalContracts from '~~/generated/external-contracts/esm/types';
 export const contractConnectorConfig = () => {
   try {
     const result = {
-      /*YourContract: createConnectorForHardhatContract(
+      /* YourContract: createConnectorForHardhatContract(
         'YourContract',
         hardhatContracts.YourContract__factory,
         hardhatContractsJson

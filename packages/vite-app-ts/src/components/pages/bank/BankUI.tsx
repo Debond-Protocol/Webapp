@@ -1,18 +1,18 @@
-import {StaticJsonRpcProvider} from '@ethersproject/providers';
-import {Button, Layout, Steps, Table} from 'antd';
-import {useEthersContext} from 'eth-hooks/context';
-import {BigNumber} from 'ethers';
-import React, {FC, useEffect, useState} from 'react';
+import { StaticJsonRpcProvider } from '@ethersproject/providers';
+import { Button, Steps, Table } from 'antd';
+import { useEthersContext } from 'eth-hooks/context';
+import { BigNumber } from 'ethers';
+import React, { FC, useEffect, useState } from 'react';
 
-import {getAllClasses, mapClassesToRow} from '~~/components/main/web3/classes';
-import {useAppContracts} from '~~/config/contractContext';
-import '~~/styles/css/bank.css';
-import {toStringArray} from '~~/components/main/utils/utils';
-import {Purchase} from '~~/components/pages/bank/Purchase';
-import {DoubleLeftOutlined, LeftOutlined} from '@ant-design/icons/lib';
-import {getTableColumns} from '~~/components/main/utils/tableColumns';
 import ContentLayout from '~~/components/main/layout/ContentLayout';
-import {Route} from 'react-router-dom';
+import { getTableColumns } from '~~/components/main/utils/tableColumns';
+import { toStringArray } from '~~/components/main/utils/utils';
+import { getAllClasses, mapClassesToRow } from '~~/components/main/web3/classes';
+import { Purchase } from '~~/components/pages/bank/Purchase';
+import { useAppContracts } from '~~/config/contractContext';
+import '~~/styles/css/bank.css';
+
+import { DoubleLeftOutlined } from '@ant-design/icons/lib';
 
 export interface IBankUIProps {
   mainnetProvider: StaticJsonRpcProvider | undefined;
@@ -52,7 +52,7 @@ export const BankUI: FC<IBankUIProps> = (props) => {
         })
       );
       const _filters = _debondClassesIds.map((id) => {
-        return {text: classesMap.get(id).token, value: classesMap.get(id).token};
+        return { text: classesMap.get(id).token, value: classesMap.get(id).token };
       });
       setDebondClasses(_debondClasses);
 
@@ -84,7 +84,7 @@ export const BankUI: FC<IBankUIProps> = (props) => {
     const purchasableClassIds = await debondDataContract?.getPurchasableClasses(infos.classId as BigNumber);
 
     const _symbols = purchasableClassIds?.map((id) => {
-      return {key: id.toString(), value: allClasses.get(id.toString()).token};
+      return { key: id.toString(), value: allClasses.get(id.toString()).token };
     });
     setSymbols(_symbols);
     setSelectedClass(allClasses.get(infos.classId.toString()));
@@ -103,19 +103,18 @@ export const BankUI: FC<IBankUIProps> = (props) => {
   );
 
   const selectedColumnsName = ['issuer', 'typePeriod', 'rating', 'token', 'apy', 'maturityCountdown', 'selectBond'];
-  const tableColumns = getTableColumns({selectedColumnsName, tokenFilters, selectBondFunction});
+  const tableColumns = getTableColumns({ selectedColumnsName, tokenFilters, selectBondFunction });
 
   const steps = [
     {
       title: 'Choose Bond type',
-      content: <Table bordered={true} columns={tableColumns.classColumns} dataSource={tableValues}/>,
+      content: <Table bordered={true} columns={tableColumns.classColumns} dataSource={tableValues} />,
     },
     {
       title: 'Buy/Stake Bond',
-      content: <Purchase classes={allClasses} selectedClass={selectedClass}/>,
+      content: <Purchase classes={allClasses} selectedClass={selectedClass} />,
     },
   ];
-
 
   return (
     <ContentLayout
@@ -126,12 +125,14 @@ export const BankUI: FC<IBankUIProps> = (props) => {
       }>
       <Steps current={current}>
         {steps.map((item) => (
-          <Steps.Step key={item.title} title={item.title}/>
+          <Steps.Step key={item.title} title={item.title} />
         ))}
       </Steps>
 
       <div className="steps-action">
-        {current > 0 && <Button icon={<DoubleLeftOutlined/>} style={{margin: '0 8px'}} onClick={(): void => prev()}/>}
+        {current > 0 && (
+          <Button icon={<DoubleLeftOutlined />} style={{ margin: '0 8px' }} onClick={(): void => prev()} />
+        )}
       </div>
       <div className="steps-content">{steps[current].content}</div>
     </ContentLayout>

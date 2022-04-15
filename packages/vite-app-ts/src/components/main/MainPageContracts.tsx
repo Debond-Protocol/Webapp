@@ -1,4 +1,3 @@
-import { GenericContract } from 'eth-components/ant/generic-contract';
 import { useEthersContext } from 'eth-hooks/context';
 import React, { FC } from 'react';
 
@@ -33,7 +32,7 @@ export const MainPageContracts: FC<IMainPageContractsProps> = (props) => {
           this <Contract/> component will automatically parse your ABI
           and give you a form to interact with it locally
         ********** */}
-        {/*<GenericContract
+        {/* <GenericContract
           contractName="YourContract"
           contract={yourContract}
           mainnetAdaptor={props.scaffoldAppProviders.mainnetAdaptor}

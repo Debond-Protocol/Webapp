@@ -1,4 +1,5 @@
 import { useEthersContext } from 'eth-hooks/context';
+
 import { useAppContracts } from '~~/config/contractContext';
 
 /**
@@ -6,6 +7,7 @@ import { useAppContracts } from '~~/config/contractContext';
  * @param tokensArr
  */
 export const getAvailableTokens = (tokensArr: string[]): Map<string, any> => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const ethersContext = useEthersContext();
   const tokens = new Map<string, any>();
 

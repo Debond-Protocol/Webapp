@@ -1,7 +1,5 @@
-import React, {FC} from 'react';
-import {AreaChart, Area, Tooltip, XAxis, YAxis, CartesianGrid, Legend} from 'recharts';
-import {Layout} from 'antd';
-
+import React, { FC } from 'react';
+import { AreaChart, Area, Tooltip, XAxis, YAxis, Legend } from 'recharts';
 
 const styles = {
   container: {
@@ -16,7 +14,6 @@ const styles = {
     color: '#ebebeb',
   },
 };
-
 
 export interface IGraphProps {
   dataArr: any;
@@ -33,10 +30,10 @@ export const Graph: FC<IGraphProps> = (props) => {
           labelStyle={styles.tooltip}
           formatter={(value: any): string => `$${value.toFixed(2)}`}
         />
-        <XAxis dataKey="date" minTickGap={20}/>
-        <YAxis dataKey={props.keys[0]} minTickGap={20}/>
-        <Legend/>
-        <Area dataKey="" stroke="none" fillOpacity={0.3} fill="#8884d8"/>
+        <XAxis dataKey="date" minTickGap={20} />
+        <YAxis dataKey={props.keys[0]} minTickGap={20} />
+        <Legend />
+        <Area dataKey="" stroke="none" fillOpacity={0.3} fill="#8884d8" />
       </AreaChart>
     </div>
   );

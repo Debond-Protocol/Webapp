@@ -1,5 +1,5 @@
-import {parseEther} from '@ethersproject/units';
-import {BigNumberish} from 'ethers';
+import { parseEther } from '@ethersproject/units';
+import { BigNumberish } from 'ethers';
 
 /**
  * Function to buy/stake bond
@@ -18,7 +18,6 @@ export const depositTransaction = (
   tx: any,
   bankContract: any
 ): any => {
-
   const _debondTokenMinAmount = parseEther('0');
   const _purchaseTokenAmount = parseEther(purchaseTokenAmount.toString());
 
@@ -39,7 +38,9 @@ export const depositTransaction = (
       if (update && (update.status === 'confirmed' || update.status === 1)) {
         console.log(` 🍾 Transaction ${update.hash} finished!`);
         console.log(
-          ` ⛽️ ${update.gasUsed}/${update.gasLimit || update.gas} @ ${parseFloat(update.gasPrice as string) / 1000000000} gwei`
+          ` ⛽️ ${update.gasUsed}/${update.gasLimit || update.gas} @ ${
+            parseFloat(update.gasPrice as string) / 1000000000
+          } gwei`
         );
       }
     }
@@ -56,7 +57,7 @@ export const depositTransaction = (
  */
 export const approveTransaction = (amount: number, tx: any, tokenContract: any, spender: any): any => {
   const purchaseAmount = parseEther(amount.toString());
-  //const l = await tokenContract?.approve(spender, purchaseAmount);
+  // const l = await tokenContract?.approve(spender, purchaseAmount);
   const result = tx?.(tokenContract?.approve(spender, purchaseAmount), (update: any) => {
     console.log('📡 Transaction Update:', update);
   });
@@ -78,7 +79,6 @@ export const redeemTransaction = (
   tx: any,
   bankContract: any
 ): any => {
-
   const result = tx?.(bankContract?.redeemBonds(classId, nonceId, amount), (update: any) => {
     console.log('📡 Transaction Update:', update);
   });

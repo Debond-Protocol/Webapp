@@ -1,7 +1,8 @@
-import {apys, interestRatesEnum, ratings} from '~~/components/main/utils/utils';
-import {getMultiCallResults0} from '~~/components/main/web3/multicall';
+import { BigNumber } from 'ethers';
 import moment from 'moment';
-import {BigNumber} from 'ethers';
+
+import { apys, interestRatesEnum, ratings } from '~~/components/main/utils/utils';
+import { getMultiCallResults0 } from '~~/components/main/web3/multicall';
 
 /**
  * Multi call to get all classes
@@ -10,8 +11,8 @@ import {BigNumber} from 'ethers';
  */
 export const getAllClasses = async (debondDataContract: any, provider: any): Promise<Map<string, any>> => {
   const allClasses = new Map<string, any>();
-  const classIds = await debondDataContract?.getAllClassesIds() as number[];
-  //temporary
+  const classIds = (await debondDataContract?.getAllClassesIds()) as number[];
+  // temporary
   const results = await getMultiCallResults0(classIds, debondDataContract, 'getClassFromId', provider);
   for (const [idx, _classId] of classIds.entries()) {
     const classInfos = results[idx];
@@ -49,22 +50,22 @@ export const mapClassesToRow = (classes: any): any[] => {
       token: _class.token,
       interestType: _class.interestType,
       period: _class.period,
-      deposit: {classId: _classId},
+      deposit: { classId: _classId },
       typePeriod: {
         interestRateType: _class.interestType,
         period: _class.period,
       },
-      //mocked
+      // mocked
       issuer: 'debond',
       apy: apys[idx % apys.length],
       rating: ratings[idx % ratings.length],
-      value: {apy: apys[idx % apys.length]},
+      value: { apy: apys[idx % apys.length] },
       maturityCountdown: _class.maturityDate,
     };
     classesMap.set(_classId as string, classInfos);
     _values.push(classInfos);
 
-    _filters.push({text: _class.token, value: _class.token});
+    _filters.push({ text: _class.token, value: _class.token });
     idx += 1;
   }
   return [classesMap, _filters];

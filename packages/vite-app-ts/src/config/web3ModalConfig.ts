@@ -2,7 +2,6 @@ import { ICoreOptions } from 'web3modal';
 
 import { LOCAL_PROVIDER } from '~~/config/appConfig';
 import { NETWORKS } from '~~/models/constants/networks';
-import LedgerProvider from '@web3modal/ledger-provider';
 
 const INFURA_ID = import.meta.env.VITE_KEY_INFURA;
 

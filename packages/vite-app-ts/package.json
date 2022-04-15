@@ -79,7 +79,8 @@
     "recharts": "^2.1.9",
     "@indexed-finance/multicall": "^2.0.0",
     "moment": "^2.29.2",
-    "usehooks-ts": "^2.5.1"
+    "usehooks-ts": "^2.5.1",
+    "dayjs": "^1.11.1"
   },
   "devDependencies": {
     "@dethcrypto/eth-sdk": "^0.3.0",

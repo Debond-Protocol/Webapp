@@ -1,16 +1,14 @@
+import { GlobalOutlined } from '@ant-design/icons/lib';
 import { getNetwork } from '@ethersproject/networks';
-import { Alert, Button, Menu } from 'antd';
-import { Account } from 'eth-components/ant';
+import { Alert, Menu } from 'antd';
 import { useGasPrice } from 'eth-hooks';
 import { useEthersContext } from 'eth-hooks/context';
 import React, { FC, ReactElement, useState } from 'react';
 
 import { FaucetHintButton } from '~~/components/common/FaucetHintButton';
+import { WalletConnector } from '~~/components/common/walletConnector/WalletConnector';
 import { IScaffoldAppProviders } from '~~/components/main/hooks/useScaffoldAppProviders';
 import { getNetworkInfo } from '~~/functions';
-import { WalletConnector } from '~~/components/common/walletConnector/WalletConnector';
-import { DebondWallet } from '~~/components/common/DebondWallet';
-import { GlobalOutlined } from '@ant-design/icons/lib';
 
 // displays a page header
 export interface IMainPageHeaderProps {
