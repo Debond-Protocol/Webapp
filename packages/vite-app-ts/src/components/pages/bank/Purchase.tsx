@@ -187,11 +187,11 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
           setActiveMethod(activeKey);
         }}>
         <Tabs.TabPane
-          tab={'Staking ' + props.selectedClass?.token + ' Bond with ' + selectedPurchaseClass?.token}
+          tab={'STAKE FOR ' + props.selectedClass?.token + ''}
           key="0"></Tabs.TabPane>
         <Tabs.TabPane
           style={{width: '50%'}}
-          tab={'Buying ' + props.selectedClass?.token + ' Bond with ' + selectedPurchaseClass?.token}
+          tab={'BUY ' + props.selectedClass?.token + ''}
           key="1"></Tabs.TabPane>
       </Tabs>
 
