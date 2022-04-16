@@ -6,11 +6,10 @@ import { useEthersContext } from 'eth-hooks/context';
 import { BigNumber } from 'ethers';
 import React, { useContext, useEffect, useState } from 'react';
 
+import { fetchBondDetails, fetchBondsIds, redeemTransaction } from '~~/api/bonds';
+import { getAllClasses, mapClassesToRow } from '~~/api/classes';
 import { getTableColumns } from '~~/components/main/utils/tableColumns';
 import { toStringArray } from '~~/components/main/utils/utils';
-import { fetchBondDetails, fetchBondsIds } from '~~/components/main/web3/bonds';
-import { getAllClasses, mapClassesToRow } from '~~/components/main/web3/classes';
-import { redeemTransaction } from '~~/components/main/web3/tx';
 import { useAppContracts } from '~~/config/contractContext';
 
 export const DebondWallet = (props: any): any => {

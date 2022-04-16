@@ -1,8 +1,8 @@
 import { BigNumber } from 'ethers';
 import moment from 'moment';
 
+import { getMultiCallResults0 } from '~~/api/multicall';
 import { apys, interestRatesEnum, ratings } from '~~/components/main/utils/utils';
-import { getMultiCallResults0 } from '~~/components/main/web3/multicall';
 
 /**
  * Multi call to get all classes

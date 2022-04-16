@@ -8,9 +8,9 @@ import { useTokenBalance } from 'eth-hooks/erc';
 import { BigNumber } from 'ethers';
 import React, { FC, useContext, useEffect, useState } from 'react';
 
+import { approveTransaction, depositTransaction } from '~~/api/bonds';
 import { getTableColumns } from '~~/components/main/utils/tableColumns';
 import { toStringArray } from '~~/components/main/utils/utils';
-import { approveTransaction, depositTransaction } from '~~/components/main/web3/tx';
 import { useAppContracts } from '~~/config/contractContext';
 
 export interface IPurchaseProps {
@@ -116,7 +116,6 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
   const deposit = (): void => {
     // const account: string = ethersContext?.account!;
     if (approved) {
-      // const result = await depositTransaction(amountValue, props.selectedClass.id, selectedPurchaseClass.id, '0', tx, bankContract);
       const result = depositTransaction(
         amountValue,
         props.selectedClass.id as string,

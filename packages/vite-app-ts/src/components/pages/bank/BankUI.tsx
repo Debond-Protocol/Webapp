@@ -4,10 +4,10 @@ import { useEthersContext } from 'eth-hooks/context';
 import { BigNumber } from 'ethers';
 import React, { FC, useEffect, useState } from 'react';
 
+import { getAllClasses, mapClassesToRow } from '~~/api/classes';
 import ContentLayout from '~~/components/main/layout/ContentLayout';
 import { getTableColumns } from '~~/components/main/utils/tableColumns';
 import { toStringArray } from '~~/components/main/utils/utils';
-import { getAllClasses, mapClassesToRow } from '~~/components/main/web3/classes';
 import { Purchase } from '~~/components/pages/bank/Purchase';
 import { useAppContracts } from '~~/config/contractContext';
 import '~~/styles/css/bank.css';
