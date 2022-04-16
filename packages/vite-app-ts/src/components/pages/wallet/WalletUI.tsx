@@ -1,9 +1,9 @@
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
-import { Layout } from 'antd';
 import { BigNumber } from 'ethers';
 import React, { FC } from 'react';
 
 import { DebondWallet } from '~~/components/common/DebondWallet';
+import ContentLayout from '~~/components/main/layout/ContentLayout';
 
 export interface IWalletUIProps {
   mainnetProvider: StaticJsonRpcProvider | undefined;
@@ -20,16 +20,10 @@ export const WalletUI: FC<IWalletUIProps> = (props) => {
   const columns = ['issuer', 'token', 'rating', 'typePeriod', 'balance', 'maturityCountdown', 'progress', 'redeem'];
 
   return (
-    <>
-      <Layout.Header>
-        <div className={'pageInfos'}>
-          <div className={'pageTitle'}>Your wallet</div>
-          <div className={'pageDescription'}>
-            This page shows your assets and allows you to redeem your bonds when possible.
-          </div>
-        </div>
-      </Layout.Header>
+    <ContentLayout
+      title={'Your wallet'}
+      description={' This page shows your assets and allows you to redeem your bonds when possible.'}>
       <DebondWallet columns={columns} />
-    </>
+    </ContentLayout>
   );
 };

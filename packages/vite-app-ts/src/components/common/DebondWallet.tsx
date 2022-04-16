@@ -138,7 +138,7 @@ export const DebondWallet = (props: any): any => {
       className={'table-bordered'}
       columns={tableColumns.classColumns}
       dataSource={tableClasses}
-      expandedRowRender={expandRowRenderer}
+      expandable={{ expandRowByClick: true, expandedRowRender: expandRowRenderer }}
       pagination={false}
     />
   );

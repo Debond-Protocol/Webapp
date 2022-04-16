@@ -17,6 +17,7 @@ import { useScaffoldProviders as useScaffoldAppProviders } from '~~/components/m
 import ContentLayout from '~~/components/main/layout/ContentLayout';
 import { BankUI } from '~~/components/pages/bank/BankUI';
 import { DashboardUI } from '~~/components/pages/dashboard/DashboardUI';
+import { GovernanceUI } from '~~/components/pages/governance/GovernanceUI';
 import { WalletUI } from '~~/components/pages/wallet/WalletUI';
 import { BURNER_FALLBACK_ENABLED, MAINNET_PROVIDER } from '~~/config/appConfig';
 import { useAppContracts, useConnectAppContracts, useLoadAppContracts } from '~~/config/contractContext';
@@ -133,7 +134,11 @@ export const Main: FC = () => {
                     <ContentLayout title={'Swap'} description={'Here you can swap different currencies'} />
                   </Route>
                   <Route path="/governance">
-                    <ContentLayout title={'Governance'} description={'Here is the governance part'} />
+                    <GovernanceUI
+                      mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
+                      yourCurrentBalance={yourCurrentBalance}
+                      price={ethPrice}
+                    />
                   </Route>
                   <Route path="/loan">
                     <ContentLayout title={'Loan'} description={'Here you can get a loan'} />
