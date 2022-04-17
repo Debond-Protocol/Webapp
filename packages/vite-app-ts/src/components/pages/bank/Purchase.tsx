@@ -9,8 +9,8 @@ import { BigNumber } from 'ethers';
 import React, { FC, useContext, useEffect, useState } from 'react';
 
 import { approveTransaction, depositTransaction } from '~~/api/bonds';
-import { getTableColumns } from '~~/components/main/utils/tableColumns';
-import { toStringArray } from '~~/components/main/utils/utils';
+import { getTableColumns } from '~~/components/main/table/bondColumns';
+import { toStringArray } from '~~/components/main/table/utils';
 import { useAppContracts } from '~~/config/contractContext';
 
 export interface IPurchaseProps {

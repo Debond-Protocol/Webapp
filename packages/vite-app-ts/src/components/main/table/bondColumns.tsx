@@ -4,7 +4,7 @@ import { Button, Progress } from 'antd';
 import moment from 'moment';
 import React from 'react';
 
-import { issuerMap } from '~~/components/main/utils/utils';
+import { issuerMap } from '~~/components/main/table/utils';
 
 export interface ITableColumnsProps {
   selectedColumnsName: string[];

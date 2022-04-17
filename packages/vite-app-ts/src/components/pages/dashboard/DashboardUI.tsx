@@ -10,7 +10,7 @@ import { Area, AreaChart, Legend, Line, LineChart, ResponsiveContainer, Tooltip,
 
 import { getCoinSeries } from '~~/components/main/functions/utils';
 import ContentLayout from '~~/components/main/layout/ContentLayout';
-import { numberFormatter } from '~~/components/main/utils/utils';
+import { numberFormatter } from '~~/components/main/table/utils';
 
 const styles = {
   container: {

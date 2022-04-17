@@ -2,7 +2,7 @@ import { parseEther } from '@ethersproject/units';
 import { BigNumberish } from 'ethers';
 
 import { getMultiCallResults } from '~~/api/multicall';
-import { interestRatesEnum, ratings } from '~~/components/main/utils/utils';
+import { interestRatesEnum, ratings } from '~~/components/main/table/utils';
 
 /**
  * Multicall to get all the user's Nonce Ids

@@ -4,10 +4,11 @@ import { useEthersContext } from 'eth-hooks/context';
 import { BigNumber } from 'ethers';
 import React, { FC, useEffect, useState } from 'react';
 
-import { getAllClasses, mapClassesToRow } from '~~/api/classes';
+import { getAllClasses } from '~~/api/classes';
 import ContentLayout from '~~/components/main/layout/ContentLayout';
-import { getTableColumns } from '~~/components/main/utils/tableColumns';
-import { toStringArray } from '~~/components/main/utils/utils';
+import { getTableColumns } from '~~/components/main/table/bondColumns';
+import { toStringArray } from '~~/components/main/table/utils';
+import { mapClassesToRow } from '~~/components/main/table/utils/mapping';
 import { Purchase } from '~~/components/pages/bank/Purchase';
 import { useAppContracts } from '~~/config/contractContext';
 import '~~/styles/css/bank.css';

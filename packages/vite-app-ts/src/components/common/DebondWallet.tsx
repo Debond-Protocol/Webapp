@@ -7,9 +7,10 @@ import { BigNumber } from 'ethers';
 import React, { useContext, useEffect, useState } from 'react';
 
 import { fetchBondDetails, fetchBondsIds, redeemTransaction } from '~~/api/bonds';
-import { getAllClasses, mapClassesToRow } from '~~/api/classes';
-import { getTableColumns } from '~~/components/main/utils/tableColumns';
-import { toStringArray } from '~~/components/main/utils/utils';
+import { getAllClasses } from '~~/api/classes';
+import { getTableColumns } from '~~/components/main/table/bondColumns';
+import { toStringArray } from '~~/components/main/table/utils';
+import { mapClassesToRow } from '~~/components/main/table/utils/mapping';
 import { useAppContracts } from '~~/config/contractContext';
 
 export const DebondWallet = (props: any): any => {

@@ -42,6 +42,12 @@ export const contractConnectorConfig = () => {
         hardhatContracts.DebondBond__factory,
         hardhatContractsJson
       ),
+      Exchange: createConnectorForHardhatContract(
+        'Exchange',
+
+        hardhatContracts.Exchange__factory,
+        hardhatContractsJson
+      ),
       USDC: createConnectorForHardhatContract('USDC', hardhatContracts.USDC__factory, hardhatContractsJson),
       USDT: createConnectorForHardhatContract('USDT', hardhatContracts.USDT__factory, hardhatContractsJson),
       DBIT: createConnectorForHardhatContract('DBIT', hardhatContracts.DBIT__factory, hardhatContractsJson),
