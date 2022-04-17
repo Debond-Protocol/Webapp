@@ -39,6 +39,12 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     log: true,
   });
 
+  const Exchange = await deploy('Exchange', {
+    from: deployer,
+    args: [DebondData.address, Bank.address, DeBond.address, DBIT.address, 1],
+    log: true,
+  });
+
   const DebondDeployed = await ethers.getContract('DebondBond', deployer);
   const APMDeployed = await ethers.getContract('APM', deployer);
   const USDCDeployed = await ethers.getContract('USDC', deployer);
