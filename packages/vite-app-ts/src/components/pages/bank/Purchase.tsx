@@ -270,42 +270,42 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
                     max={purchasableInfos.get(selectedPurchaseClass?.token as string)?.balance}
                     onChange={onChange}
                     value={typeof amountValue === 'number' ? amountValue : 0}
-                    step={0.001}
+                    step={0.01}
                   />
                 </Col>
               </Row>
 
               <Row gutter={24} style={{ marginTop: 20 }}>
-                <Col span={8}>
+                <Col span={9}>
                   <InputNumber
                     min={0}
                     max={purchasableInfos.get(selectedPurchaseClass?.token as string)?.balance}
-                    step={0.001}
-                    value={amountValue}
+                    step={0.01}
+                    value={Number(amountValue.toFixed(1))}
                     onChange={onChange}
-                    prefix={<span style={{ fontSize: '8px' }}>{selectedPurchaseClass?.token}</span>}
+                    prefix={<span style={{ fontSize: 10 }}>{selectedPurchaseClass?.token}</span>}
                   />
                 </Col>
-                <Col span={8}>
+                <Col span={6}>
                   <InputNumber
                     min={0}
                     max={100}
-                    step={0.001}
-                    value={parseFloat(
-                      (amountValue / purchasableInfos.get(selectedPurchaseClass?.token as string)?.balance).toFixed(3)
+                    // step={0}
+                    value={Math.floor(
+                      (amountValue / purchasableInfos.get(selectedPurchaseClass?.token as string)?.balance) * 100
                     )}
                     disabled
-                    prefix={<span>%</span>}
+                    prefix={<span style={{ fontSize: 12 }}>%</span>}
                   />
                 </Col>
-                <Col span={8}>
+                <Col span={9}>
                   <InputNumber
                     min={0}
-                    max={100}
-                    step={0.001}
-                    value={amountValue}
+                    max={purchasableInfos.get(selectedPurchaseClass?.token as string)?.balance}
+                    step={0.01}
+                    value={Number(amountValue.toFixed(1))}
                     disabled
-                    prefix={<span style={{ fontSize: '8px' }}>USD</span>}
+                    prefix={<span style={{ fontSize: 10 }}>USD</span>}
                   />
                 </Col>
               </Row>
