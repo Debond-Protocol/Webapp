@@ -280,7 +280,7 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
                   <InputNumber
                     min={0}
                     max={purchasableInfos.get(selectedPurchaseClass?.token as string)?.balance}
-                    step={0.01}
+                    step={0.1}
                     value={Number(amountValue.toFixed(1))}
                     onChange={onChange}
                     prefix={<span style={{ fontSize: 10 }}>{selectedPurchaseClass?.token}</span>}
@@ -302,7 +302,7 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
                   <InputNumber
                     min={0}
                     max={purchasableInfos.get(selectedPurchaseClass?.token as string)?.balance}
-                    step={0.01}
+                    step={0.1}
                     value={Number(amountValue.toFixed(1))}
                     disabled
                     prefix={<span style={{ fontSize: 10 }}>USD</span>}
