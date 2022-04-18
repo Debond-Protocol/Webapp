@@ -75,12 +75,9 @@ export const DashboardUI: FC<IDashboardUIProps> = (props) => {
                       />
                       <XAxis dataKey="date" minTickGap={20} />
                       <YAxis type={'number'} domain={['auto', 'auto']} />
-
                       <Legend />
-
                       <Line dataKey="tether" stroke="#82ca9d" type="monotone" />
                       <Line dataKey="dai" type="monotone" stroke="#8884d8" />
-
                       <Line dataKey="usd-coin" type="monotone" stroke="#FAEBD7" />
                     </LineChart>
                   </ResponsiveContainer>

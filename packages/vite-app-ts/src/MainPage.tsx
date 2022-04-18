@@ -9,7 +9,6 @@ import { useDexEthPrice } from 'eth-hooks/dapps';
 import { asEthersAdaptor } from 'eth-hooks/functions';
 
 import { MainPageMenu, MainPageFooter, MainPageHeader } from './components/main';
-import { useScaffoldHooksExamples as useScaffoldHooksExamples } from './components/main/hooks/useScaffoldHooksExamples';
 
 import { useBurnerFallback } from '~~/components/main/hooks/useBurnerFallback';
 import { useScaffoldProviders as useScaffoldAppProviders } from '~~/components/main/hooks/useScaffoldAppProviders';
@@ -70,7 +69,7 @@ export const Main: FC = () => {
   // 🎉 Console logs & More hook examples:
   // 🚦 disable this hook to stop console logs
   // 🏹🏹🏹 go here to see how to use hooks!
-  useScaffoldHooksExamples(scaffoldAppProviders);
+  // useScaffoldHooksExamples(scaffoldAppProviders);
 
   // -----------------------------
   // These are the contracts!

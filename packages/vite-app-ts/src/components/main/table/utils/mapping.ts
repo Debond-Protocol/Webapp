@@ -47,7 +47,7 @@ export const mapAuctionToRow = (auctions: any): any[] => {
   // console.log(auctions);
   let idx = 0;
   for (const [_auctionId, auction] of auctions) {
-    console.log(auction);
+    // console.log(auction);
     const infos = {
       key: _auctionId,
       id: _auctionId,
@@ -55,6 +55,9 @@ export const mapAuctionToRow = (auctions: any): any[] => {
       minimumPrice: auction.minimumPrice.toString(),
       period: auction.duration.toString(),
       faceValue: auction.faceValue.toString(),
+      issuanceDate: auction.issuanceTimestamp.toNumber(),
+      endDate: { issuanceDate: auction.issuanceTimestamp.toNumber(), duration: auction.duration.toNumber() },
+
       bid: { id: _auctionId },
     };
     auctionsMap.set(_auctionId as string, infos);

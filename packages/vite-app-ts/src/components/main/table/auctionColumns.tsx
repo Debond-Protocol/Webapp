@@ -1,4 +1,5 @@
 import { Button } from 'antd';
+import moment from 'moment';
 import React from 'react';
 
 export interface ITableColumnsProps {
@@ -11,6 +12,24 @@ export interface ITableColumnsProps {
  */
 export const getColumns = (bid: any): Map<string, any> => {
   const columns = new Map<string, any>();
+  columns.set('issuanceDate', {
+    title: 'Issuance',
+    dataIndex: 'issuanceDate',
+    key: 'issuanceDate',
+    render: (input: number) => {
+      return moment.unix(input).format('HH:mm DD/MM/YYYY');
+    },
+  });
+  columns.set('endDate', {
+    title: 'End',
+    dataIndex: 'endDate',
+    key: 'endDate',
+    render: (input: { issuanceDate: number; duration: number }) => {
+      // console.log(input)
+      const endDate = input.issuanceDate + input.duration;
+      return moment.unix(endDate).format('HH:mm DD/MM/YYYY');
+    },
+  });
 
   columns.set('initialPrice', { title: 'Initial Price', dataIndex: 'initialPrice', key: 'initialPrice' });
   columns.set('minimumPrice', { title: 'Minimum Price', dataIndex: 'minimumPrice', key: 'minimumPrice' });

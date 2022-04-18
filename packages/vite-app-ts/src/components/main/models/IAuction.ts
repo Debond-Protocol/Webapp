@@ -1,13 +1,14 @@
-import { BigNumberish } from 'ethers';
+import { BigNumber } from 'ethers';
 
 export interface IAuction {
+  auctionId?: BigNumber;
   seller: string | undefined;
-  faceValue: BigNumberish;
-  timestamp?: BigNumberish;
-  duration: BigNumberish;
+  faceValue: BigNumber;
+  issuanceTimestamp?: BigNumber;
+  duration: BigNumber;
   bondAddress?: string;
-  maximumPrice?: BigNumberish;
-  minimumPrice: BigNumberish;
+  maximumPrice?: BigNumber;
+  minimumPrice: BigNumber;
   winner?: string;
-  initialPrice: BigNumberish;
+  initialPrice: BigNumber;
 }

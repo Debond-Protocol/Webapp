@@ -26,7 +26,7 @@ Running the app
    ```
 
 3. run the app, `open a new command prompt`
-
+   
    ```bash
    # build hardhat & external contracts types
    yarn contracts:build 

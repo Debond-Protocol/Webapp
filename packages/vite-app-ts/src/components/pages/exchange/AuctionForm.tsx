@@ -1,4 +1,5 @@
-import { DatePicker, Form, Input, Modal } from 'antd';
+import { DatePicker, Form, Input, Modal, TimePicker } from 'antd';
+import moment from 'moment';
 import React, { FC } from 'react';
 
 const { RangePicker } = DatePicker;
@@ -21,12 +22,6 @@ export const AuctionForm: FC<IAuctionProps> = ({ visible, onCreate, onCancel }) 
   };
   const [form] = Form.useForm();
 
-  const onFinish = (values: any): void => {
-    console.log(values);
-  };
-  const onReset = (): void => {
-    form.resetFields();
-  };
   return (
     <Modal
       visible={visible}
@@ -57,7 +52,8 @@ export const AuctionForm: FC<IAuctionProps> = ({ visible, onCreate, onCancel }) 
           <Input type={'number'} />
         </Form.Item>
         <Form.Item name="duration" label="Duration" rules={[{ required: true }]}>
-          <RangePicker />
+          {/* <RangePicker />*/}
+          <TimePicker defaultOpenValue={moment('00:02:00', 'HH:mm:ss')} />
         </Form.Item>
       </Form>
     </Modal>
