@@ -227,7 +227,7 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
               />
             </div>
           </Col>
-          <Col span={12} style={{ padding: '0px 50px 0 50px' }}>
+          <Col span={12} style={{ padding: '0px 0px 0 50px' }}>
             <div style={{ width: '100%', textAlign: 'center' }}>
               <div>
                 <Row gutter={24}>
@@ -241,17 +241,17 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
                     <Divider style={{ margin: '6px 0px 24px 0px' }} />
                   </Col>
                 </Row>
-                <Row gutter={16}>
-                  <Col span={12}>
+                <Row gutter={24}>
+                  <Col span={8}>
                     <Statistic title="Period" value={`${props.selectedClass?.period} s`} />
                   </Col>
-                  <Col span={12}>
+                  <Col span={8}>
                     <Statistic title="Interest Type" value={props.selectedClass?.interestType} />
                   </Col>
-                  <Col span={12}>
+                  <Col span={8}>
                     <Statistic title="Token" value={props.selectedClass?.token} />
                   </Col>
-                  <Col span={12}>
+                  <Col span={24}>
                     <Statistic
                       title={`Your ${selectedPurchaseClass?.token} balance`}
                       value={purchasableInfos.get(selectedPurchaseClass?.token as string).balance}
