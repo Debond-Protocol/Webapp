@@ -109,7 +109,15 @@ export const BankUI: FC<IBankUIProps> = (props) => {
   const steps = [
     {
       title: 'Choose Bond type',
-      content: <Table bordered={true} columns={tableColumns.classColumns} dataSource={tableValues} />,
+      content: (
+        <Table
+          scroll={{ y: 240 }}
+          bordered={true}
+          pagination={false}
+          columns={tableColumns.classColumns}
+          dataSource={tableValues}
+        />
+      ),
     },
     {
       title: 'Buy/Stake Bond',
