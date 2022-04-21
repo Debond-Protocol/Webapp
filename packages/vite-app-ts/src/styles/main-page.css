@@ -226,7 +226,11 @@
 }
 
 .stats-header .ant-statistic-content-value {
-  font-size: 22px;
+  font-size: 36px;
+}
+
+.leftWallet > div{
+  display: flex;
 }
 
 .leftWallet .ant-btn {

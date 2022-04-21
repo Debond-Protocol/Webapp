@@ -1,6 +1,5 @@
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { Button } from 'antd';
-import { Balance, Wallet } from 'eth-components/ant';
 import { useSignerAddress } from 'eth-hooks';
 import { useEthersContext, useBlockNumberContext } from 'eth-hooks/context';
 import { TCreateEthersModalConnector } from 'eth-hooks/models';
@@ -135,7 +134,7 @@ export const WalletConnector: FC<IAccountProps> = (props: IAccountProps) => {
       {resolvedAddress != null && (
         <div
           style={{
-            display: 'flex',
+            display: 'flex!important',
             alignItems: 'center',
           }}>
           <Address
@@ -146,7 +145,7 @@ export const WalletConnector: FC<IAccountProps> = (props: IAccountProps) => {
             blockExplorer={props.blockExplorer}
             minimized={false}
           />
-          <div
+          {/* <div
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -163,7 +162,7 @@ export const WalletConnector: FC<IAccountProps> = (props: IAccountProps) => {
                 color={currentTheme === 'light' ? '#1890ff' : '#2caad9'}
               />
             )}
-          </div>
+          </div>*/}
         </div>
       )}
     </span>

@@ -47,7 +47,15 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
   const right = (
     <div
       className={'leftWallet'}
-      style={{ position: 'fixed', textAlign: 'right', right: '20px', top: '40px', padding: 10, zIndex: 1 }}>
+      style={{
+        display: 'flex',
+        position: 'fixed',
+        textAlign: 'right',
+        right: '20px',
+        top: '40px',
+        padding: 10,
+        zIndex: 1,
+      }}>
       <WalletConnector
         createLoginConnector={props.scaffoldAppProviders.createLoginConnector}
         ensProvider={props.scaffoldAppProviders.mainnetAdaptor?.provider}
