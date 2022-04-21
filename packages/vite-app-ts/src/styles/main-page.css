@@ -228,3 +228,17 @@
 .stats-header .ant-statistic-content-value {
   font-size: 22px;
 }
+
+.leftWallet .ant-btn{
+  box-sizing: border-box;
+  border-radius: 4px;
+  top:0px;
+  height: 49px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 146%;
+  text-transform: uppercase;
+  color: #dfdfdf;
+}

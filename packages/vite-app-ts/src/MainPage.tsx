@@ -98,7 +98,7 @@ export const Main: FC = () => {
 
   return (
     <Layout>
-      <Layout.Header style={{ height: '30vh' }}>
+      <Layout.Header style={{ height: '20vh' }}>
         <MainPageHeader scaffoldAppProviders={scaffoldAppProviders} price={ethPrice} />
       </Layout.Header>
       <Layout.Content>
