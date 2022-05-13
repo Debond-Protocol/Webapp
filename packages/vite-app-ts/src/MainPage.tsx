@@ -17,6 +17,7 @@ import ContentLayout from '~~/components/main/layout/ContentLayout';
 import { BankUI } from '~~/components/pages/bank/BankUI';
 import { DashboardUI } from '~~/components/pages/dashboard/DashboardUI';
 import { ExchangeUI } from '~~/components/pages/exchange/ExchangeUI';
+import { AirdropUI } from '~~/components/pages/governance/AirdropUI';
 import { GovernanceUI } from '~~/components/pages/governance/GovernanceUI';
 import { WalletUI } from '~~/components/pages/wallet/WalletUI';
 import { BURNER_FALLBACK_ENABLED, MAINNET_PROVIDER } from '~~/config/appConfig';
@@ -151,7 +152,11 @@ export const Main: FC = () => {
                     />
                   </Route>
                   <Route path="/airdrop">
-                    <ContentLayout title={'Airdrop'} description={''} />
+                    <AirdropUI
+                      mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
+                      yourCurrentBalance={yourCurrentBalance}
+                      price={ethPrice}
+                    />
                   </Route>
                   <Route path="/">
                     <DashboardUI

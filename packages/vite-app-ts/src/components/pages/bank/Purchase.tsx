@@ -203,8 +203,6 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
         style={{ width: '100%', textAlign: 'center' }}
         initialValues={{ period: '60' }}
         form={form}
-        // onFinish={onFinish}
-        // onFinishFailed={onFinishFailed}
         autoComplete="off">
         <Row>
           <Col span={12}>
