@@ -77,15 +77,6 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         Loan
       </Link>
     </Menu.Item>
-    <Menu.Item key="/airdrop" icon={<img src={'./menu/airdrop.png'} />}>
-      <Link
-        onClick={(): void => {
-          props.setRoute('/airdrop');
-        }}
-        to="/airdrop">
-        Claim Airdrop
-      </Link>
-    </Menu.Item>
     {/*
     <Menu.Item key="/">
       <Link
