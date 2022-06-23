@@ -1,0 +1,85 @@
+.minting-header{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30.9836px;
+    color: #DFDFDF;
+}
+
+.minting-div {
+    border: 0.2px solid #0029FF;
+    backdrop-filter: blur(37px);
+    border-radius: 4px;
+    backdrop-filter: blur(37px);
+    position: absolute;
+    margin: 20% auto auto auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    height: fit-content;
+    width: 387px;
+    padding:30px 60px 30px 60px;
+}
+.ant-card-body{
+    display: none;
+}
+.ant-card-head-title{flex:none}
+
+.ant-card-actions li{
+    margin:0px;
+}
+.ant-card-head-title{
+    padding:0px;
+}
+
+
+.minting-header{
+    display:flex;
+    justify-content: space-between;
+}
+
+.minting-footer{
+    margin-top:15px;
+    display: flex;
+    justify-content: center;
+}
+.debond-btn{
+    width:100%;
+}
+
+.ether-price span{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 146%;
+
+}
+
+.dollar-price{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    color: #DFDFDF;
+    margin-top:auto;
+
+}
+
+.minting-countdown{
+    position:absolute;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 200;
+    font-size: 48.8376px;
+    line-height: 146%;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin: 10% auto auto auto;
+    width: fit-content;
+
+    color: #FFFFFF;
+}

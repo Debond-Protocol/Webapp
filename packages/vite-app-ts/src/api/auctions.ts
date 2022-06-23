@@ -9,7 +9,7 @@ import { Exchange } from '~~/generated/contract-types';
  * @param exchangeContract: Exchange smart contract
  * @param provider: provider
  */
-export const getAllAuctions = async (exchangeContract: Exchange, provider: any): Promise<Map<string, any>> => {
+/*export const getAllAuctions = async (exchangeContract: Exchange, provider: any): Promise<Map<string, any>> => {
   const all = new Map<string, any>();
   const length = await exchangeContract?.getNumberOfAuctions();
   // console.log(length)
@@ -38,12 +38,12 @@ export const create = (tx: any, exchangeContract: Exchange | undefined, auction:
   );
   return true;
 };
-
+*/
 /**
  * Multi call to get all auction prices
  * @param exchangeContract: Exchange smart contract
  * @param provider: provider
- */
+ *//*
 export const getPrices = async (exchangeContract: Exchange, provider: any): Promise<Map<string, any>> => {
   const all = new Map<string, any>();
   const length: BigNumber = await exchangeContract?.getNumberOfAuctions();
@@ -56,3 +56,4 @@ export const getPrices = async (exchangeContract: Exchange, provider: any): Prom
   }
   return all;
 };
+*/

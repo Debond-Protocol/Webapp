@@ -23,6 +23,7 @@ import { BURNER_FALLBACK_ENABLED, MAINNET_PROVIDER } from '~~/config/appConfig';
 import { useAppContracts, useConnectAppContracts, useLoadAppContracts } from '~~/config/contractContext';
 
 import { Layout } from 'antd';
+import {NFTUI} from "~~/components/pages/nft/NFTUI";
 
 /**
  * ⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️
@@ -145,6 +146,13 @@ export const Main: FC = () => {
                   </Route>
                   <Route path="/dex">
                     <ExchangeUI
+                      mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
+                      yourCurrentBalance={yourCurrentBalance}
+                      price={ethPrice}
+                    />
+                  </Route>
+                  <Route path="/nft">
+                    <NFTUI
                       mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
                       yourCurrentBalance={yourCurrentBalance}
                       price={ethPrice}
