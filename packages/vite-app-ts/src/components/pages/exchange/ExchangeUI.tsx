@@ -9,7 +9,6 @@ import { BigNumber } from 'ethers';
 import moment, { Moment } from 'moment';
 import React, { FC, useContext, useEffect, useState } from 'react';
 
-/*import { create, getAllAuctions } from '~~/api/auctions';*/
 import ContentLayout from '~~/components/main/layout/ContentLayout';
 import { IAuction } from '~~/components/main/models/IAuction';
 import { getAuctionColumns } from '~~/components/main/table/auctionColumns';
@@ -17,6 +16,7 @@ import { mapAuctionToRow } from '~~/components/main/table/utils/mapping';
 import { AuctionForm } from '~~/components/pages/exchange/AuctionForm';
 import { useAppContracts } from '~~/config/contractContext';
 import { Exchange } from '~~/generated/contract-types';
+
 // import {Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 
 export interface IExchangeUIProps {
@@ -68,7 +68,7 @@ export const ExchangeUI: FC<IExchangeUIProps> = (props) => {
       minimumPrice: values.minimalValue,
       duration: BigNumber.from(duration.asSeconds()),
     };
-    /*create(tx, exchangeContract, auction);*/
+    /* create(tx, exchangeContract, auction);*/
     setVisible(false);
   };
 
@@ -102,7 +102,7 @@ export const ExchangeUI: FC<IExchangeUIProps> = (props) => {
           .map((x) => {
             return {
               name: key,
-              price: 0.01/*getPriceForX(
+              price: 0.01 /* getPriceForX(
                 auction.initialPrice.toNumber(),
                 auction.minimumPrice.toNumber(),
                 x,
@@ -120,9 +120,9 @@ export const ExchangeUI: FC<IExchangeUIProps> = (props) => {
   };
 
   useEffect(() => {
-    const init = async (exchangeContract: Exchange, provider: any): Promise<void> => {
-      /*const auctions = await getAllAuctions(exchangeContract, provider);*/
-      const auctions:any[]=[];
+    const init = (exchangeContract: Exchange, provider: any): void => {
+      /* const auctions = await getAllAuctions(exchangeContract, provider);*/
+      const auctions: any[] = [];
       const [auctionMap] = mapAuctionToRow(auctions);
       const { tableColumns } = getAuctionColumns({ selectedColumnsName: selectedColumnsName, bid: bidFunction });
       // void await getAuctionPrices(exchangeContract as Exchange, provider);
