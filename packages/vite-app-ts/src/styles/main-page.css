@@ -9,7 +9,7 @@
   min-height: 720px;
 }
 
-.dlayoutContent .ant-layout-content{
+.dlayoutContent .ant-layout-content {
   height: 100%;
 }
 
@@ -252,14 +252,13 @@
   color: #dfdfdf;
 }
 
-.debond-btn{
-  background: #403AF4;
+.debond-btn {
+  background: #403af4;
   border-radius: 2.92818px;
   padding: 10px 6vw 10px 6vw;
   height: auto;
 }
-.debond-btn span{
-
+.debond-btn span {
   font-family: 'Inter';
   font-style: normal;
   font-weight: 700;
@@ -269,5 +268,5 @@
   text-transform: uppercase;
 
   /* Debond White */
-  color: #FFFFFF;
+  color: #ffffff;
 }

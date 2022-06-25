@@ -87,6 +87,5 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         NFT
       </Link>
     </Menu.Item>
-
   </Menu>
 );

@@ -46,12 +46,15 @@ export const contractConnectorConfig = () => {
       USDT: createConnectorForHardhatContract('USDT', hardhatContracts.USDT__factory, hardhatContractsJson),
       DBIT: createConnectorForHardhatContract('DBIT', hardhatContracts.DBIT__factory, hardhatContractsJson),
       DAI2: createConnectorForHardhatContract('DAI', hardhatContracts.DAI__factory, hardhatContractsJson),
-      MysteryBoxToken: createConnectorForHardhatContract('MysteryBoxToken', hardhatContracts.MysteryBoxToken__factory, hardhatContractsJson),
+      MysteryBoxToken: createConnectorForHardhatContract(
+        'MysteryBoxToken',
+        hardhatContracts.MysteryBoxToken__factory,
+        hardhatContractsJson
+      ),
 
       // 🙋🏽‍♂️ Add your external contracts here, make sure to define the address in `externalContractsConfig.ts`
       DAI: createConnectorForExternalContract('DAI', externalContracts.DAI__factory, externalContractsAddressMap),
       UNI: createConnectorForExternalContract('UNI', externalContracts.UNI__factory, externalContractsAddressMap),
-
 
       // 🙋🏽‍♂️ Add your external abi here (unverified contracts)`
       // DAI: createConnectorForExternalAbi('DAI', { 1: {address: 'xxxx'}}, abi),

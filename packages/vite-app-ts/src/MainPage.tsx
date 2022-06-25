@@ -18,12 +18,12 @@ import { BankUI } from '~~/components/pages/bank/BankUI';
 import { DashboardUI } from '~~/components/pages/dashboard/DashboardUI';
 import { ExchangeUI } from '~~/components/pages/exchange/ExchangeUI';
 import { GovernanceUI } from '~~/components/pages/governance/GovernanceUI';
+import { NFTUI } from '~~/components/pages/nft/NFTUI';
 import { WalletUI } from '~~/components/pages/wallet/WalletUI';
 import { BURNER_FALLBACK_ENABLED, MAINNET_PROVIDER } from '~~/config/appConfig';
 import { useAppContracts, useConnectAppContracts, useLoadAppContracts } from '~~/config/contractContext';
 
 import { Layout } from 'antd';
-import {NFTUI} from "~~/components/pages/nft/NFTUI";
 
 /**
  * ⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️
