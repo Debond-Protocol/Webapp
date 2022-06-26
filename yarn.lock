@@ -770,6 +770,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.18.3":
+  version: 7.18.3
+  resolution: "@babel/runtime@npm:7.18.3"
+  dependencies:
+    regenerator-runtime: ^0.13.4
+  checksum: db8526226aa02cfa35a5a7ac1a34b5f303c62a1f000c7db48cb06c6290e616483e5036ab3c4e7a84d0f3be6d4e2148d5fe5cec9564bf955f505c3e764b83d7f1
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.14.5, @babel/template@npm:^7.16.7":
   version: 7.16.7
   resolution: "@babel/template@npm:7.16.7"
@@ -2838,9 +2847,15 @@ __metadata:
     "@types/node": ^16.11.25
     "@typescript-eslint/eslint-plugin": ^5.12.0
     "@typescript-eslint/parser": ^5.12.0
+    apm-contracts: ^0.0.1
     chai: ^4.3.6
     chalk: ^4.1.2
+    debond-erc3475-contracts: ^0.0.1
+    debond-governance-contracts: ^0.0.1
+    debond-oracle-contracts: 0.0.1
+    debond-token-contracts: ^0.0.2
     dotenv: ^14.3.2
+    erc3475: ^0.0.1
     eslint: ^8.9.0
     eslint-config-airbnb: ^19.0.4
     eslint-config-airbnb-typescript: ^16.1.0
@@ -2858,6 +2873,7 @@ __metadata:
     ipfs-http-client: ^54.0.2
     mocha: ^9.2.1
     node-watch: ^0.7.3
+    prb-math: ^2.4.3
     prettier: ^2.5.1
     prettier-plugin-solidity: ^1.0.0-beta.19
     qrcode-terminal: ^0.12.0
@@ -5075,6 +5091,13 @@ __metadata:
     axios: ^0.21.2
     ramda: ^0.25.0
   checksum: 4bac8117b484616c82e102d238580f835ffabee15da4527e845d091c12618f3b85293fb96c2357a119efede4ac1695d1ec78cc2ae5e3774f1522e1e1b1852365
+  languageName: node
+  linkType: hard
+
+"apm-contracts@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "apm-contracts@npm:0.0.1"
+  checksum: 9d97921c99a6a841f3b5cd7f46bdc492a14062a90cbeefa2361035a6dcf61a9708e212b8b63187a8ff903794d9a60622d1f823c15c586ddd768d515a8a39683a
   languageName: node
   linkType: hard
 
@@ -8072,6 +8095,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"complex.js@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "complex.js@npm:2.1.1"
+  checksum: a0802cc3f0eb7703088edfc3fe209ae7be5ce93c0e710a0f288be2e29ee31b3530a8c0d3330d7c2a668410dfe4293a4038554d66c7f1f1165997941bdc1092aa
+  languageName: node
+  linkType: hard
+
 "component-emitter@npm:^1.2.1":
   version: 1.3.0
   resolution: "component-emitter@npm:1.3.0"
@@ -8822,6 +8852,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"debond-erc3475-contracts@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "debond-erc3475-contracts@npm:0.0.1"
+  checksum: b499fb7a7ee40b8edca59b0af271db1a14aae5d3471b5b5614ea2fd88694498f2323f850e6716164a379c6dd15e4d89c07b7f2cd3713845d4c7f0888ed921fb0
+  languageName: node
+  linkType: hard
+
+"debond-governance-contracts@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "debond-governance-contracts@npm:0.0.1"
+  checksum: 03e506d2bfb4e66ee268173411f0d7ec5f38263145d562bc45685d0cc54d43090bb84e8a4262eb6c7d34bf9390f5890f84cf3e578977bc97ee44ecc133da944c
+  languageName: node
+  linkType: hard
+
+"debond-oracle-contracts@npm:0.0.1":
+  version: 0.0.1
+  resolution: "debond-oracle-contracts@npm:0.0.1"
+  checksum: 71bfe2766af05fdf86deb5be03fab430caaf880588ed6f0fcd9095672a07fbdbd7c3ba649fc50e088a962c022559c1bfa7e3f43d951254301f4fd50bca052f68
+  languageName: node
+  linkType: hard
+
+"debond-token-contracts@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "debond-token-contracts@npm:0.0.2"
+  checksum: 74771dc4f1bb7cbddc88b7faf270ea83268b575df885f53fc20f5d5e694679fd188f198426a9236414d50c61566841680947c989e6a1a2223b9449abab97a1fb
+  languageName: node
+  linkType: hard
+
 "debug@npm:2.6.9, debug@npm:^2.2.0, debug@npm:^2.3.3, debug@npm:^2.6.0, debug@npm:^2.6.8, debug@npm:^2.6.9":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
@@ -8910,6 +8968,13 @@ __metadata:
   version: 2.5.1
   resolution: "decimal.js-light@npm:2.5.1"
   checksum: f5a2c7eac1c4541c8ab8a5c8abea64fc1761cefc7794bd5f8afd57a8a78d1b51785e0c4e4f85f4895a043eaa90ddca1edc3981d1263eb6ddce60f32bf5fe66c9
+  languageName: node
+  linkType: hard
+
+"decimal.js@npm:^10.3.1":
+  version: 10.3.1
+  resolution: "decimal.js@npm:10.3.1"
+  checksum: 0351ac9f05fe050f23227aa6a4573bee2d58fa7378fcf28d969a8c789525032effb488a90320fd3fe86a66e17b4bc507d811b15eada5b7f0e7ec5d2af4c24a59
   languageName: node
   linkType: hard
 
@@ -9781,6 +9846,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"erc3475@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "erc3475@npm:0.0.1"
+  checksum: dc6a25384d9a599cc77e6cb00d57784747f282e4eb5141dbf540e162c9f7fd2a4ce5185cecd3e85971c9b32aea3cadbb3e29257b8c2478958cd19b476e807498
+  languageName: node
+  linkType: hard
+
 "err-code@npm:^1.1.2":
   version: 1.1.2
   resolution: "err-code@npm:1.1.2"
@@ -10158,6 +10230,13 @@ __metadata:
   version: 1.0.3
   resolution: "escape-html@npm:1.0.3"
   checksum: 6213ca9ae00d0ab8bccb6d8d4e0a98e76237b2410302cf7df70aaa6591d509a2a37ce8998008cbecae8fc8ffaadf3fb0229535e6a145f3ce0b211d060decbb24
+  languageName: node
+  linkType: hard
+
+"escape-latex@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "escape-latex@npm:1.2.0"
+  checksum: 73a787319f0965ecb8244bb38bf3a3cba872f0b9a5d3da8821140e9f39fe977045dc953a62b1a2bed4d12bfccbe75a7d8ec786412bf00739eaa2f627d0a8e0d6
   languageName: node
   linkType: hard
 
@@ -11836,6 +11915,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"evm-bn@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "evm-bn@npm:1.1.1"
+  dependencies:
+    "@ethersproject/bignumber": ^5.5.0
+    from-exponential: ^1.1.1
+  peerDependencies:
+    "@ethersproject/bignumber": 5.x
+  checksum: d9be197e4cd34fb1425cd3aa45f915cb65818cc09090247f5ed415ba595f3cb9f841422060695654c09b491a4d967bf2a359391bc3dcea524d2fee3e2b522119
+  languageName: node
+  linkType: hard
+
 "evp_bytestokey@npm:^1.0.0, evp_bytestokey@npm:^1.0.3":
   version: 1.0.3
   resolution: "evp_bytestokey@npm:1.0.3"
@@ -12704,6 +12795,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fraction.js@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "fraction.js@npm:4.2.0"
+  checksum: 8c76a6e21dedea87109d6171a0ac77afa14205794a565d71cb10d2925f629a3922da61bf45ea52dbc30bce4d8636dc0a27213a88cbd600eab047d82f9a3a94c5
+  languageName: node
+  linkType: hard
+
 "fragment-cache@npm:^0.2.1":
   version: 0.2.1
   resolution: "fragment-cache@npm:0.2.1"
@@ -12717,6 +12815,13 @@ __metadata:
   version: 0.5.2
   resolution: "fresh@npm:0.5.2"
   checksum: 13ea8b08f91e669a64e3ba3a20eb79d7ca5379a81f1ff7f4310d54e2320645503cc0c78daedc93dfb6191287295f6479544a649c64d8e41a1c0fb0c221552346
+  languageName: node
+  linkType: hard
+
+"from-exponential@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "from-exponential@npm:1.1.1"
+  checksum: af2765bd4f78836153c46cf4aff51ba9f2d1ac6b7d9568d69901d2045ba5b80a47de4f2a693bcc2006a7516cef71f636a4e42596cdd77a0addcc739539eb0f48
   languageName: node
   linkType: hard
 
@@ -15578,6 +15683,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"javascript-natural-sort@npm:^0.7.1":
+  version: 0.7.1
+  resolution: "javascript-natural-sort@npm:0.7.1"
+  checksum: 161e2c512cc7884bc055a582c6645d9032cab88497a76123d73cb23bfb03d97a04cf7772ecdb8bd3366fc07192c2f996366f479f725c23ef073fffe03d6a586a
+  languageName: node
+  linkType: hard
+
 "jayson@npm:^3.0.2":
   version: 3.6.6
   resolution: "jayson@npm:3.6.6"
@@ -17516,6 +17628,25 @@ __metadata:
     "@babel/runtime": ^7.12.5
     remove-accents: 0.4.2
   checksum: a4b02b676ac4ce64a89a091539ee4a70a802684713bcf06f2b70787927f510fe8a2adc849f9288857a90906083ad303467e530e8723b4a9756df9994fc164550
+  languageName: node
+  linkType: hard
+
+"mathjs@npm:^10.1.1":
+  version: 10.6.3
+  resolution: "mathjs@npm:10.6.3"
+  dependencies:
+    "@babel/runtime": ^7.18.3
+    complex.js: ^2.1.1
+    decimal.js: ^10.3.1
+    escape-latex: ^1.2.0
+    fraction.js: ^4.2.0
+    javascript-natural-sort: ^0.7.1
+    seedrandom: ^3.0.5
+    tiny-emitter: ^2.1.0
+    typed-function: ^2.1.0
+  bin:
+    mathjs: bin/cli.js
+  checksum: de8d483da3da7845a07a0c8b3089c074358eddf4c341af8731fbcc2a3aefe1ab2aae3ad69c10819551ffd30d9ac5a4b5d25d7d41354e9534b44272f3ee938d98
   languageName: node
   linkType: hard
 
@@ -20163,6 +20294,22 @@ __metadata:
   version: 2.1.0
   resolution: "postinstall-postinstall@npm:2.1.0"
   checksum: e1d34252cf8d2c5641c7d2db7426ec96e3d7a975f01c174c68f09ef5b8327bc8d5a9aa2001a45e693db2cdbf69577094d3fe6597b564ad2d2202b65fba76134b
+  languageName: node
+  linkType: hard
+
+"prb-math@npm:^2.4.3":
+  version: 2.4.3
+  resolution: "prb-math@npm:2.4.3"
+  dependencies:
+    "@ethersproject/bignumber": ^5.5.0
+    decimal.js: ^10.3.1
+    evm-bn: ^1.1.1
+    mathjs: ^10.1.1
+  peerDependencies:
+    "@ethersproject/bignumber": 5.x
+    evm-bn: 1.x
+    mathjs: 10.x
+  checksum: 240accc9a2815e9f6fa862b16537d47134bf6435b450eaedc79f2898c29e2df0312a17504a5129951b53daa8e68d8021576a337237135cdc2e369197b0552d98
   languageName: node
   linkType: hard
 
@@ -22891,6 +23038,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"seedrandom@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "seedrandom@npm:3.0.5"
+  checksum: 728b56bc3bc1b9ddeabd381e449b51cb31bdc0aa86e27fcd0190cea8c44613d5bcb2f6bb63ed79f78180cbe791c20b8ec31a9627f7b7fc7f476fd2bdb7e2da9f
+  languageName: node
+  linkType: hard
+
 "semaphore-async-await@npm:^1.5.1":
   version: 1.5.1
   resolution: "semaphore-async-await@npm:1.5.1"
@@ -24805,6 +24959,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tiny-emitter@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "tiny-emitter@npm:2.1.0"
+  checksum: fbcfb5145751a0e3b109507a828eb6d6d4501352ab7bb33eccef46e22e9d9ad3953158870a6966a59e57ab7c3f9cfac7cab8521db4de6a5e757012f4677df2dd
+  languageName: node
+  linkType: hard
+
 "tiny-invariant@npm:^1.0.2, tiny-invariant@npm:^1.0.6, tiny-invariant@npm:^1.1.0":
   version: 1.2.0
   resolution: "tiny-invariant@npm:1.2.0"
@@ -25402,6 +25563,13 @@ __metadata:
   bin:
     typechain: dist/cli/cli.js
   checksum: a6d67427d01b82d2f224e8b4b83c2e84df81b2a12b5a1df9907092d0668a8a747e12474b4367b8887ff60a8f9a055b22f6dc46b31383623d52ceccce84a3b618
+  languageName: node
+  linkType: hard
+
+"typed-function@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "typed-function@npm:2.1.0"
+  checksum: 168c2c8f765fbecc842521a5fb62a5800958f9fcb0ce78d69c38a5e96c81fe133f853256ec8ee245ee2fc42b4c9342b5ba754c732189550c64c12e758892dc43
   languageName: node
   linkType: hard
 

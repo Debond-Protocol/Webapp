@@ -17,15 +17,19 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     log: true,
   });
 
-  const DBIT = await deploy('DBIT', {
-    from: deployer,
-    log: true,
-  });
-
   const USDC = await deploy('USDC', {
     from: deployer,
     log: true,
   });
+
+  const WETH = await deploy('WETH', {
+    from: deployer,
+    log: true,
+  });
+
+  const DBIT = await deploy('DBITTest', { from: deployer, log: true, args: [deployer, deployer, deployer] });
+
+  const DGOV = await deploy('DGOVTest', { from: deployer, log: true, args: [deployer, deployer, deployer] });
 };
 export default func;
 func.tags = ['Tokens'];

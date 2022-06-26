@@ -2,3 +2,21 @@
 	path = packages/hardhat-ts/contracts/debond
 	url = https://github.com/Debond-Protocol/Debond-v0.git
 	branch= front
+[submodule "packages/hardhat-ts/contracts/bank"]
+	path = packages/hardhat-ts/contracts/bank
+	url = git@github.com:Debond-Protocol/Debond-Bank.git
+[submodule "packages/hardhat-ts/contracts/governance"]
+	path = packages/hardhat-ts/contracts/governance
+	url = git@github.com:Debond-Protocol/Debond-Governance.git
+[submodule "packages/hardhat-ts/contracts/exchange"]
+	path = packages/hardhat-ts/contracts/exchange
+	url = git@github.com:Debond-Protocol/Debond-Exchange.git
+[submodule "packages/hardhat-ts/contracts/token"]
+	path = packages/hardhat-ts/contracts/token
+	url = git@github.com:Debond-Protocol/Debond-Token.git
+[submodule "packages/hardhat-ts/contracts/erc3475"]
+	path = packages/hardhat-ts/contracts/erc3475
+	url = git@github.com:Debond-Protocol/Debond-ERC3475.git
+[submodule "packages/hardhat-ts/contracts/apm"]
+	path = packages/hardhat-ts/contracts/apm
+	url = git@github.com:Debond-Protocol/Debond-APM.git
