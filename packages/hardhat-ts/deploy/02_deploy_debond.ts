@@ -1,4 +1,5 @@
 import { BigNumber } from 'ethers';
+import { parseEther } from 'ethers/lib/utils';
 import { ethers } from 'hardhat';
 import { DeployFunction } from 'hardhat-deploy/types';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
@@ -43,7 +44,17 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   await deploy('Bank', {
     from: deployer,
     log: true,
-    args: [deployer, APMDeployed.address, DebondBondTestDeployed.address, DBIT.address, DGOV.address, FakeOracleDeployed.address, USDC.address, WETH.address],
+    args: [
+      deployer,
+      APMDeployed.address,
+      DebondBondTestDeployed.address,
+      DBIT.address,
+      DGOV.address,
+      FakeOracleDeployed.address,
+      USDC.address,
+      WETH.address,
+      parseEther('0'),
+    ],
   }); // oracle and usdc for polygon
 
   const BankDeployed = await ethers.getContract('Bank', deployer);
