@@ -46,6 +46,8 @@ export const BankUI: FC<IBankUIProps> = (props) => {
       const [classesMap] = mapClassesToRow(_allClasses);
       setAllClasses(classesMap);
 
+      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const _debondClassesIds = toStringArray(await debondDataContract!.getDebondClasses()!);
       const _debondClasses = new Map(
         [...classesMap].filter(([k]) => {

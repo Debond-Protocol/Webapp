@@ -143,13 +143,6 @@ export const Purchase: FC<IPurchaseProps> = (props) => {
       ?.contract!.mint(account, BigNumber.from('1000000000000000000000'));
   };
 
-  /**
-   * Function to filter the tokens in the table
-   */
-  const onFilter = (value: any, record: any): boolean => {
-    return record.token === value;
-  };
-
   const faceValueFunction = (infos: any): string => {
     return (((infos.apy as number) + 1) * amountValue).toFixed(5);
   };
