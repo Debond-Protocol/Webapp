@@ -41,6 +41,20 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   const d = new Date();
   d.setHours(0, 0, 0, 0);
 
+  await deploy('DebondMath', {
+    from: deployer,
+    log: true,
+  });
+
+  await deploy('BankData', {
+    from: deployer,
+    log: true,
+    args: [deployer, deployer, d.getTime() / 10 ** 3],
+  });
+  const BankData = await ethers.getContract('BankData', deployer);
+
+  const DebondMathDeployed = await ethers.getContract('DebondMath', deployer);
+
   await deploy('Bank', {
     from: deployer,
     log: true,
@@ -53,16 +67,17 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
       FakeOracleDeployed.address,
       USDC.address,
       WETH.address,
-      parseEther('0'),
+      BankData.address,
     ],
-  }); // oracle and usdc for polygon
+  });
+  console.log('after');
 
   const BankDeployed = await ethers.getContract('Bank', deployer);
   await APMDeployed.setBankAddress(BankDeployed.address);
   await DebondBondTestDeployed.setBankAddress(BankDeployed.address);
   await DBIT.setBankAddress(BankDeployed.address);
   await DGOV.setBankAddress(BankDeployed.address);
-  await BankDeployed.initializeApp(DAI.address, USDT.address);
+  // await BankDeployed.initializeApp(DAI.address, USDT.address);
 };
 
 export default func;
