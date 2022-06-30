@@ -1,20 +1,28 @@
+import { Contract } from '@ethersproject/contracts';
 import { expect } from 'chai';
+import { Signer, Wallet } from 'ethers';
 import { ethers } from 'hardhat';
 
 describe('testing mystery box token ', function () {
-  it('Should verify signature on chain', async function () {
+  let contractAddress: string;
+  let mysteryBoxToken: Contract;
+  let userWallet: Wallet;
+  const discountRate = 10;
+  let owner: Signer;
+  let user: Signer;
+  let addrs;
+  before(async function () {
     const mysteryBoxTokenFactory = await ethers.getContractFactory('MysteryBoxToken');
-    const signer = mysteryBoxTokenFactory.signer;
-    const mysteryBoxToken = await mysteryBoxTokenFactory.deploy('MysteryBox', 'MBOX', 432000);
+    [owner, user, ...addrs] = await ethers.getSigners();
+    mysteryBoxToken = await mysteryBoxTokenFactory.deploy('MysteryBox', 'MBOX', 432000);
+    contractAddress = mysteryBoxToken.address;
+  });
 
-    // const contractAddress = "0x0165878A594ca255338adfa4d48449f69242Eb8F";
-    const contractAddress = mysteryBoxToken.address;
-    const userAddress = '0xd59276C2A56B19b678c4D22e3eeE148F5a816c37';
-    const discountRate = 10;
-    const messageHash = ethers.utils.solidityKeccak256(['address', 'address', 'uint256'], [contractAddress, userAddress, discountRate]);
+  it('Should verify signature on chain', async function () {
+    const messageHash = ethers.utils.solidityKeccak256(['address', 'address', 'uint256'], [contractAddress, await user.getAddress(), discountRate]);
     const messageHashBytes = ethers.utils.arrayify(messageHash);
-    const signature = await signer.signMessage(messageHashBytes);
-
-    expect(await mysteryBoxToken.verifySignature(discountRate, signature)).to.equal(await signer.getAddress());
+    const signature = await owner.signMessage(messageHashBytes);
+    const recover = await mysteryBoxToken.connect(user).verifySignature(discountRate, signature);
+    expect(recover).to.equal(await owner.getAddress());
   });
 });
