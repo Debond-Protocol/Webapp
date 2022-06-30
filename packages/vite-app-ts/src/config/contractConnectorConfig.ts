@@ -1,12 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { createConnectorForExternalContract, createConnectorForHardhatContract } from 'eth-hooks/context';
+import { createConnectorForHardhatContract } from 'eth-hooks/context';
 
 import hardhatContractsJson from '../generated/hardhat_contracts.json';
 
-import { externalContractsAddressMap } from './externalContractsConfig';
-
 import * as hardhatContracts from '~~/generated/contract-types';
-import * as externalContracts from '~~/generated/external-contracts/esm/types';
 
 /**
  * ⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️
@@ -23,41 +20,12 @@ import * as externalContracts from '~~/generated/external-contracts/esm/types';
 export const contractConnectorConfig = () => {
   try {
     const result = {
-      Bank: createConnectorForHardhatContract('Bank', hardhatContracts.Bank__factory, hardhatContractsJson),
-
-      DebondData: createConnectorForHardhatContract(
-        'DebondData',
-        hardhatContracts.DebondData__factory,
-        hardhatContractsJson
-      ),
-
-      DebondBond: createConnectorForHardhatContract(
-        'DebondBond',
-        hardhatContracts.DebondBond__factory,
-        hardhatContractsJson
-      ),
-      Exchange: createConnectorForHardhatContract(
-        'Exchange',
-
-        hardhatContracts.Exchange__factory,
-        hardhatContractsJson
-      ),
-      USDC: createConnectorForHardhatContract('USDC', hardhatContracts.USDC__factory, hardhatContractsJson),
-      USDT: createConnectorForHardhatContract('USDT', hardhatContracts.USDT__factory, hardhatContractsJson),
-      DBIT: createConnectorForHardhatContract('DBIT', hardhatContracts.DBIT__factory, hardhatContractsJson),
-      DAI2: createConnectorForHardhatContract('DAI', hardhatContracts.DAI__factory, hardhatContractsJson),
       MysteryBoxToken: createConnectorForHardhatContract(
         'MysteryBoxToken',
         hardhatContracts.MysteryBoxToken__factory,
+
         hardhatContractsJson
       ),
-
-      // 🙋🏽‍♂️ Add your external contracts here, make sure to define the address in `externalContractsConfig.ts`
-      DAI: createConnectorForExternalContract('DAI', externalContracts.DAI__factory, externalContractsAddressMap),
-      UNI: createConnectorForExternalContract('UNI', externalContracts.UNI__factory, externalContractsAddressMap),
-
-      // 🙋🏽‍♂️ Add your external abi here (unverified contracts)`
-      // DAI: createConnectorForExternalAbi('DAI', { 1: {address: 'xxxx'}}, abi),
     } as const;
 
     return result;

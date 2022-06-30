@@ -13,15 +13,9 @@ import { MainPageMenu, MainPageFooter, MainPageHeader } from './components/main'
 import { useBurnerFallback } from '~~/components/main/hooks/useBurnerFallback';
 import { useScaffoldProviders as useScaffoldAppProviders } from '~~/components/main/hooks/useScaffoldAppProviders';
 // import { Hints, ExampleUI } from '~~/components/pages';
-import ContentLayout from '~~/components/main/layout/ContentLayout';
-import { BankUI } from '~~/components/pages/bank/BankUI';
-import { DashboardUI } from '~~/components/pages/dashboard/DashboardUI';
-import { ExchangeUI } from '~~/components/pages/exchange/ExchangeUI';
-import { GovernanceUI } from '~~/components/pages/governance/GovernanceUI';
 import { NFTUI } from '~~/components/pages/nft/NFTUI';
-import { WalletUI } from '~~/components/pages/wallet/WalletUI';
 import { BURNER_FALLBACK_ENABLED, MAINNET_PROVIDER } from '~~/config/appConfig';
-import { useAppContracts, useConnectAppContracts, useLoadAppContracts } from '~~/config/contractContext';
+import { useConnectAppContracts, useLoadAppContracts } from '~~/config/contractContext';
 
 import { Layout } from 'antd';
 
@@ -75,14 +69,6 @@ export const Main: FC = () => {
   // -----------------------------
   // These are the contracts!
   // -----------------------------
-
-  // init contracts
-  // const mainnetDai = useAppContracts('DAI', NETWORKS.mainnet.chainId);
-  const daiContract = useAppContracts('DAI', ethersContext.chainId);
-  const usdcContract = useAppContracts('USDC', ethersContext.chainId);
-  const usdtContract = useAppContracts('USDT', ethersContext.chainId);
-  const dbitContract = useAppContracts('DBIT', ethersContext.chainId);
-
   // -----------------------------
   // .... 🎇 End of examples
   // -----------------------------
@@ -116,50 +102,8 @@ export const Main: FC = () => {
                   <MainPageContracts scaffoldAppProviders={scaffoldAppProviders} />
                 </Route>
                  you can add routes here like the below examlples */}
-
-                  <Route path="/bank">
-                    <BankUI
-                      mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-                      yourCurrentBalance={yourCurrentBalance}
-                      price={ethPrice}
-                    />
-                  </Route>
-                  <Route path="/wallet">
-                    <WalletUI
-                      mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-                      yourCurrentBalance={yourCurrentBalance}
-                      price={ethPrice}
-                    />
-                  </Route>
-                  <Route path="/swap">
-                    <ContentLayout title={'Swap'} description={'Here you can swap different currencies'} />
-                  </Route>
-                  <Route path="/governance">
-                    <GovernanceUI
-                      mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-                      yourCurrentBalance={yourCurrentBalance}
-                      price={ethPrice}
-                    />
-                  </Route>
-                  <Route path="/loan">
-                    <ContentLayout title={'Loan'} description={'Here you can get a loan'} />
-                  </Route>
-                  <Route path="/dex">
-                    <ExchangeUI
-                      mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-                      yourCurrentBalance={yourCurrentBalance}
-                      price={ethPrice}
-                    />
-                  </Route>
-                  <Route path="/nft">
-                    <NFTUI
-                      mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-                      yourCurrentBalance={yourCurrentBalance}
-                      price={ethPrice}
-                    />
-                  </Route>
                   <Route path="/">
-                    <DashboardUI
+                    <NFTUI
                       mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
                       yourCurrentBalance={yourCurrentBalance}
                       price={ethPrice}

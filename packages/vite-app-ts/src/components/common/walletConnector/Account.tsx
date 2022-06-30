@@ -6,8 +6,6 @@ import React, { FC, useState } from 'react';
 import Blockies from 'react-blockies';
 import { useThemeSwitcher } from 'react-css-theme-switcher';
 
-import { DebondWallet } from '~~/components/common/DebondWallet';
-
 // changed value={address} to address={address}
 
 const { Text, Link } = Typography;
@@ -123,9 +121,9 @@ export const Address: FC<IAddressProps> = ({ minimized = false, punkBlockie = fa
           icon={<img width={20} src={'/small_logo.png'} />}
           key="sub0"
           title={<span>{displayAddress}</span>}>
-          <Menu.Item key="0" style={{ height: 'fit-content' }}>
+          {/* <Menu.Item key="0" style={{ height: 'fit-content' }}>
             <DebondWallet columns={columns} />
-          </Menu.Item>
+          </Menu.Item>*/}
         </Menu.SubMenu>
       </Menu>
     </>
