@@ -46,28 +46,24 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
   const [address] = useSignerAddress(ethersContext.signer);
   const [balanceToken, ,] = useTokenBalance(mysteryBoxToken, address ?? '');
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/require-await
     async function _init(): Promise<void> {
       // TODO change this reading file, temporary fix, problem when building app
-      const discounts: any[] = [
-        {
-          address: '0x61C17CDB2b20A4eCc60D8B4d3866DdF37FacF964',
-          discountRate: 10,
-          signature:
-            '0x8244622780ef02098d72d244f56b236a372c6dd8cee8eb62e4f425b704a58cab47ccac632fbd4c71165930089ee2bff553c3100c000d1588cd9ce0a43eb6c14d1c',
-        },
-      ];
+      const discountsResults = await fetch('../../discounts.json');
+      const discounts: any = await discountsResults.json();
+      console.log(discounts);
+
       if (discounts && address) {
+        console.log('discounted user');
         const entry = discounts.filter((e: any) => e['address'] === address);
         setDiscountEntry(entry[0] as UserEntry);
+      } else {
+        console.log('not discounted user', address, discounts);
       }
     }
-
-    if (mysteryBoxToken && mintingPrice && endingTime) {
+    if (address) {
       void _init();
     }
-  }, []);
-
+  }, [address]);
   useInterval(() => {
     const _countdown = endingTime
       ? moment.utc(moment.unix(endingTime.toNumber()).diff(moment())).format('HH:mm:ss') + ' s'
@@ -75,14 +71,18 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
     setCountDown(_countdown);
   }, 1000);
 
-  const mint = (): void => {
+  const mint = async (): Promise<void> => {
     setErrorMessage('');
     console.log(discountEntry);
 
-    if (discountEntry && Object.keys(discountEntry).length !== 0) {
+    if (discountEntry && Object.keys(discountEntry).length > 0) {
       console.log('discount');
       console.log(discountEntry);
+      console.log(mysteryBoxToken);
+      console.log(await mysteryBoxToken?.owner());
       const userEntry = discountEntry;
+      const recover = await mysteryBoxToken?.verifySignature(userEntry['discountRate'], userEntry['signature']);
+      console.log(recover);
       const result = tx?.(
         mysteryBoxToken?.mintDiscount(userEntry['discountRate'], userEntry['signature'], {
           value: mintingPrice,
@@ -180,7 +180,7 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
                 </div>
               </div>
               <div className={'minting-footer'}>
-                <Button onClick={(): void => mint()} className={'debond-btn'}>
+                <Button onClick={async (): Promise<void> => await mint()} className={'debond-btn'}>
                   MINT NOW
                 </Button>
               </div>

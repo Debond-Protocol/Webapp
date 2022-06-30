@@ -6,7 +6,6 @@ import { ethers } from 'hardhat';
 describe('testing mystery box token ', function () {
   let contractAddress: string;
   let mysteryBoxToken: Contract;
-  let userWallet: Wallet;
   const discountRate = 10;
   let owner: Signer;
   let user: Signer;
