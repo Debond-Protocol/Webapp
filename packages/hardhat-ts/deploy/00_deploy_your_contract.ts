@@ -6,6 +6,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
   console.log('nft');
+  console.log(deployer);
 
   await deploy('MysteryBoxToken', {
     from: deployer,

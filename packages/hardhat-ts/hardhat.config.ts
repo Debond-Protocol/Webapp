@@ -73,9 +73,7 @@ const config: HardhatUserConfig = {
         if there is no mnemonic, it will just use account 0 of the hardhat node to deploy
         (you can put in a mnemonic here to set the deployer locally)
       */
-
-       accounts:
-         ["0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"]
+      accounts: ["0x14ec305b3e64c547fd8eb4871eab8c00e06d8751dc4c43436a5e318cfdb5a951"]
          //mnemonic: getMnemonic(),
        ,
     },
@@ -100,7 +98,7 @@ const config: HardhatUserConfig = {
       },
     },
     ropsten: {
-      gasPrice: 1000000000000,//1000000000// this after is working but surely too much 100000000000
+      gasPrice: 1000000000,//1000000000// this after is working but surely too much 100000000000
       url: 'https://ropsten.infura.io/v3/eb4e662f20bb49499212df7e3cf4fdba', // <---- YOUR INFURA ID! (or it won't work)
       accounts: ["0x14ec305b3e64c547fd8eb4871eab8c00e06d8751dc4c43436a5e318cfdb5a951"],
     },

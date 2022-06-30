@@ -45,7 +45,6 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
   const mintingPrice = useMintingPrice();
   const [address] = useSignerAddress(ethersContext.signer);
   const [balanceToken, ,] = useTokenBalance(mysteryBoxToken, address ?? '');
-  console.log(balanceToken);
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/require-await
     async function _init(): Promise<void> {
@@ -55,7 +54,7 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
           address: '0x61C17CDB2b20A4eCc60D8B4d3866DdF37FacF964',
           discountRate: 10,
           signature:
-            '0xfde4650aead0670eae5b886d61cf2dfa55622ab79a631f5da00398b91b8701ed70002424089f681357637f9c4e53a775bfa4718691ef1d842d3a989898707b231c',
+            '0x8244622780ef02098d72d244f56b236a372c6dd8cee8eb62e4f425b704a58cab47ccac632fbd4c71165930089ee2bff553c3100c000d1588cd9ce0a43eb6c14d1c',
         },
       ];
       if (discounts && address) {
@@ -78,7 +77,11 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
 
   const mint = (): void => {
     setErrorMessage('');
-    if (discountEntry) {
+    console.log(discountEntry);
+
+    if (discountEntry && Object.keys(discountEntry).length !== 0) {
+      console.log('discount');
+      console.log(discountEntry);
       const userEntry = discountEntry;
       const result = tx?.(
         mysteryBoxToken?.mintDiscount(userEntry['discountRate'], userEntry['signature'], {
@@ -96,6 +99,7 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
         }
       );
     } else {
+      console.log(mintingPrice);
       const result = tx?.(
         mysteryBoxToken?.mint({
           value: mintingPrice,
@@ -138,10 +142,13 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
     const numberOfSlides: number = 11;
     for (let i = 1; i <= numberOfSlides; i++) {
       content.push(
-          <div  className={"divrelative"} style={{position:"relative"}} >
-            <img src={"nftfront.png"} style={{position:"absolute", width:"563px",top:"20px",left:0, right:0, margin:"auto" }}/>
-            <img src={`nft/${i}.png`} />
-          </div>
+        <div className={'divrelative'} style={{ position: 'relative' }}>
+          <img
+            src={'nftfront.png'}
+            style={{ position: 'absolute', width: '563px', top: '20px', left: 0, right: 0, margin: 'auto' }}
+          />
+          <img src={`nft/${i}.png`} />
+        </div>
       );
     }
     return content;
@@ -155,7 +162,7 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
       <Tabs defaultActiveKey="1" centered>
         <Tabs.TabPane tab="MINT D/NFT" key="1" style={{}}>
           <div style={{ position: 'relative' }}>
-            <Carousel autoplay style={{position:"relative"}}>
+            <Carousel autoplay style={{ position: 'relative' }}>
               {renderBackground()}
             </Carousel>
 
