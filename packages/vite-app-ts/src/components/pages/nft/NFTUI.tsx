@@ -153,7 +153,7 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
       <Tabs defaultActiveKey="1" centered>
         <Tabs.TabPane tab="MINT D/NFT" key="1" style={{}}>
           <div style={{ position: 'relative' }}>
-            <Carousel autoplay style={{ position: 'relative' }}>
+            <Carousel effect={'fade'} autoplay style={{ position: 'relative' }}>
               {renderBackground()}
             </Carousel>
 
