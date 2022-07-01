@@ -18,7 +18,6 @@ import { useAppContracts } from '~~/config/contractContext';
 import { MysteryBoxToken } from '~~/generated/contract-types';
 
 import '~~/styles/css/nft.css';
-import { EllipsisOutlined, SettingOutlined } from '@ant-design/icons/lib';
 
 export interface NFTUIProps {
   mainnetProvider: StaticJsonRpcProvider | undefined;
@@ -121,15 +120,7 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
     const numberOfTokens: number = balanceToken.toNumber();
     for (let i = 1; i <= numberOfTokens; i++) {
       content.push(
-        <Card
-          style={{ width: 300 }}
-          cover={
-            <img
-              alt="your nft"
-              src="https://i2.wp.com/techbullion.com/wp-content/uploads/2022/04/1647397792-nft-art2.jpg?resize=750,375"
-            />
-          }
-          actions={[<SettingOutlined key="setting" />, <EllipsisOutlined key="ellipsis" />]}>
+        <Card style={{ width: 300, textAlign: 'center' }} cover={<img alt="your nft" src="mystery.gif" />}>
           <Meta title="DEBOND NFT" description="Get your NFT" />
         </Card>
       );
