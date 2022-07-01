@@ -31,7 +31,7 @@ import { NETWORKS } from '~~/models/constants/networks';
 export const useScaffoldHooksExamples = (scaffoldAppProviders: IScaffoldAppProviders): void => {
   const ethComponentsSettings = useContext(EthComponentsSettingsContext);
   const ethersContext = useEthersContext();
-  const mainnetDai = useAppContracts('DAI', NETWORKS.mainnet.chainId);
+  const mainnetDai = useAppContracts('MysteryBoxToken', NETWORKS.mainnet.chainId);
 
   const exampleMainnetProvider = scaffoldAppProviders.mainnetAdaptor?.provider;
   const currentChainId: number | undefined = ethersContext.chainId;
