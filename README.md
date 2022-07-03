@@ -31,23 +31,19 @@ Running the app
    # clone the repo
    git clone --branch frontend https://github.com/Debond-Protocol/Debond-v0.git
    ```
-4. run the app, `open a new command prompt`
+4. deploy the contracts, `open a new command prompt`
    
    ```bash
    # build hardhat & external contracts types
    yarn contracts:build 
    # deploy your hardhat contracts
-   yarn deploy
-   # start vite 
-   yarn start 
+   yarn deploy --network $yourNetwork
    ```
 
 5. deploy the app
    ```bash
    # login first to firebase
-   firebase login
-   # build project
    yarn build
-   # deploy to firebase
-   firebase deploy
+   # build project
+   yarn serve
    ```
