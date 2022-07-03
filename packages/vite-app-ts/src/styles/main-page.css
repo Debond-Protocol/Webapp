@@ -5,6 +5,7 @@
 .dlayoutContent {
   background: linear-gradient(180deg, #16153d 0%, #000000 100%) !important;
   margin: 0px 5% 50px 5% !important;
+  padding-top:30px;
   /*padding: 20px 10px 20px 20px;*/
   min-height: 720px;
 }
@@ -65,11 +66,11 @@
       width: 70%!important;*/
   margin: 20px 0px 10px 0px;
 }
-.ant-layout-header{
+.ant-layout-header {
   margin: 00px 40px 30px 40px;
 }
 
-.ant-tabs-nav-wrap{
+.ant-tabs-nav-wrap {
   margin: 0px 40px 30px 40px;
 }
 
