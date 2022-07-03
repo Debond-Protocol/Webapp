@@ -4,8 +4,8 @@
 
 .dlayoutContent {
   background: linear-gradient(180deg, #16153d 0%, #000000 100%) !important;
-  margin: 0px 30px 50px 10px !important;
-  padding: 20px 10px 20px 20px;
+  margin: 0px 5% 50px 5% !important;
+  /*padding: 20px 10px 20px 20px;*/
   min-height: 720px;
 }
 
@@ -63,7 +63,14 @@
 .ant-layout-content {
   /*flex:unset!important;
       width: 70%!important;*/
-  margin: 20px 30px 10px 20px;
+  margin: 20px 0px 10px 0px;
+}
+.ant-layout-header{
+  margin: 00px 40px 30px 40px;
+}
+
+.ant-tabs-nav-wrap{
+  margin: 0px 40px 30px 40px;
 }
 
 .pageTitle {

@@ -8,7 +8,7 @@ import { useEthersContext } from 'eth-hooks/context';
 import { useDexEthPrice } from 'eth-hooks/dapps';
 import { asEthersAdaptor } from 'eth-hooks/functions';
 
-import { MainPageMenu, MainPageFooter, MainPageHeader } from './components/main';
+import { MainPageFooter, MainPageHeader } from './components/main';
 
 import { useBurnerFallback } from '~~/components/main/hooks/useBurnerFallback';
 import { useScaffoldProviders as useScaffoldAppProviders } from '~~/components/main/hooks/useScaffoldAppProviders';
@@ -92,9 +92,9 @@ export const Main: FC = () => {
         <Layout>
           {/* Routes should be added between the <Switch> </Switch> as seen below */}
           <BrowserRouter>
-            <Layout.Sider>
+            {/*            <Layout.Sider>
               <MainPageMenu route={route} setRoute={setRoute} />
-            </Layout.Sider>
+            </Layout.Sider>*/}
             <Layout.Content className={'dlayoutContent'}>
               <Layout.Content>
                 <Switch>

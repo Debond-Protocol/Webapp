@@ -44,7 +44,7 @@ contract MysteryBoxToken is ERC20, Ownable {
   }
 
   //@YU: This function gives the price now
-  function getMintingPrice() public view virtual returns (uint256) {
+  function getMintingPrice() internal view virtual returns (uint256) {
     //The percentage of time passed
     uint256 percentageTimePassed = ((block.timestamp - startingTime) * 100) / duration;
     return 2e17 + (3e17 * percentageTimePassed) / 100;
