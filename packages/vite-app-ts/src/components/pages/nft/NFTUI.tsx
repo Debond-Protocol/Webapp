@@ -117,8 +117,8 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
 
   const renderNFTs = (): any => {
     const numberOfTokens: number = balanceToken.toNumber();
-    const nftsData: any[] = Array.from(new Array(16), (x, i) =>
-      i <= numberOfTokens ? { title: 'Your NFT', src: 'mystery.gif' } : { title: ' ', src: 'nonft.png' }
+    const nftsData: any[] = Array.from(new Array(8), (x, i) =>
+      i < numberOfTokens ? { title: 'Your NFT', src: 'mystery.gif' } : { title: ' ', src: 'nonft.png' }
     );
     for (let i = 1; i <= numberOfTokens; i++) {
       nftsData;
@@ -170,10 +170,7 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
   };
 
   return (
-    <ContentLayout
-      title={'NFT'}
-      description={'D/Bond redefines the utilities and conceptions of NFTs'}
-      className={'nft-page'}>
+    <ContentLayout className={'nft-page'}>
       <Tabs defaultActiveKey="1" centered>
         <Tabs.TabPane tab="MINT D/NFT" key="1" style={{}}>
           <div style={{ position: 'relative' }}>
@@ -203,7 +200,7 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
           </div>
         </Tabs.TabPane>
 
-        <Tabs.TabPane tab="MY D/NFTs" key="2" style={{ padding: '50px' }}>
+        <Tabs.TabPane tab="MY D/NFTs" key="2" style={{ padding: '0 50px 0 50px' }}>
           {renderNFTs()}
         </Tabs.TabPane>
       </Tabs>

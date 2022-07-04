@@ -80,43 +80,47 @@
   width: 100%;
 }
 
-.ant-tabs-nav-wrap{
-  margin-bottom:-16px;
+.ant-tabs-nav-wrap {
+  margin-bottom: -16px;
 }
 
-
 @keyframes pulse {
-  0% { box-shadow:0 0 8px white, inset 0 0 8px white; }
-  50% { box-shadow:0 0 80px white, inset 0 0 80px white; }
-  100% { box-shadow:0 0 40px white, inset 0 0 40px white; }
+  0% {
+    box-shadow: 0 0 8px white, inset 0 0 8px white;
+  }
+  50% {
+    box-shadow: 0 0 80px white, inset 0 0 80px white;
+  }
+  100% {
+    box-shadow: 0 0 40px white, inset 0 0 40px white;
+  }
 }
 
 .inner {
-  background-color:transparent;
-  width:500px;
-  height:500px;
-  border-radius:250px;
+  background-color: transparent;
+  width: 500px;
+  height: 500px;
+  border-radius: 250px;
   box-shadow: 0 0 80px white, inset 0 0 80px white;
   -webkit-animation: pulse 5s linear 3s infinite;
 }
 
 .inner p {
-  display:block;
+  display: block;
   text-align: center;
   line-height: 100px;
-  font-family:sans-serif;
-  font-weight:100;
-  font-size:24px;
+  font-family: sans-serif;
+  font-weight: 100;
+  font-size: 24px;
   color: white;
   text-shadow: 0 0 4px white;
 }
 
-.nft-foot{
-  width:700px;
+.nft-foot {
+  width: 700px;
   position: absolute;
-  left:0;
-  right:0;
-  margin:auto;
-  top:180px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 180px;
 }
-

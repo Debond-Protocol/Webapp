@@ -5,7 +5,7 @@
 .dlayoutContent {
   background: linear-gradient(180deg, #16153d 0%, #000000 100%) !important;
   margin: 0px 5% 50px 5% !important;
-  padding-top:30px;
+  padding-top: 30px;
   /*padding: 20px 10px 20px 20px;*/
   min-height: 720px;
 }
