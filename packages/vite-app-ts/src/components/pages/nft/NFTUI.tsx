@@ -1,7 +1,6 @@
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { formatEther } from '@ethersproject/units';
-import { Button, Card, Carousel, Tabs } from 'antd';
-import Meta from 'antd/es/card/Meta';
+import { Button, Card, Carousel, List, Tabs } from 'antd';
 import { transactor } from 'eth-components/functions';
 import { EthComponentsSettingsContext } from 'eth-components/models';
 import { useContractReader, useGasPrice, useSignerAddress } from 'eth-hooks';
@@ -59,6 +58,7 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
         console.log('not discounted user', address, discounts);
       }
     }
+
     if (address) {
       void _init();
     }
@@ -115,17 +115,33 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
     }
   };
 
-  const renderNFTs = (): any[] => {
-    const content = [];
+  const renderNFTs = (): any => {
     const numberOfTokens: number = balanceToken.toNumber();
+    const nftsData: any[] = Array.from(new Array(16), (x, i) =>
+      i <= numberOfTokens ? { title: 'Your NFT', src: 'mystery.gif' } : { title: ' ', src: 'nonft.png' }
+    );
     for (let i = 1; i <= numberOfTokens; i++) {
-      content.push(
-        <Card style={{ width: 300, textAlign: 'center' }} cover={<img alt="your nft" src="mystery.gif" />}>
-          <Meta title="DEBOND NFT" description="Get your NFT" />
-        </Card>
-      );
+      nftsData;
     }
-    return content;
+    return (
+      <List
+        grid={{
+          gutter: 50,
+          xs: 1,
+          sm: 2,
+          md: 4,
+          lg: 4,
+          xl: 4,
+          xxl: 4,
+        }}
+        dataSource={nftsData}
+        renderItem={(item: any): any => (
+          <List.Item>
+            <Card title={item.title} cover={<img alt="your nft" src={item.src} />}></Card>
+          </List.Item>
+        )}
+      />
+    );
   };
 
   const renderBackground = (): any[] => {
@@ -134,10 +150,18 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
     for (let i = 1; i <= numberOfSlides; i++) {
       content.push(
         <div className={'divrelative'} style={{ position: 'relative' }}>
-          <img
-            src={'nftfront.png'}
-            style={{ position: 'absolute', width: '563px', top: '20px', left: 0, right: 0, margin: 'auto' }}
-          />
+          {/*          <img
+            src={'nft.gif'}
+            style={{position: 'absolute', width: '593px', top: '20px', left: 0, right: 0, margin: 'auto'}}
+          />*/}
+          <div style={{ position: 'relative' }}>
+            <div className="inner" style={{ position: 'absolute', top: '60px', left: 0, right: 0, margin: 'auto' }}>
+              <p></p>
+            </div>
+            <div className={'nft-foot'}>
+              <img src={'nft-front-foot.gif'} />
+            </div>
+          </div>
           <img src={`nft/${i}.png`} />
         </div>
       );
@@ -179,7 +203,7 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
           </div>
         </Tabs.TabPane>
 
-        <Tabs.TabPane tab="MY D/NFTs" key="2">
+        <Tabs.TabPane tab="MY D/NFTs" key="2" style={{ padding: '50px' }}>
           {renderNFTs()}
         </Tabs.TabPane>
       </Tabs>
