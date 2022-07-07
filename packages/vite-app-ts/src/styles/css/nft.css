@@ -1,126 +1,133 @@
 .minting-header {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 30.9836px;
-  color: #dfdfdf;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30.9836px;
+    color: #dfdfdf;
 }
 
 .minting-div {
-  border: 0.2px solid #0029ff;
-  backdrop-filter: blur(37px);
-  border-radius: 4px;
-  backdrop-filter: blur(37px);
-  position: absolute;
-  margin: 20% auto auto auto;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  height: fit-content;
-  width: 387px;
-  padding: 30px 60px 30px 60px;
+    border: 0.2px solid #0029ff;
+    backdrop-filter: blur(37px);
+    border-radius: 4px;
+    backdrop-filter: blur(37px);
+    position: absolute;
+    margin: 20% auto auto auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    height: fit-content;
+    width: 387px;
+    padding: 30px 60px 30px 60px;
 }
 
 .minting-header {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 .minting-footer {
-  margin-top: 15px;
-  display: flex;
-  justify-content: center;
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
 }
+
 .debond-btn {
-  width: 100%;
+    width: 100%;
 }
 
 .ether-price span {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 146%;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 146%;
 }
 
 .dollar-price {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  color: #dfdfdf;
-  margin-top: auto;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    color: #dfdfdf;
+    margin-top: auto;
 }
 
 .minting-countdown {
-  position: absolute;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 200;
-  font-size: 48.8376px;
-  line-height: 146%;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: 10% auto auto auto;
-  width: fit-content;
+    position: absolute;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 200;
+    font-size: 48.8376px;
+    line-height: 146%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 10% auto auto auto;
+    width: fit-content;
 
-  color: #ffffff;
+    color: #ffffff;
 }
 
 .divrelative {
-  position: relative;
+    position: relative;
 }
 
 .ant-tabs-nav-list,
 .ant-tabs-nav-wrap,
 .ant-tabs-tab {
-  width: 100%;
+    width: 100%;
 }
 
 .ant-tabs-nav-wrap {
-  margin-bottom: -16px;
+    margin-bottom: -16px;
 }
 
 @keyframes pulse {
-  0% {
-    box-shadow: 0 0 8px white, inset 0 0 8px white;
-  }
-  50% {
-    box-shadow: 0 0 80px white, inset 0 0 80px white;
-  }
-  100% {
-    box-shadow: 0 0 40px white, inset 0 0 40px white;
-  }
+    0% {
+        box-shadow: 0 0 10px white, inset 0 0 8px white;
+    }
+    25% {
+        box-shadow: 0 0 20px white, inset 0 0 20px white;
+    }
+    50% {
+        box-shadow: 0 0 40px white, inset 0 0 40px white;
+    }
+    75% {
+        box-shadow: 0 0 20px white, inset 0 0 20px white;
+    }
+    100% {
+        box-shadow: 0 0 10px white, inset 0 0 8px white;
+    }
 }
 
 .inner {
-  background-color: transparent;
-  width: 500px;
-  height: 500px;
-  border-radius: 250px;
-  box-shadow: 0 0 80px white, inset 0 0 80px white;
-  -webkit-animation: pulse 5s linear 3s infinite;
+    background-color: transparent;
+    width: 500px;
+    height: 500px;
+    border-radius: 250px;
+    box-shadow: 0 0 80px white, inset 0 0 80px white;
+    -webkit-animation: pulse 5s linear 3s infinite;
 }
 
 .inner p {
-  display: block;
-  text-align: center;
-  line-height: 100px;
-  font-family: sans-serif;
-  font-weight: 100;
-  font-size: 24px;
-  color: white;
-  text-shadow: 0 0 4px white;
+    display: block;
+    text-align: center;
+    line-height: 100px;
+    font-family: sans-serif;
+    font-weight: 100;
+    font-size: 24px;
+    color: white;
+    text-shadow: 0 0 4px white;
 }
 
 .nft-foot {
-  width: 700px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin: auto;
-  top: 180px;
+    width: 700px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 180px;
 }
