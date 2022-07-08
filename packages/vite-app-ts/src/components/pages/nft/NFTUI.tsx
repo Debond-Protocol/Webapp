@@ -43,13 +43,12 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
   const mintingPrice = useMintingPrice();
   const [address] = useSignerAddress(ethersContext.signer);
   const [balanceToken, ,] = useTokenBalance(mysteryBoxToken, address ?? '');
+  console.log(mysteryBoxToken);
   useEffect(() => {
     async function _init(): Promise<void> {
       // TODO change this reading file, temporary fix, problem when building app
       const discountsResults = await fetch('../../discounts.json');
       const discounts: any = await discountsResults.json();
-      console.log(discounts);
-
       if (discounts && address) {
         console.log('discounted user');
         const entry = discounts.filter((e: any) => e['address'] === address);
@@ -80,8 +79,6 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
       console.log(mysteryBoxToken);
       console.log(await mysteryBoxToken?.owner());
       const userEntry = discountEntry;
-      const recover = await mysteryBoxToken?.verifySignature(userEntry['discountRate'], userEntry['signature']);
-      console.log(recover);
       const result = tx?.(
         mysteryBoxToken?.mintDiscount(userEntry['discountRate'], userEntry['signature'], {
           value: mintingPrice,
@@ -100,8 +97,8 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
     } else {
       console.log(mintingPrice);
       const result = tx?.(
-        mysteryBoxToken?.mint({
-          value: mintingPrice,
+        mysteryBoxToken?.mint(1, {
+          value: mintingPrice!,
         }),
         (update) => {
           if (update && (update.status === 'confirmed' || update.status === 1)) {
@@ -182,7 +179,7 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
             <div className={'minting-div'}>
               <div className={'minting-header'}>
                 <div className={'ether-price'}>
-                  {mintingPrice ? (+formatEther(mintingPrice.toString())).toFixed(4) : 'Loading'}
+                  {mintingPrice ? (+formatEther(mintingPrice.toString())).toFixed(2) : 'Loading'}
                   <span> ETH</span>
                 </div>
                 <div className={'dollar-price'}>
