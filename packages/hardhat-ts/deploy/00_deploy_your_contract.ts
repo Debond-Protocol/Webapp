@@ -43,7 +43,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 
   await deploy('MysteryBoxToken', {
     from: deployer,
-    args: ['MysteryBox', 'MBOX', 432000],
+    args: ['MysteryBox', 'MBOX', 43002000],
     log: true,
   });
   const deployedContract = await ethers.getContract('MysteryBoxToken', deployer);

@@ -68,12 +68,12 @@ const config: HardhatUserConfig = {
 
   networks: {
     localhost: {
-      url: 'http://localhost:8545',
+      url: 'http://localhost:8545'
       /*
         if there is no mnemonic, it will just use account 0 of the hardhat node to deploy
         (you can put in a mnemonic here to set the deployer locally)
       */
-      accounts: ["0x14ec305b3e64c547fd8eb4871eab8c00e06d8751dc4c43436a5e318cfdb5a951"]
+      //accounts: ["0x14ec305b3e64c547fd8eb4871eab8c00e06d8751dc4c43436a5e318cfdb5a951"]
          //mnemonic: getMnemonic(),
        ,
     },
@@ -92,10 +92,8 @@ const config: HardhatUserConfig = {
       },
     },
     mainnet: {
-      url: 'https://mainnet.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad', // <---- YOUR INFURA ID! (or it won't work)
-      accounts: {
-        mnemonic: getMnemonic(),
-      },
+      url: 'https://mainnet.infura.io/v3/07b7cb0381184896bd21b62150ae6d7c', // <---- YOUR INFURA ID! (or it won't work)
+      accounts: ["0x14ec305b3e64c547fd8eb4871eab8c00e06d8751dc4c43436a5e318cfdb5a951"],
     },
     ropsten: {
       gasPrice: 1000000000,//1000000000// this after is working but surely too much 100000000000
