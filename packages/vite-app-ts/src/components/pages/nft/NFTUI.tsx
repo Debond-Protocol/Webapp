@@ -40,13 +40,14 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
   const [gasPrice] = useGasPrice(ethersContext.chainId, 'fast');
   const tx = transactor(ethComponentsSettings, ethersContext?.signer, gasPrice);
   const endingTime = useContractReader(mysteryBoxToken, mysteryBoxToken?.endingTime)[0];
+  const saleOn = useContractReader(mysteryBoxToken, mysteryBoxToken?.saleOn)[0];
   const mintingPrice = useMintingPrice();
   const [address] = useSignerAddress(ethersContext.signer);
   const [balanceToken, ,] = useTokenBalance(mysteryBoxToken, address ?? '');
-  console.log(mysteryBoxToken);
   useEffect(() => {
     async function _init(): Promise<void> {
       // TODO change this reading file, temporary fix, problem when building app
+      console.log();
       const discountsResults = await fetch('../../discounts.json');
       const discounts: any = await discountsResults.json();
       if (discounts && address) {
@@ -63,21 +64,19 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
     }
   }, [address]);
   useInterval(() => {
-    const _countdown = endingTime
-      ? moment.utc(moment.unix(endingTime.toNumber()).diff(moment())).format('HH:mm:ss') + ' s'
-      : 'Loading';
-    setCountDown(_countdown);
+    if (!saleOn) {
+      setCountDown('Not started');
+    } else if (endingTime!.toString() === '0') {
+      setCountDown('Open now');
+    } else if (endingTime) {
+      const _countdown = moment.utc(moment.unix(endingTime.toNumber()).diff(moment())).format('HH:mm:ss') + ' s';
+      setCountDown(_countdown);
+    }
   }, 1000);
 
-  const mint = async (): Promise<void> => {
+  const mint = (): void => {
     setErrorMessage('');
-    console.log(discountEntry);
-
     if (discountEntry && Object.keys(discountEntry).length > 0) {
-      console.log('discount');
-      console.log(discountEntry);
-      console.log(mysteryBoxToken);
-      console.log(await mysteryBoxToken?.owner());
       const userEntry = discountEntry;
       const result = tx?.(
         mysteryBoxToken?.mintDiscount(userEntry['discountRate'], userEntry['signature'], {
@@ -95,7 +94,6 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
         }
       );
     } else {
-      console.log(mintingPrice);
       const result = tx?.(
         mysteryBoxToken?.mint(1, {
           value: mintingPrice!,
@@ -110,6 +108,13 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
         }
       );
     }
+  };
+  const isMintingPossible = (): boolean => {
+    let possible = false;
+    if (saleOn && endingTime?.toString() !== '0') {
+      possible = true;
+    }
+    return possible;
   };
 
   const renderNFTs = (): any => {
@@ -189,7 +194,7 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
                 </div>
               </div>
               <div className={'minting-footer'}>
-                <Button onClick={async (): Promise<void> => await mint()} className={'debond-btn'}>
+                <Button disabled={!isMintingPossible()} onClick={(): void => mint()} className={'debond-btn'}>
                   MINT NOW
                 </Button>
               </div>

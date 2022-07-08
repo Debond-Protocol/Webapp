@@ -131,3 +131,7 @@
   margin: auto;
   top: 180px;
 }
+
+.ant-btn[disabled]{
+  background-color: grey!important;
+}
