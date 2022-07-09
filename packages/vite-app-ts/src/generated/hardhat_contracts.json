@@ -5,7 +5,7 @@
       "chainId": "1",
       "contracts": {
         "MysteryBoxToken": {
-          "address": "0xe38fec0ce55B6742D2adb400D9f6e538709004A8",
+          "address": "0x22fd5f761d1e49b8b56f86d2dba5aaf311d800d6",
           "abi": [
             {
               "inputs": [
