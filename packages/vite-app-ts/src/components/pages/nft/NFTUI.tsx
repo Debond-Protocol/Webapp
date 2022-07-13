@@ -111,7 +111,7 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
   };
   const isMintingPossible = (): boolean => {
     let possible = false;
-    if (saleOn && endingTime?.toString() !== '0') {
+    if (saleOn) {
       possible = true;
     }
     return possible;
