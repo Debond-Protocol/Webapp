@@ -1,6 +1,6 @@
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { formatEther } from '@ethersproject/units';
-import { Button, Card, Carousel, List, Tabs } from 'antd';
+import { Button, Card, Carousel, InputNumber, List, Tabs } from 'antd';
 import { transactor } from 'eth-components/functions';
 import { EthComponentsSettingsContext } from 'eth-components/models';
 import { useContractReader, useGasPrice, useSignerAddress } from 'eth-hooks';
@@ -34,6 +34,7 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
   const ethersContext = useEthersContext();
   const [errorMessage, setErrorMessage] = useState('');
   const [countDown, setCountDown] = useState('Loading');
+  const [amount, setAmount] = useState(1);
   const [discountEntry, setDiscountEntry] = useState({} as UserEntry);
   const mysteryBoxToken = useAppContracts('MysteryBoxToken', ethersContext.chainId) as MysteryBoxToken;
   const ethComponentsSettings = useContext(EthComponentsSettingsContext);
@@ -94,9 +95,10 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
         }
       );
     } else {
+      const finalPrice = mintingPrice!.mul(BigNumber.from(amount));
       const result = tx?.(
-        mysteryBoxToken?.mint(1, {
-          value: mintingPrice!,
+        mysteryBoxToken?.mint(amount, {
+          value: finalPrice,
         }),
         (update) => {
           if (update && (update.status === 'confirmed' || update.status === 1)) {
@@ -192,6 +194,17 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
                     ? '$' + (parseFloat(formatEther(mintingPrice.toString())) * props.price).toFixed(2)
                     : 'Loading'}
                 </div>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <InputNumber
+                  style={{ textAlign: 'center', width: '200px' }}
+                  min={1}
+                  addonBefore={'Quantity'}
+                  defaultValue={1}
+                  onChange={(value): void => setAmount(value)}
+                  controls
+                  autoFocus
+                />
               </div>
               <div className={'minting-footer'}>
                 <Button disabled={!isMintingPossible()} onClick={(): void => mint()} className={'debond-btn'}>

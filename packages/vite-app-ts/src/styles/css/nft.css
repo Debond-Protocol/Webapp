@@ -135,3 +135,7 @@
 .ant-btn[disabled] {
   background-color: grey !important;
 }
+
+.ant-input-number-input-wrap input {
+  text-align: center;
+}
