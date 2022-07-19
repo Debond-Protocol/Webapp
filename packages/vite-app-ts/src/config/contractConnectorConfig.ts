@@ -26,34 +26,26 @@ export const contractConnectorConfig = () => {
       Bank: createConnectorForHardhatContract('Bank', hardhatContracts.Bank__factory, hardhatContractsJson),
 
       DebondData: createConnectorForHardhatContract(
-        'DebondData',
-        hardhatContracts.DebondData__factory,
+        'BankData',
+        hardhatContracts.BankData__factory,
         hardhatContractsJson
       ),
 
       DebondBond: createConnectorForHardhatContract(
-        'DebondBond',
-        hardhatContracts.DebondBond__factory,
+        'DebondBondTest',
+        hardhatContracts.DebondBondTest__factory,
         hardhatContractsJson
       ),
-      Exchange: createConnectorForHardhatContract(
-        'Exchange',
 
-        hardhatContracts.Exchange__factory,
-        hardhatContractsJson
-      ),
       USDC: createConnectorForHardhatContract('USDC', hardhatContracts.USDC__factory, hardhatContractsJson),
       USDT: createConnectorForHardhatContract('USDT', hardhatContracts.USDT__factory, hardhatContractsJson),
-      DBIT: createConnectorForHardhatContract('DBIT', hardhatContracts.DBIT__factory, hardhatContractsJson),
+      DBIT: createConnectorForHardhatContract('DBITTest', hardhatContracts.DBIT__factory, hardhatContractsJson),
       DAI2: createConnectorForHardhatContract('DAI', hardhatContracts.DAI__factory, hardhatContractsJson),
-      MysteryBoxToken: createConnectorForHardhatContract(
-        'MysteryBoxToken',
-        hardhatContracts.MysteryBoxToken__factory,
-        hardhatContractsJson
-      ),
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      Governance: createConnectorForHardhatContract('Governance', hardhatContracts.Governance__factory, hardhatContractsJson),
 
       // 🙋🏽‍♂️ Add your external contracts here, make sure to define the address in `externalContractsConfig.ts`
-      DAI: createConnectorForExternalContract('DAI', externalContracts.DAI__factory, externalContractsAddressMap),
+      //DAI: createConnectorForExternalContract('DAI', externalContracts.DAI__factory, externalContractsAddressMap),
       UNI: createConnectorForExternalContract('UNI', externalContracts.UNI__factory, externalContractsAddressMap),
 
       // 🙋🏽‍♂️ Add your external abi here (unverified contracts)`

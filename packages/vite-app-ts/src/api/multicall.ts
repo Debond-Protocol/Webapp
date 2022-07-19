@@ -1,5 +1,6 @@
 import { Interface } from '@ethersproject/abi';
 import { MultiCall } from '@indexed-finance/multicall';
+import {BigNumber} from "ethers";
 
 /**
  * Multicall
@@ -9,7 +10,7 @@ import { MultiCall } from '@indexed-finance/multicall';
  * @param provider: provider
  */
 export const getMultiCallResults0 = async (
-  arr: number[],
+  arr: BigNumber[],
   _contract: any,
   _functionName: string,
   provider: any

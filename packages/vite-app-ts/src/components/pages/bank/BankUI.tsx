@@ -42,7 +42,7 @@ export const BankUI: FC<IBankUIProps> = (props) => {
 
   useEffect(() => {
     async function _init(): Promise<void> {
-      const _allClasses = await getAllClasses(debondDataContract, provider);
+      const _allClasses = await getAllClasses(debondDataContract!, provider);
       const [classesMap] = mapClassesToRow(_allClasses);
       setAllClasses(classesMap);
 

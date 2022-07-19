@@ -55,9 +55,11 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 
   const DebondMathDeployed = await ethers.getContract('DebondMath', deployer);
 
+
   await deploy('Bank', {
     from: deployer,
     log: true,
+    libraries:{"DebondMath":DebondMathDeployed.address},
     args: [
       deployer,
       APMDeployed.address,
@@ -75,8 +77,8 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   const BankDeployed = await ethers.getContract('Bank', deployer);
   await APMDeployed.setBankAddress(BankDeployed.address);
   await DebondBondTestDeployed.setBankAddress(BankDeployed.address);
-  await DBIT.setBankAddress(BankDeployed.address);
-  await DGOV.setBankAddress(BankDeployed.address);
+  await DBIT.setBankContract(BankDeployed.address);
+  await DGOV.setBankContract(BankDeployed.address);
   // await BankDeployed.initializeApp(DAI.address, USDT.address);
 };
 
