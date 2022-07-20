@@ -25,13 +25,7 @@ Running the app
    yarn chain
    ```
 
-3. get the contracts
-   ```bash
-   cd packages/hardhat-ts/contracts
-   # clone the repo
-   git clone --branch frontend https://github.com/Debond-Protocol/Debond-v0.git
-   ```
-4. deploy the contracts, `open a new command prompt`
+3. deploy the contracts, `open a new command prompt`
    
    ```bash
    # build hardhat & external contracts types
@@ -39,8 +33,13 @@ Running the app
    # deploy your hardhat contracts
    yarn deploy --network $yourNetwork
    ```
+   
+4. Start the app 
+   ```bash
+   yarn start
+   ```
 
-5. deploy the app
+5. Deploy the app
    ```bash
    # login first to firebase
    yarn build
