@@ -7,16 +7,17 @@
 }
 
 .minting-div {
+  z-index: 2;
   border: 0.2px solid #0029ff;
   backdrop-filter: blur(37px);
   border-radius: 4px;
   backdrop-filter: blur(37px);
   position: absolute;
-  margin: 20% auto auto auto;
+  margin: 0px auto auto auto;
   left: 0;
   right: 0;
   bottom: 0;
-  top: 0;
+  top: 80px;
   height: fit-content;
   width: 387px;
   padding: 30px 40px 30px 40px;
@@ -65,7 +66,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  margin: 10% auto auto auto;
+  margin: auto auto auto auto;
   width: fit-content;
 
   color: #ffffff;
@@ -73,6 +74,7 @@
 
 .divrelative {
   position: relative;
+  z-index: 1;
 }
 
 .ant-tabs-nav-list,
@@ -124,12 +126,14 @@
 }
 
 .nft-foot {
-  width: 700px;
   position: absolute;
   left: 0;
   right: 0;
   margin: auto;
   top: 180px;
+}
+.nft-foot img {
+  margin: auto;
 }
 
 .ant-btn[disabled] {
@@ -138,4 +142,49 @@
 
 .ant-input-number-input-wrap input {
   text-align: center;
+}
+
+.inner{
+  position: absolute;
+  top: 180px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+
+@media all and (max-width: 425px){
+  .minting-divs {
+    top: 190px!important;
+  }
+}
+@media all and (max-device-width: 768px)
+{
+  .inner{
+    width:80vw;
+    height: 80vw;
+    border-radius: 40vw;
+  }
+  .minting-div{
+    padding:3px 4px 3px 4px;
+    min-width: 250px;
+    max-width: 80%;
+    padding:15px;
+  }
+}
+
+.nft-carousel img{
+  height: 100%;
+  min-height: 800px;
+}
+
+.minting-divs{
+  z-index:2;
+  position: absolute;
+  top:250px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0px auto auto auto;
+  width: 100%;
 }

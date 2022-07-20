@@ -48,7 +48,6 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
   useEffect(() => {
     async function _init(): Promise<void> {
       // TODO change this reading file, temporary fix, problem when building app
-      console.log();
       const discountsResults = await fetch('../../discounts.json');
       const discounts: any = await discountsResults.json();
       if (discounts && address) {
@@ -76,6 +75,7 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
   }, 1000);
 
   const mint = (): void => {
+    console.log(saleOn);
     setErrorMessage('');
     if (discountEntry && Object.keys(discountEntry).length > 0) {
       const userEntry = discountEntry;
@@ -131,7 +131,7 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
       <List
         grid={{
           gutter: 50,
-          xs: 1,
+          xs: 2,
           sm: 2,
           md: 4,
           lg: 4,
@@ -153,19 +153,7 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
     const numberOfSlides: number = 11;
     for (let i = 1; i <= numberOfSlides; i++) {
       content.push(
-        <div className={'divrelative'} style={{ position: 'relative' }}>
-          {/*          <img
-            src={'nft.gif'}
-            style={{position: 'absolute', width: '593px', top: '20px', left: 0, right: 0, margin: 'auto'}}
-          />*/}
-          <div style={{ position: 'relative' }}>
-            <div className="inner" style={{ position: 'absolute', top: '60px', left: 0, right: 0, margin: 'auto' }}>
-              <p></p>
-            </div>
-            <div className={'nft-foot'}>
-              <img src={'nft-front-foot.gif'} />
-            </div>
-          </div>
+        <div>
           <img src={`nft/${i}.png`} />
         </div>
       );
@@ -178,38 +166,47 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
       <Tabs defaultActiveKey="1" centered>
         <Tabs.TabPane tab="MINT D/NFT" key="1" style={{}}>
           <div style={{ position: 'relative' }}>
-            <Carousel effect={'fade'} autoplay style={{ position: 'relative' }}>
+            <div className={'divrelative'}>
+              <div className="inner">
+                <p></p>
+              </div>
+              <div className={'nft-foot'}>
+                <img src={'nft-front-foot.gif'} />
+              </div>
+            </div>
+            <Carousel className="nft-carousel" effect={'fade'} autoplay style={{ position: 'relative' }}>
               {renderBackground()}
             </Carousel>
-
-            <div className={'minting-countdown'}>{countDown}</div>
-            <div className={'minting-div'}>
-              <div className={'minting-header'}>
-                <div className={'ether-price'}>
-                  {mintingPrice ? (+formatEther(mintingPrice.toString())).toFixed(2) : 'Loading'}
-                  <span> ETH</span>
+            <div className={'minting-divs'}>
+              <div className={'minting-countdown'}>{countDown}</div>
+              <div className={'minting-div'}>
+                <div className={'minting-header'}>
+                  <div className={'ether-price'}>
+                    {mintingPrice ? (+formatEther(mintingPrice.toString())).toFixed(2) : 'Loading'}
+                    <span> ETH</span>
+                  </div>
+                  <div className={'dollar-price'}>
+                    {mintingPrice
+                      ? '$' + (parseFloat(formatEther(mintingPrice.toString())) * props.price).toFixed(2)
+                      : 'Loading'}
+                  </div>
                 </div>
-                <div className={'dollar-price'}>
-                  {mintingPrice
-                    ? '$' + (parseFloat(formatEther(mintingPrice.toString())) * props.price).toFixed(2)
-                    : 'Loading'}
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <InputNumber
+                    style={{ textAlign: 'center', width: '200px' }}
+                    min={1}
+                    addonBefore={'Quantity'}
+                    defaultValue={1}
+                    onChange={(value): void => setAmount(value)}
+                    controls
+                    autoFocus
+                  />
                 </div>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <InputNumber
-                  style={{ textAlign: 'center', width: '200px' }}
-                  min={1}
-                  addonBefore={'Quantity'}
-                  defaultValue={1}
-                  onChange={(value): void => setAmount(value)}
-                  controls
-                  autoFocus
-                />
-              </div>
-              <div className={'minting-footer'}>
-                <Button disabled={!isMintingPossible()} onClick={(): void => mint()} className={'debond-btn'}>
-                  MINT NOW
-                </Button>
+                <div className={'minting-footer'}>
+                  <Button disabled={!isMintingPossible()} onClick={(): void => mint()} className={'debond-btn'}>
+                    MINT NOW
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
