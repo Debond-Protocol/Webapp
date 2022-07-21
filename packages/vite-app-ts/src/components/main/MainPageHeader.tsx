@@ -1,11 +1,10 @@
 import { GlobalOutlined } from '@ant-design/icons/lib';
 import { getNetwork } from '@ethersproject/networks';
-import { Alert, Menu } from 'antd';
+import { Alert, Menu, Modal } from 'antd';
 import { useGasPrice } from 'eth-hooks';
 import { useEthersContext } from 'eth-hooks/context';
 import React, { FC, ReactElement, useState } from 'react';
 
-import { FaucetHintButton } from '~~/components/common/FaucetHintButton';
 import { WalletConnector } from '~~/components/common/walletConnector/WalletConnector';
 import { IScaffoldAppProviders } from '~~/components/main/hooks/useScaffoldAppProviders';
 import { getNetworkInfo } from '~~/functions';
@@ -28,6 +27,19 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
   // 🔥 This hook will get the price of Gas from ⛽️ EtherGasStation
   const [gasPrice] = useGasPrice(ethersContext.chainId, 'fast', getNetworkInfo(ethersContext.chainId));
   const [collapsed, setCollapsed]: any[] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = (): void => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = (): void => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = (): void => {
+    setIsModalVisible(false);
+  };
 
   /**
    * this shows the page header and other informaiton
@@ -41,33 +53,6 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
       </div>
       {props.children}
     </>
-  );
-
-  /**
-   * 👨‍💼 Your account is in the top right with a wallet at connect options
-   */
-  const right = (
-    <div
-      className={'leftWallet'}
-      style={{
-        display: 'flex',
-        position: 'fixed',
-        textAlign: 'right',
-        right: '20px',
-        top: '40px',
-        padding: 10,
-        zIndex: 1,
-      }}>
-      <WalletConnector
-        createLoginConnector={props.scaffoldAppProviders.createLoginConnector}
-        ensProvider={props.scaffoldAppProviders.mainnetAdaptor?.provider}
-        price={props.price}
-        blockExplorer={props.scaffoldAppProviders.targetNetwork.blockExplorer}
-        hasContextConnect={true}
-      />
-      <FaucetHintButton scaffoldAppProviders={props.scaffoldAppProviders} gasPrice={gasPrice} />
-      {props.children}
-    </div>
   );
 
   /**
@@ -104,10 +89,54 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
     );
   }
 
+  /**
+   * 👨‍💼 Your account is in the top right with a wallet at connect options
+   */
+  const right = (
+    <>
+      <Modal onCancel={handleCancel} footer={null} className="burger-modal" visible={isModalVisible}>
+        <>
+          <WalletConnector
+            createLoginConnector={props.scaffoldAppProviders.createLoginConnector}
+            ensProvider={props.scaffoldAppProviders.mainnetAdaptor?.provider}
+            price={props.price}
+            blockExplorer={props.scaffoldAppProviders.targetNetwork.blockExplorer}
+            hasContextConnect={true}
+          />
+          <div id={'burger-network'}> {networkDisplay}</div>
+        </>
+      </Modal>
+      <div id={'burger-menu'} onClick={showModal}>
+        <img src={'burger.png'} />
+      </div>
+      <div
+        className={'leftWallet'}
+        style={{
+          display: 'flex',
+          position: 'fixed',
+          textAlign: 'right',
+          right: '20px',
+          top: '40px',
+          padding: 10,
+          zIndex: 1,
+        }}>
+        <WalletConnector
+          createLoginConnector={props.scaffoldAppProviders.createLoginConnector}
+          ensProvider={props.scaffoldAppProviders.mainnetAdaptor?.provider}
+          price={props.price}
+          blockExplorer={props.scaffoldAppProviders.targetNetwork.blockExplorer}
+          hasContextConnect={true}
+        />
+
+        {props.children}
+      </div>
+    </>
+  );
+
   return (
     <div className={'dheader'}>
+      <div id={'network'}> {networkDisplay}</div>
       {left}
-      {networkDisplay}
       {right}
     </div>
   );

@@ -48,6 +48,8 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   });
   const deployedContract = await ethers.getContract('MysteryBoxToken', deployer);
 
+  await deployedContract.setSaleOn();
+
   const [signer] = await hre.ethers.getSigners();
   const entries = await discountGenerator(signer, deployedContract.address);
   console.log(entries);

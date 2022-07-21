@@ -124,9 +124,6 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
     const nftsData: any[] = Array.from(new Array(8), (x, i) =>
       i < numberOfTokens ? { title: 'Your NFT', src: 'mystery.gif' } : { title: ' ', src: 'nonft.png' }
     );
-    for (let i = 1; i <= numberOfTokens; i++) {
-      nftsData;
-    }
     return (
       <List
         grid={{

@@ -99,14 +99,8 @@ export const WalletConnector: FC<IAccountProps> = (props: IAccountProps) => {
   const loadModalButton = (
     <>
       {showLoadModal && props.createLoginConnector && (
-        <Button
-          loading={loadingButtonDebounce.isPending()}
-          key="loginbutton"
-          style={{ verticalAlign: 'top', marginLeft: 8, marginTop: 4 }}
-          shape="round"
-          size="large"
-          onClick={handleLoginClick}>
-          connect
+        <Button loading={loadingButtonDebounce.isPending()} key="loginbutton" size="large" onClick={handleLoginClick}>
+          CONNECT
         </Button>
       )}
     </>
@@ -115,13 +109,8 @@ export const WalletConnector: FC<IAccountProps> = (props: IAccountProps) => {
   const logoutButton = (
     <>
       {!showLoadModal && props.createLoginConnector && (
-        <Button
-          key="logoutbutton"
-          style={{ verticalAlign: 'top', marginLeft: 8, marginTop: 4 }}
-          shape="round"
-          size="large"
-          onClick={ethersContext.disconnectModal}>
-          logout
+        <Button key="logoutbutton" size="large" onClick={ethersContext.disconnectModal}>
+          LOGOUT
         </Button>
       )}
     </>
@@ -130,7 +119,7 @@ export const WalletConnector: FC<IAccountProps> = (props: IAccountProps) => {
   const { currentTheme } = useThemeSwitcher();
 
   const display = (
-    <span>
+    <span className={'wallet-connector-span'}>
       {resolvedAddress != null && (
         <div
           style={{
@@ -172,10 +161,10 @@ export const WalletConnector: FC<IAccountProps> = (props: IAccountProps) => {
     <div>
       {display}
       {props.hasContextConnect && (
-        <>
+        <div className={'wallet-buttons'}>
           {loadModalButton}
           {logoutButton}
-        </>
+        </div>
       )}
     </div>
   );
