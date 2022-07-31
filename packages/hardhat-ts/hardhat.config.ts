@@ -77,10 +77,9 @@ const config: HardhatUserConfig = {
     rinkeby: {
       //url: 'https://rinkeby.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad', // <---- YOUR INFURA ID! (or it won't work)
       url:'https://rinkeby.infura.io/v3/eb4e662f20bb49499212df7e3cf4fdba',
-      gasPrice: 5000000000,
-      accounts:
-        ["0x14ec305b3e64c547fd8eb4871eab8c00e06d8751dc4c43436a5e318cfdb5a951"]
-      ,
+      accounts: {
+        mnemonic: getMnemonic(),
+      }
     },
     kovan: {
       url: 'https://kovan.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad', // <---- YOUR INFURA ID! (or it won't work)
