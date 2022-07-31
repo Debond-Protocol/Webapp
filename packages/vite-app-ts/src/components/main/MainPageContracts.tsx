@@ -18,7 +18,6 @@ export interface IMainPageContractsProps {
  */
 export const MainPageContracts: FC<IMainPageContractsProps> = (props) => {
   const ethersContext = useEthersContext();
-  const mainnetDai = useAppContracts('DAI', NETWORKS.mainnet.chainId);
 
   if (ethersContext.account == null) {
     return <></>;

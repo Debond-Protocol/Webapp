@@ -1,17 +1,17 @@
-import { Table } from 'antd';
-import { transactor } from 'eth-components/functions';
-import { EthComponentsSettingsContext } from 'eth-components/models';
-import { useContractReader, useGasPrice } from 'eth-hooks';
-import { useEthersContext } from 'eth-hooks/context';
-import { BigNumber } from 'ethers';
-import React, { useContext, useEffect, useState } from 'react';
+import {Table} from 'antd';
+import {transactor} from 'eth-components/functions';
+import {EthComponentsSettingsContext} from 'eth-components/models';
+import {useContractReader, useGasPrice} from 'eth-hooks';
+import {useEthersContext} from 'eth-hooks/context';
+import {BigNumber} from 'ethers';
+import React, {useContext, useEffect, useState} from 'react';
 
-import { fetchBondDetails, fetchBondsIds, redeemTransaction } from '~~/api/bonds';
-import { getAllClasses } from '~~/api/classes';
-import { getTableColumns } from '~~/components/main/table/bondColumns';
-import { toStringArray } from '~~/components/main/table/utils';
-import { mapClassesToRow } from '~~/components/main/table/utils/mapping';
-import { useAppContracts } from '~~/config/contractContext';
+import {fetchBondDetails, fetchBondsIds, redeemTransaction} from '~~/api/bonds';
+import {getTableColumns} from '~~/components/main/table/bondColumns';
+import {toStringArray} from '~~/components/main/table/utils';
+import {mapClassesToRow} from '~~/components/main/table/utils/mapping';
+import {useAppContracts} from '~~/config/contractContext';
+import {useIssues} from "~~/components/main/hooks/useIssues";
 
 export const DebondWallet = (props: any): any => {
   const selectedColumnsName: [] = props.columns;
@@ -21,24 +21,20 @@ export const DebondWallet = (props: any): any => {
   const [gasPrice] = useGasPrice(ethersContext.chainId, 'fast');
   const tx = transactor(ethComponentsSettings, ethersContext?.signer, gasPrice);
 
-  const debondDataContract = useAppContracts('DebondData', ethersContext.chainId);
 
-  const debondBondContract = useAppContracts('DebondBond', ethersContext.chainId);
   const bankContract = useAppContracts('Bank', ethersContext.chainId);
-  // const [address] = useSignerAddress(ethersContext.signer);
 
   const address = ethersContext?.account;
 
-  const [classesOwned]: any[] = useContractReader(debondBondContract, debondBondContract?.getClassesPerAddress, [
-    address as string,
-  ]);
 
-  const [allClasses, setAllClasses]: any[] = useState(new Map<string, any>());
+
+  const userIssues = useIssues()
   const [bondIdsMap, setBondIdsMap]: any[] = useState(new Map<string, any>());
 
   const [tableClasses, setTableClasses]: any[] = useState([]);
   const [bondsOwned, setBondsOwned]: any[] = useState(new Map<string, any>());
   const [tokenFilters, setTokenFilters]: any[] = useState([]);
+/*
 
   const completeClassWithBondsInfos = (_bondIdsMap: any, _bondsMap: any, _classMap: any): any => {
     // const bondsPerClassMap=new Map(Array.from(_classesMap.keys()).map(_class => [_class, {}]));
@@ -63,14 +59,15 @@ export const DebondWallet = (props: any): any => {
 
     return _classMap;
   };
+*/
+/*
 
   useEffect(() => {
     const loadAllBonds = async (): Promise<void> => {
-      const _allClasses = await getAllClasses(debondDataContract, provider);
-      setAllClasses(_allClasses);
+
       const _classOwned = toStringArray(classesOwned as any[]);
       const bondClasses = new Map(
-        [..._allClasses].filter(([k]) => {
+        [...allClasses].filter(([k]) => {
           return _classOwned.includes(k);
         })
       );
@@ -99,6 +96,7 @@ export const DebondWallet = (props: any): any => {
       void loadAllBonds();
     }
   }, [debondDataContract, provider, classesOwned]);
+*/
 
   /**
    * Function called to redeem the bond

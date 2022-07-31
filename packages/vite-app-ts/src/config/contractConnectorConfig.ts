@@ -24,8 +24,9 @@ export const contractConnectorConfig = () => {
   try {
     const result = {
       Bank: createConnectorForHardhatContract('Bank', hardhatContracts.Bank__factory, hardhatContractsJson),
+      BankBondManager: createConnectorForHardhatContract('BankBondManager', hardhatContracts.BankBondManager__factory, hardhatContractsJson),
 
-      DebondData: createConnectorForHardhatContract(
+      BankData: createConnectorForHardhatContract(
         'BankData',
         hardhatContracts.BankData__factory,
         hardhatContractsJson
@@ -42,7 +43,7 @@ export const contractConnectorConfig = () => {
       DBIT: createConnectorForHardhatContract('DBITTest', hardhatContracts.DBIT__factory, hardhatContractsJson),
       DAI2: createConnectorForHardhatContract('DAI', hardhatContracts.DAI__factory, hardhatContractsJson),
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      Governance: createConnectorForHardhatContract('Governance', hardhatContracts.Governance__factory, hardhatContractsJson),
+      //Governance: createConnectorForHardhatContract('Governance', hardhatContracts.Governance__factory, hardhatContractsJson),
 
       // 🙋🏽‍♂️ Add your external contracts here, make sure to define the address in `externalContractsConfig.ts`
       //DAI: createConnectorForExternalContract('DAI', externalContracts.DAI__factory, externalContractsAddressMap),

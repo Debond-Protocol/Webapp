@@ -212,7 +212,7 @@ export const getClassColumns = (
     dataIndex: 'typePeriod',
     key: 'typePeriod',
     render: (input: any) => {
-      return `${input.interestRateType} (${moment.duration(input.period.toNumber() * 1000).humanize()})`;
+      return `${input.interestRateType} (${moment.duration(input.period * 1000).humanize()})`;
     },
   });
   columns.set('apy', {

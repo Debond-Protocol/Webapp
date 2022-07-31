@@ -1,6 +1,6 @@
-export const interestRatesEnum: Map<string, string> = new Map([
-  ['0', 'Fixed'],
-  ['1', 'Variable'],
+export const interestRatesEnum: Map<number, string> = new Map([
+  [0, 'Fixed'],
+  [1, 'Variable'],
 ]);
 
 export const issuerMap: Map<string, any> = new Map<string, any>([['debond', 'debond']]);
