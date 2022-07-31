@@ -1,4 +1,3 @@
-import { ethers } from 'hardhat';
 import { DeployFunction } from 'hardhat-deploy/types';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
 
@@ -27,9 +26,15 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     log: true,
   });
 
-  const DBIT = await deploy('DBITTest', { from: deployer, log: true, args: [deployer, deployer, deployer] });
+  const FakeOracle = await deploy('FakeOracle', {
+    from: deployer,
+    log: true,
+  });
 
-  const DGOV = await deploy('DGOVTest', { from: deployer, log: true, args: [deployer, deployer, deployer] });
+  const DebondMath = await deploy('DebondMath', {
+    from: deployer,
+    log: true,
+  });
 };
 export default func;
 func.tags = ['Tokens'];

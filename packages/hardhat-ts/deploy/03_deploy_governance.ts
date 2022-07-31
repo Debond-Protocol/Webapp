@@ -1,9 +1,10 @@
-import {ethers} from 'hardhat';
-import {DeployFunction} from 'hardhat-deploy/types';
-import {HardhatRuntimeEnvironment} from 'hardhat/types';
-import {parseEther} from "@ethersproject/units";
+import { parseEther } from '@ethersproject/units';
+import { ethers } from 'hardhat';
+import { DeployFunction } from 'hardhat-deploy/types';
+import { HardhatRuntimeEnvironment } from 'hardhat/types';
 
 const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
+  /*
   const { getNamedAccounts, deployments } = hre;
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
@@ -39,11 +40,11 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   const governance = await ethers.getContract('Governance', deployer);
 
 
-  /*await deploy('DGOV', {
+  /!*await deploy('DGOV', {
   from: deployer,
   log: true,
 });
-*/
+*!/
 
   const dgov = await ethers.getContract('DGOVTest', deployer);
   const voteToken = await ethers.getContract('VoteToken', deployer);
@@ -92,6 +93,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   //await dgov.transfer(account, amountToStake, {from: deployer});
 
   await dgov.transfer(account, amountToStake, {from: account});
+*/
 };
 
 export default func;

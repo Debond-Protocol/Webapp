@@ -73,11 +73,6 @@ const config: HardhatUserConfig = {
         if there is no mnemonic, it will just use account 0 of the hardhat node to deploy
         (you can put in a mnemonic here to set the deployer locally)
       */
-
-       accounts:
-         ["0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"]
-         //mnemonic: getMnemonic(),
-       ,
     },
     rinkeby: {
       //url: 'https://rinkeby.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad', // <---- YOUR INFURA ID! (or it won't work)
@@ -157,7 +152,7 @@ const config: HardhatUserConfig = {
     ],
   },
   paths: {
-    sources: "./contracts/",
+    sources: "./contracts/Debond-Bank/contracts",
     cache: './generated/cache',
     artifacts: './generated/artifacts',
     deployments: './generated/deployments',
