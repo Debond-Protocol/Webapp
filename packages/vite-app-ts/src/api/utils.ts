@@ -31,7 +31,7 @@ export const availableTokens: Map<string, any> = getAvailableTokens(['USDC', 'US
 export const availableExternalTokens: Map<string, any> = getAvailableTokens(['USDC', 'USDT', 'DAI']);
 */
 
-
-export const purchaseMethods: Map<string, string> = new Map<string, string>([['0', 'stake'],
-  ['1', 'buy']]);
-
+export const purchaseMethods: Map<string, string> = new Map<string, string>([
+  ['0', 'stake'],
+  ['1', 'buy'],
+]);

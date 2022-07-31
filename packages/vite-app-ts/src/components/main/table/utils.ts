@@ -1,3 +1,11 @@
+import { formatEther } from '@ethersproject/units';
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import { BigNumber } from 'ethers';
+dayjs.extend(relativeTime);
+dayjs.extend(duration);
+
 export const interestRatesEnum: Map<number, string> = new Map([
   [0, 'Fixed'],
   [1, 'Variable'],
@@ -5,20 +13,16 @@ export const interestRatesEnum: Map<number, string> = new Map([
 
 export const issuerMap: Map<string, any> = new Map<string, any>([['debond', 'debond']]);
 
-/**
- * Convert array of any to array of strings
- * @param arr: array to parse, each element should have tostring method
- */
-export const toStringArray = (arr: any[]): string[] => {
-  const array: string[] = [];
-  for (let i = 0; i < arr.length; i++) {
-    array.push(arr[i].toString() as string);
-  }
-  return array;
-};
-
 export const numberFormatter = (item: number): string => item.toExponential(0);
 
+export const BNtoPercentage = (bn: BigNumber): string => {
+  const _apy = (+formatEther(bn) * 100).toFixed(2);
+  return `${_apy}%`;
+};
+
+export const numberToHumanDuration = (seconds: number): string => {
+  return dayjs.duration(seconds, 'seconds').humanize();
+};
+
 // mocked
-export const apys = [0.05, 0.03, 0.08, 0.03, 0.04, 0.02, 0.1];
 export const ratings = ['AAA', 'AA', 'AAA', 'A', 'AAA', 'A'];

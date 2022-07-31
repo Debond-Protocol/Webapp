@@ -1,14 +1,12 @@
-import {useEthersContext} from 'eth-hooks/context';
-import {useEffect, useState} from 'react';
+import { useEthersContext } from 'eth-hooks/context';
+import { BigNumber } from 'ethers';
+import { useEffect, useState } from 'react';
 
-import {IScaffoldAppProviders} from '~~/components/main/hooks/useScaffoldAppProviders';
-import {useAppContracts} from "~~/config/contractContext";
-import {BigNumber} from "ethers";
-import {BankBondManager} from "~~/generated/contract-types";
-import {ClassCreatedEventFilter} from "~~/generated/contract-types/BankBondManager";
-import {getMultiCallResults} from "~~/api/multicall";
-import {interestRatesEnum} from "~~/components/main/table/utils";
-import {useTokens} from "~~/components/main/hooks/useTokens";
+import { getMultiCallResults } from '~~/api/multicall';
+import { interestRatesEnum } from '~~/components/main/table/utils';
+import { useAppContracts } from '~~/config/contractContext';
+import { BankBondManager } from '~~/generated/contract-types';
+import { ClassCreatedEventFilter } from '~~/generated/contract-types/BankBondManager';
 
 export interface Class {
   id: number;
@@ -16,47 +14,47 @@ export interface Class {
   period: number;
   symbol: string;
   tokenAddress: string;
-  interestRate: number;
+  interestRate: BigNumber;
 }
 
-export const useClasses = (appProviders: IScaffoldAppProviders): any => {
+export const useClasses = (): any => {
   const ethersContext = useEthersContext();
   const bankManager: BankBondManager | undefined = useAppContracts('BankBondManager', ethersContext.chainId);
   const [classes, setClasses]: any[] = useState();
   const [classesMap, setClassesMap] = useState<Map<number, Class>>();
-  const tokensInfos=useTokens();
+  // const tokensInfos=useTokens();
 
   useEffect(() => {
     const init = async (): Promise<void> => {
-      if (bankManager) {
+      if (bankManager && ethersContext.provider) {
         const classCreatedEvent: ClassCreatedEventFilter = bankManager.filters.ClassCreated();
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+
         const classesEvents = await bankManager.queryFilter(classCreatedEvent);
-        const classIds: number[] = classesEvents.map(({args: args1}): number => (args1[0] as BigNumber).toNumber());
-        const args = classIds.map((_id) => [_id, 1])
-        const irs = await getMultiCallResults( bankManager, 'getInterestRate', appProviders.currentProvider, args);
+        const classIds: number[] = classesEvents.map(({ args: args1 }): number => args1[0].toNumber());
+        const args = classIds.map((_id) => [_id, 1]);
+        const irs = await getMultiCallResults(bankManager, 'getInterestRate', ethersContext.provider, args);
         const _classes: Class[] = classesEvents.map((event, index) => {
           const [classId, symbol, tokenAddress, interestRateType, period] = event.args;
           return {
             id: classId.toNumber(),
             symbol: symbol,
             tokenAddress: tokenAddress,
-            interestType: interestRatesEnum.get(interestRateType as number),
+            interestType: interestRatesEnum.get(interestRateType),
             period: period.toNumber(),
-            interestRate: irs[index]
-          } as Class
+            interestRate: irs[index],
+          } as Class;
         });
-        const _classesMap = new Map(_classes.map(i => [i.id, i]));
+        const _classesMap = new Map(_classes.map((i) => [i.id, i]));
         setClasses(_classes);
-        setClassesMap(_classesMap)
+        setClassesMap(_classesMap);
       }
-    }
+    };
     void init();
 
-    if (bankManager) {
+    if (bankManager && ethersContext.provider) {
       void init();
     }
-  }, [bankManager]);
+  }, [bankManager, ethersContext.provider]);
 
-  return {classes, classesMap};
+  return { classes, classesMap };
 };

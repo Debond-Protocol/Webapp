@@ -1,10 +1,11 @@
 import { BigNumberish } from '@ethersproject/bignumber';
 import { formatEther } from '@ethersproject/units';
 import { Button, Progress } from 'antd';
+import { BigNumber } from 'ethers';
 import moment from 'moment';
 import React from 'react';
 
-import { issuerMap } from '~~/components/main/table/utils';
+import { BNtoPercentage, issuerMap } from '~~/components/main/table/utils';
 
 export interface ITableColumnsProps {
   selectedColumnsName: string[];
@@ -82,9 +83,10 @@ export const getBondColumns = (redeem: any): any => {
     dataIndex: 'progress',
     key: 'progress',
     render: (infos: any) => {
+      console.log(infos);
       return (
         <div>
-          <Progress percent={infos.progress.toFixed(0)} showInfo={true} />
+          <Progress percent={infos.progress.toNumber().toFixed(0)} showInfo={true} />
         </div>
       );
     },
@@ -219,9 +221,7 @@ export const getClassColumns = (
     title: 'APY',
     dataIndex: 'apy',
     key: 'apy',
-    render: (apy: number) => {
-      return `${apy * 100}%`;
-    },
+    render: (apy: BigNumber) => BNtoPercentage(apy),
   });
   columns.set('selectBond', {
     title: 'Deposit',

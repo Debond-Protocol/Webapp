@@ -1,31 +1,28 @@
-import React, {FC, useEffect, useState} from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import React, { FC, useEffect, useState } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import '~~/styles/main-page.css';
 
-import {useBalance, useEthersAdaptorFromProviderOrSigners} from 'eth-hooks';
-import {useEthersContext} from 'eth-hooks/context';
-import {useDexEthPrice} from 'eth-hooks/dapps';
-import {asEthersAdaptor} from 'eth-hooks/functions';
+import { useBalance, useEthersAdaptorFromProviderOrSigners } from 'eth-hooks';
+import { useEthersContext } from 'eth-hooks/context';
+import { useDexEthPrice } from 'eth-hooks/dapps';
+import { asEthersAdaptor } from 'eth-hooks/functions';
 
-import {MainPageMenu, MainPageFooter, MainPageHeader} from './components/main';
+import { MainPageFooter, MainPageHeader, MainPageMenu } from './components/main';
 
-import {useBurnerFallback} from '~~/components/main/hooks/useBurnerFallback';
-import {useScaffoldProviders as useScaffoldAppProviders} from '~~/components/main/hooks/useScaffoldAppProviders';
-// import { Hints, ExampleUI } from '~~/components/pages';
+import { useClasses } from '~~/components/main/hooks/useClasses';
+import { useScaffoldProviders as useScaffoldAppProviders } from '~~/components/main/hooks/useScaffoldAppProviders';
 import ContentLayout from '~~/components/main/layout/ContentLayout';
-import {BankUI} from '~~/components/pages/bank/BankUI';
-import {DashboardUI} from '~~/components/pages/dashboard/DashboardUI';
-import {ExchangeUI} from '~~/components/pages/exchange/ExchangeUI';
-import {GovernanceUI} from '~~/components/pages/governance/GovernanceUI';
-import {NFTUI} from '~~/components/pages/nft/NFTUI';
-import {WalletUI} from '~~/components/pages/wallet/WalletUI';
-import {BURNER_FALLBACK_ENABLED, MAINNET_PROVIDER} from '~~/config/appConfig';
-import {useAppContracts, useConnectAppContracts, useLoadAppContracts} from '~~/config/contractContext';
+import { BankUI } from '~~/components/pages/bank/BankUI';
+import { DashboardUI } from '~~/components/pages/dashboard/DashboardUI';
+import { ExchangeUI } from '~~/components/pages/exchange/ExchangeUI';
+import { GovernanceUI } from '~~/components/pages/governance/GovernanceUI';
+import { NFTUI } from '~~/components/pages/nft/NFTUI';
+import { WalletUI } from '~~/components/pages/wallet/WalletUI';
+import { MAINNET_PROVIDER } from '~~/config/appConfig';
+import { useConnectAppContracts, useLoadAppContracts } from '~~/config/contractContext';
 
-import {Layout} from 'antd';
-import {Class, useClasses} from "~~/components/main/hooks/useClasses";
-import {useClassesRows} from "~~/components/main/hooks/useClassesRow";
+import { Layout } from 'antd';
 
 /**
  * ⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️
@@ -52,10 +49,7 @@ export const Main: FC = () => {
   // 🦊 Get your web3 ethers context from current providers
   const ethersContext = useEthersContext();
 
-  // if no user is found use a burner wallet on localhost as fallback if enabled
-  useBurnerFallback(scaffoldAppProviders, BURNER_FALLBACK_ENABLED);
-  const {classes, classesMap} = useClasses(scaffoldAppProviders);
-  console.log(classes)
+  const { classes, classesMap } = useClasses();
   // -----------------------------
   // Load Contracts
   // -----------------------------
@@ -66,30 +60,6 @@ export const Main: FC = () => {
   useConnectAppContracts(mainnetAdaptor);
   // 🏭 connec to  contracts for current network & signer
   useConnectAppContracts(asEthersAdaptor(ethersContext));
-
-  // -----------------------------
-  // Hooks use and examples
-  // -----------------------------
-  // 🎉 Console logs & More hook examples:
-  // 🚦 disable this hook to stop console logs
-  // 🏹🏹🏹 go here to see how to use hooks!
-  // useScaffoldHooksExamples(scaffoldAppProviders);
-
-  // -----------------------------
-  // These are the contracts!
-  // -----------------------------
-
-  // init contracts
-  // const mainnetDai = useAppContracts('DAI', NETWORKS.mainnet.chainId);
-  const daiContract = useAppContracts('DAI2', ethersContext.chainId);
-  const usdcContract = useAppContracts('USDC', ethersContext.chainId);
-  const usdtContract = useAppContracts('USDT', ethersContext.chainId);
-  const dbitContract = useAppContracts('DBIT', ethersContext.chainId);
-
-  // -----------------------------
-  // .... 🎇 End of examples
-  // -----------------------------
-  // 💵 This hook will get the price of ETH from 🦄 Uniswap:
   const [ethPrice] = useDexEthPrice(scaffoldAppProviders.mainnetAdaptor?.provider, scaffoldAppProviders.targetNetwork);
 
   // 💰 this hook will get your balance
@@ -102,15 +72,15 @@ export const Main: FC = () => {
 
   return (
     <Layout>
-      <Layout.Header style={{height: '20vh'}}>
-        <MainPageHeader scaffoldAppProviders={scaffoldAppProviders} price={ethPrice}/>
+      <Layout.Header style={{ height: '20vh' }}>
+        <MainPageHeader scaffoldAppProviders={scaffoldAppProviders} price={ethPrice} />
       </Layout.Header>
       <Layout.Content>
         <Layout>
           {/* Routes should be added between the <Switch> </Switch> as seen below */}
           <BrowserRouter>
             <Layout.Sider>
-              <MainPageMenu route={route} setRoute={setRoute}/>
+              <MainPageMenu route={route} setRoute={setRoute} />
             </Layout.Sider>
             <Layout.Content className={'dlayoutContent'}>
               <Layout.Content>
@@ -136,7 +106,7 @@ export const Main: FC = () => {
                     />
                   </Route>
                   <Route path="/swap">
-                    <ContentLayout title={'Swap'} description={'Here you can swap different currencies'}/>
+                    <ContentLayout title={'Swap'} description={'Here you can swap different currencies'} />
                   </Route>
                   <Route path="/governance">
                     <GovernanceUI
@@ -146,7 +116,7 @@ export const Main: FC = () => {
                     />
                   </Route>
                   <Route path="/loan">
-                    <ContentLayout title={'Loan'} description={'Here you can get a loan'}/>
+                    <ContentLayout title={'Loan'} description={'Here you can get a loan'} />
                   </Route>
                   <Route path="/dex">
                     <ExchangeUI
@@ -175,7 +145,7 @@ export const Main: FC = () => {
           </BrowserRouter>
         </Layout>
       </Layout.Content>
-      <MainPageFooter scaffoldAppProviders={scaffoldAppProviders} price={ethPrice}/>
+      <MainPageFooter scaffoldAppProviders={scaffoldAppProviders} price={ethPrice} />
     </Layout>
   );
 };

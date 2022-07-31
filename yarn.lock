@@ -866,6 +866,41 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@debond-protocol/debond-apm-contracts@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "@debond-protocol/debond-apm-contracts@npm:0.0.1"
+  checksum: c02fef87a22109014eb9b07e371cadd11bdc5d35603b7d6d2c56474d6d30a7f62b32ba6d1d838f16065a943aba20f1f729ba2e276c37fba25be4f5c47d832678
+  languageName: node
+  linkType: hard
+
+"@debond-protocol/debond-erc3475-contracts@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@debond-protocol/debond-erc3475-contracts@npm:0.0.2"
+  checksum: daab67ab94981d6eccdec4532575d5598fdf924a8e0418dbc92c328adc53b16256eb0c42d39f93cb4f9cdbafd1c49ef40b805f2a03a4971e02c7f7d8f4cdc374
+  languageName: node
+  linkType: hard
+
+"@debond-protocol/debond-governance-contracts@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "@debond-protocol/debond-governance-contracts@npm:0.0.1"
+  checksum: a70ddb05a8e7c4216684512616254692726267155b69daa9f5619568f6baf4d60c22078b90853186aadcf6b1eed5aec4a03d90449db1b803e661df643062f7c8
+  languageName: node
+  linkType: hard
+
+"@debond-protocol/debond-oracle-contracts@npm:0.0.1":
+  version: 0.0.1
+  resolution: "@debond-protocol/debond-oracle-contracts@npm:0.0.1"
+  checksum: 3d03323a67c6f5eea7b06a0000e30d795112e78b196671a0696e3b993e5f6223e60d39fe68aedcf17974a0447c073f9905305db45e9683bd05ec1d46159d5df2
+  languageName: node
+  linkType: hard
+
+"@debond-protocol/debond-token-contracts@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@debond-protocol/debond-token-contracts@npm:0.0.2"
+  checksum: 95bc740f0f464fc6d5a848b98872c89906c99e553588562e9ced77316c0ba7339ec0bdbc294502d61552ce2c474c1e32ac0f6aba41627b0ceaa0266d8d3c3dd2
+  languageName: node
+  linkType: hard
+
 "@defi-wonderland/smock@npm:^2.0.7":
   version: 2.0.7
   resolution: "@defi-wonderland/smock@npm:2.0.7"
@@ -2822,6 +2857,11 @@ __metadata:
   resolution: "@scaffold-eth/hardhat@workspace:packages/hardhat-ts"
   dependencies:
     "@atixlabs/hardhat-time-n-mine": ^0.0.5
+    "@debond-protocol/debond-apm-contracts": ^0.0.1
+    "@debond-protocol/debond-erc3475-contracts": ^0.0.2
+    "@debond-protocol/debond-governance-contracts": ^0.0.1
+    "@debond-protocol/debond-oracle-contracts": 0.0.1
+    "@debond-protocol/debond-token-contracts": ^0.0.2
     "@defi-wonderland/smock": ^2.0.7
     "@eth-optimism/hardhat-ovm": ^0.2.4
     "@ethereum-waffle/ens": ^3.3.1
@@ -2847,15 +2887,10 @@ __metadata:
     "@types/node": ^16.11.25
     "@typescript-eslint/eslint-plugin": ^5.12.0
     "@typescript-eslint/parser": ^5.12.0
-    apm-contracts: ^0.0.1
     chai: ^4.3.6
     chalk: ^4.1.2
-    debond-erc3475-contracts: ^0.0.1
-    debond-governance-contracts: ^0.0.1
-    debond-oracle-contracts: 0.0.1
-    debond-token-contracts: ^0.0.2
     dotenv: ^14.3.2
-    erc3475: ^0.0.1
+    erc3475: ^0.0.2
     eslint: ^8.9.0
     eslint-config-airbnb: ^19.0.4
     eslint-config-airbnb-typescript: ^16.1.0
@@ -2980,7 +3015,7 @@ __metadata:
     axios: ^0.25.0
     buffer: ^6.0.3
     cross-env: ^7.0.3
-    dayjs: ^1.11.1
+    dayjs: ^1.11.4
     eslint: 8
     eslint-config-airbnb: ^19.0.4
     eslint-config-airbnb-typescript: ^16.1.0
@@ -5091,13 +5126,6 @@ __metadata:
     axios: ^0.21.2
     ramda: ^0.25.0
   checksum: 4bac8117b484616c82e102d238580f835ffabee15da4527e845d091c12618f3b85293fb96c2357a119efede4ac1695d1ec78cc2ae5e3774f1522e1e1b1852365
-  languageName: node
-  linkType: hard
-
-"apm-contracts@npm:^0.0.1":
-  version: 0.0.1
-  resolution: "apm-contracts@npm:0.0.1"
-  checksum: 9d97921c99a6a841f3b5cd7f46bdc492a14062a90cbeefa2361035a6dcf61a9708e212b8b63187a8ff903794d9a60622d1f823c15c586ddd768d515a8a39683a
   languageName: node
   linkType: hard
 
@@ -8838,10 +8866,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.11.1":
-  version: 1.11.1
-  resolution: "dayjs@npm:1.11.1"
-  checksum: d5fefd79935f64a3c262e67af7ebeca180bc402b3e99be4e12d20b6d438af3f86d507ba1cbaff95dc0b4e67f1067cea3eaf37b6b74f5494fdd4a6a2909514cd1
+"dayjs@npm:^1.11.4":
+  version: 1.11.4
+  resolution: "dayjs@npm:1.11.4"
+  checksum: 478c8a2db9e3fc752db9f02ef23f00e12308eebbeb85569913731ea78e8d5616f2335e14f25af48e9f16bbcbd796653092eca4d2f42c0218a948402c31735f59
   languageName: node
   linkType: hard
 
@@ -8849,34 +8877,6 @@ __metadata:
   version: 1.1.0
   resolution: "death@npm:1.1.0"
   checksum: 8010ba9a320752f9580eb474985ed214572c0595cf83e92859e3c5a014a01fc8e8f2f2908b80b5f8bca9cb3f94adb546cf55810df6b80e282452e355cdce5aaa
-  languageName: node
-  linkType: hard
-
-"debond-erc3475-contracts@npm:^0.0.1":
-  version: 0.0.1
-  resolution: "debond-erc3475-contracts@npm:0.0.1"
-  checksum: b499fb7a7ee40b8edca59b0af271db1a14aae5d3471b5b5614ea2fd88694498f2323f850e6716164a379c6dd15e4d89c07b7f2cd3713845d4c7f0888ed921fb0
-  languageName: node
-  linkType: hard
-
-"debond-governance-contracts@npm:^0.0.1":
-  version: 0.0.1
-  resolution: "debond-governance-contracts@npm:0.0.1"
-  checksum: 03e506d2bfb4e66ee268173411f0d7ec5f38263145d562bc45685d0cc54d43090bb84e8a4262eb6c7d34bf9390f5890f84cf3e578977bc97ee44ecc133da944c
-  languageName: node
-  linkType: hard
-
-"debond-oracle-contracts@npm:0.0.1":
-  version: 0.0.1
-  resolution: "debond-oracle-contracts@npm:0.0.1"
-  checksum: 71bfe2766af05fdf86deb5be03fab430caaf880588ed6f0fcd9095672a07fbdbd7c3ba649fc50e088a962c022559c1bfa7e3f43d951254301f4fd50bca052f68
-  languageName: node
-  linkType: hard
-
-"debond-token-contracts@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "debond-token-contracts@npm:0.0.2"
-  checksum: 74771dc4f1bb7cbddc88b7faf270ea83268b575df885f53fc20f5d5e694679fd188f198426a9236414d50c61566841680947c989e6a1a2223b9449abab97a1fb
   languageName: node
   linkType: hard
 
@@ -9846,10 +9846,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"erc3475@npm:^0.0.1":
-  version: 0.0.1
-  resolution: "erc3475@npm:0.0.1"
-  checksum: dc6a25384d9a599cc77e6cb00d57784747f282e4eb5141dbf540e162c9f7fd2a4ce5185cecd3e85971c9b32aea3cadbb3e29257b8c2478958cd19b476e807498
+"erc3475@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "erc3475@npm:0.0.2"
+  checksum: b7f58f7882a54cca8c273ec6d24c2f66473408965324842a94ded79c3c98e04164d133b5db4796ab6340c6b9a424f279e045a539119eeeed21142933620bc9a0
   languageName: node
   linkType: hard
 
