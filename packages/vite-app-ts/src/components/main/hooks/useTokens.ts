@@ -1,22 +1,22 @@
-import {useSignerAddress} from 'eth-hooks';
-import {useEthersContext} from 'eth-hooks/context';
-import {useEffect, useState} from 'react';
-import {useAppContracts} from "~~/config/contractContext";
-import {BigNumber} from "ethers";
-import {DBIT, USDC, USDT} from "~~/generated/contract-types";
+import { useSignerAddress } from 'eth-hooks';
+import { useEthersContext } from 'eth-hooks/context';
+import { BigNumber } from 'ethers';
+import { useEffect, useState } from 'react';
 
+import { useAppContracts } from '~~/config/contractContext';
+import { DBIT, USDC, USDT } from '~~/generated/contract-types';
 
 export interface IToken {
-  address?: string
-  balance?: BigNumber
-  symbol?: string
-  name?: string
+  address?: string;
+  balance?: BigNumber;
+  symbol?: string;
+  name?: string;
 }
 
 export interface ITokensOutput {
-  tokensInfos?: IToken[]
-  tokensInfosPerAddress?: Map<string, IToken>
-  tokensInfosPerSymbol?: Map<string, IToken>
+  tokensInfos?: IToken[];
+  tokensInfosPerAddress?: Map<string, IToken>;
+  tokensInfosPerSymbol?: Map<string, IToken>;
 }
 
 /**
@@ -38,22 +38,24 @@ export const useTokens = (): ITokensOutput => {
       if (address && contracts) {
         const _tokenPerAddress = new Map<string, IToken>();
         const _tokenPerSymbol = new Map<string, IToken>();
-        const _tokensInfos: IToken[] = await Promise.all(contracts.map(async (contract, name): Promise<IToken> => {
-          const tok: IToken = {
-            address: contract?.address,
-            balance: await contract?.balanceOf(address),
-            symbol: await contract?.symbol(),
-            name: await contract?.name()
-          }
-          return tok;
-        }));
+        const _tokensInfos: IToken[] = await Promise.all(
+          contracts.map(async (contract, name): Promise<IToken> => {
+            const tok: IToken = {
+              address: contract?.address,
+              balance: await contract?.balanceOf(address),
+              symbol: await contract?.symbol(),
+              name: await contract?.name(),
+            };
+            return tok;
+          })
+        );
         setTokensInfos(_tokensInfos);
-        setTokensInfosPerAddress(new Map(_tokensInfos.map(_tok => [_tok.address!, _tok])));
-        setTokensInfosPerSymbol(new Map(_tokensInfos.map(_tok => [_tok.symbol!, _tok])));
+        setTokensInfosPerAddress(new Map(_tokensInfos.map((_tok) => [_tok.address!, _tok])));
+        setTokensInfosPerSymbol(new Map(_tokensInfos.map((_tok) => [_tok.symbol!, _tok])));
       }
-    }
+    };
     void init();
   }, [contracts, address, _USDC, _USDT, _DBIT]);
 
-  return {tokensInfos, tokensInfosPerAddress, tokensInfosPerSymbol};
+  return { tokensInfos, tokensInfosPerAddress, tokensInfosPerSymbol };
 };
