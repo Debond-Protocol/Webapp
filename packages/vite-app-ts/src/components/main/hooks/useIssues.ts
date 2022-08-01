@@ -53,7 +53,7 @@ export interface IBondInfos {
 export const useIssues = (): IIssuesOutputs => {
   const ethersContext = useEthersContext();
   const provider = ethersContext.provider!;
-  const debondBond: DebondBondTest | undefined = useAppContracts('DebondBond', ethersContext.chainId);
+  const debondBond: DebondBondTest | undefined = useAppContracts('DebondBondTest', ethersContext.chainId);
   const bankManager: BankBondManager | undefined = useAppContracts('BankBondManager', ethersContext.chainId);
   const [bonds, setBonds] = useState<IBondInfos[] | undefined>();
   const [bondsMap, setBondsMap] = useState<Map<number, IBondInfos> | undefined>();

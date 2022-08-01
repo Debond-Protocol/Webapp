@@ -4,7 +4,7 @@ import { BigNumber } from 'ethers';
 import { useEffect, useState } from 'react';
 
 import { useAppContracts } from '~~/config/contractContext';
-import { DBIT, USDC, USDT } from '~~/generated/contract-types';
+import { DBITTest, USDC, USDT } from '~~/generated/contract-types';
 
 export interface IToken {
   address?: string;
@@ -27,8 +27,8 @@ export const useTokens = (): ITokensOutput => {
   const [address] = useSignerAddress(ethersContext.signer);
   const _USDC = useAppContracts('USDC', ethersContext.chainId);
   const _USDT = useAppContracts('USDT', ethersContext.chainId);
-  const _DBIT = useAppContracts('DBIT', ethersContext.chainId);
-  const contracts: (USDC | USDT | DBIT | undefined)[] = [_USDC, _USDT, _DBIT];
+  const _DBIT = useAppContracts('DBITTest', ethersContext.chainId);
+  const contracts: (USDC | USDT | DBITTest | undefined)[] = [_USDC, _USDT, _DBIT];
   const [tokensInfos, setTokensInfos] = useState<IToken[]>();
   const [tokensInfosPerAddress, setTokensInfosPerAddress] = useState(new Map<string, IToken>());
   const [tokensInfosPerSymbol, setTokensInfosPerSymbol] = useState(new Map<string, IToken>());

@@ -32,7 +32,7 @@ export const contractConnectorConfig = () => {
 
       BankData: createConnectorForHardhatContract('BankData', hardhatContracts.BankData__factory, hardhatContractsJson),
 
-      DebondBond: createConnectorForHardhatContract(
+      DebondBondTest: createConnectorForHardhatContract(
         'DebondBondTest',
         hardhatContracts.DebondBondTest__factory,
         hardhatContractsJson
@@ -40,8 +40,8 @@ export const contractConnectorConfig = () => {
 
       USDC: createConnectorForHardhatContract('USDC', hardhatContracts.USDC__factory, hardhatContractsJson),
       USDT: createConnectorForHardhatContract('USDT', hardhatContracts.USDT__factory, hardhatContractsJson),
-      DBIT: createConnectorForHardhatContract('DBITTest', hardhatContracts.DBIT__factory, hardhatContractsJson),
-      DAI2: createConnectorForHardhatContract('DAI', hardhatContracts.DAI__factory, hardhatContractsJson),
+      DBITTest: createConnectorForHardhatContract('DBITTest', hardhatContracts.DBITTest__factory, hardhatContractsJson),
+      DAI: createConnectorForHardhatContract('DAI', hardhatContracts.DAI__factory, hardhatContractsJson),
 
       // Governance: createConnectorForHardhatContract('Governance', hardhatContracts.Governance__factory, hardhatContractsJson),
 
