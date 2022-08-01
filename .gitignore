@@ -16,8 +16,8 @@ tenderly.yaml
 .yalc
 yalc.lock
 packages/vite-app-ts/dist
-packages/vite-app-ts/src/generated
-packages/vite-app-ts/public
+#packages/vite-app-ts/src/generated
+#packages/vite-app-ts/public
 packages/hardhat-ts/mnemonic.secret
 packages/hardhat-ts/contracts
 
@@ -63,3 +63,4 @@ yarn-error.log*
 
 
 
+/packages/hardhat-ts/contracts/

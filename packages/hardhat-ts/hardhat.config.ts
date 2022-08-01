@@ -73,16 +73,13 @@ const config: HardhatUserConfig = {
         if there is no mnemonic, it will just use account 0 of the hardhat node to deploy
         (you can put in a mnemonic here to set the deployer locally)
       */
-      // accounts: {
-      //   mnemonic: mnemonic(),
-      // },
     },
     rinkeby: {
       //url: 'https://rinkeby.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad', // <---- YOUR INFURA ID! (or it won't work)
       url:'https://rinkeby.infura.io/v3/eb4e662f20bb49499212df7e3cf4fdba',
       accounts: {
         mnemonic: getMnemonic(),
-      },
+      }
     },
     kovan: {
       url: 'https://kovan.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad', // <---- YOUR INFURA ID! (or it won't work)
@@ -97,10 +94,9 @@ const config: HardhatUserConfig = {
       },
     },
     ropsten: {
-      url: 'https://ropsten.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad', // <---- YOUR INFURA ID! (or it won't work)
-      accounts: {
-        mnemonic: getMnemonic(),
-      },
+      gasPrice: 1000000000000,//1000000000// this after is working but surely too much 100000000000
+      url: 'https://ropsten.infura.io/v3/eb4e662f20bb49499212df7e3cf4fdba', // <---- YOUR INFURA ID! (or it won't work)
+      accounts: ["0x14ec305b3e64c547fd8eb4871eab8c00e06d8751dc4c43436a5e318cfdb5a951"],
     },
     goerli: {
       url: 'https://goerli.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad', // <---- YOUR INFURA ID! (or it won't work)
@@ -155,7 +151,7 @@ const config: HardhatUserConfig = {
     ],
   },
   paths: {
-    sources: "./contracts/Debond-v0/contracts",
+    sources: "./contracts/Debond-Bank/contracts",
     cache: './generated/cache',
     artifacts: './generated/artifacts',
     deployments: './generated/deployments',

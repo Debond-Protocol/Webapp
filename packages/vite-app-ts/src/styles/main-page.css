@@ -6,6 +6,11 @@
   background: linear-gradient(180deg, #16153d 0%, #000000 100%) !important;
   margin: 0px 30px 50px 10px !important;
   padding: 20px 10px 20px 20px;
+  min-height: 720px;
+}
+
+.dlayoutContent .ant-layout-content {
+  height: 100%;
 }
 
 * {
@@ -245,4 +250,23 @@
   line-height: 146%;
   text-transform: uppercase;
   color: #dfdfdf;
+}
+
+.debond-btn {
+  background: #403af4;
+  border-radius: 2.92818px;
+  padding: 10px 6vw 10px 6vw;
+  height: auto;
+}
+.debond-btn span {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 146%;
+  text-align: center;
+  text-transform: uppercase;
+
+  /* Debond White */
+  color: #ffffff;
 }

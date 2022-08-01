@@ -26,91 +26,86 @@ const contentStyle = {
  */
 export const GovernanceUI: FC<IGovernanceUIProps> = (props) => {
   /*
-    const API_URL = "https://testnet.snapshot.org/graphql?";
-    const getData = async (): Promise<any> => {
-      const data = await axios({
-        url: API_URL,
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        data: {
-          query: `
-        query {
-    proposals (
-      first: 20,
-      skip: 0,
-      where: {
-        space_in: ["debondprotocol.eth"],
-        state: "open"
-      },
-      orderBy: "created",
-      orderDirection: desc
-    ) {
-      id
-      title
-      body
-      choices
-      start
-      end
-      snapshot
-      state
-      author
-      space {
-        id
-        name
-      }
+    const ethersContext = useEthersContext();
+    const provider = ethersContext.provider!;
+    const [address] = useSignerAddress(ethersContext.signer);
+    const governanceContract = useAppContracts('Governance', ethersContext.chainId);
+    const ethComponentsSettings = useContext(EthComponentsSettingsContext);
+    const [gasPrice] = useGasPrice(ethersContext.chainId, 'fast');
+    const tx: any = transactor(ethComponentsSettings, ethersContext?.signer, gasPrice);
+
+    const stake = async (): Promise<void> => {
+      await tx?.(governanceContract?.stakeDGOV(1, 10), (v:any)=>{console.log(v)});
     }
-  }
-      `,
-          variables: {}
-        }
-      });
-      return data;
+
+    /!**
+     * temporary: get Vote token
+     *!/
+    const handleFaucet = async (): Promise<void> => {
+      const account: string | undefined = ethersContext?.account;
+      await purchasableInfos
+        .get(selectedPurchaseClass?.token as string)
+        ?.contract!.mint(account, BigNumber.from('1000000000000000000000'));
+    };
+
+    const createProposal = (): void => {
+      const callData = governanceContract!.interface.encodeFunctionData("updateBenchmarkInterestRate", [
+        '10',
+        address!]
+      )
+      console.log(callData, "calldata")
+      console.log(governanceContract?.address, "address");
+      console.log()
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      const res = tx?.(governanceContract?.createProposal(
+        0,
+        ['0xb9Bf0a43968aEfE2F233dfc4d0aCeEF0Fe5eE19A'],
+        [0],
+        [
+          '0xc29a92f8000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000aa060a02d15fbb6824834cc2ef514a5435666584'
+        ],
+        'Propsal-1: Update the benchMark interest rate'
+      ))
     }
 
     useEffect(() => {
-      const data=getData();
-      console.log(data)
-    })
+      async function _init(): Promise<void> {
 
-  */
-  return (
-    <ContentLayout
-      title={'Governance'}
-      description={
-        <span>
-          Here is the governance part. Follow us on <a href="https://snapshot.org/#/debondprotocol.eth">Snapshot</a>
-        </span>
-      }>
-      {/*
-      <List
-        grid={{
-          gutter: 16,
-          xs: 1,
-          sm: 2,
-          md: 3,
-          lg: 4,
-          xl: 5,
-          xxl: 6
-        }}
-        pagination={{
-          showSizeChanger: true,
-          pageSizeOptions: ["10", "50", "100", "1000"],
-          position: "bottom"
-        }}
-        dataSource={[{key: 0, title: "first", body: "This is a first "}]}
-        renderItem={(item): any => (
-          <List.Item>
-            <Card
-              bordered={false}
-              key={item.key}
-              title={item.title}
-            >
-              {item.body}
-            </Card>
-          </List.Item>)}/>
-          */}
-    </ContentLayout>
-  );
+        const filters = governanceContract!.filters.ProposalCreated();
+        console.log(filters)
+
+        const events = await governanceContract!.queryFilter(filters);
+        console.log(events)
+        console.log("tes")
+      }
+
+      if (provider && governanceContract && address) {
+        void _init();
+      }
+    }, [provider, governanceContract, address]);
+
+
+    return (
+      <ContentLayout
+        title={'Governance'}
+        description={
+          <span>
+            Here is the governance part. Follow us on <a href="https://snapshot.org/#/debondprotocol.eth">Snapshot</a>
+          </span>
+        }>
+        <Button
+          style={{position: 'fixed', left: 40}}
+          onClick={async (): Promise<void> => {
+            await handleFaucet();
+          }}>
+          {`Get some Vote tokens`}
+        </Button>
+
+        <Button onClick={(): void => createProposal()}>Create Proposal</Button>
+        <Button onClick={async (): Promise<void> => stake()}>Stake</Button>
+
+      </ContentLayout>
+    );*/
+  return <ContentLayout title={'Governance'} description={<span>Here is the governance.</span>}></ContentLayout>;
 };

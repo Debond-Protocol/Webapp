@@ -35,7 +35,9 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
   const left = (
     <>
       <div className={'logoDiv'}>
-        <img src="./logo.png" />
+        <a href={'/'}>
+          <img src="./logo.png" />
+        </a>
       </div>
       {props.children}
     </>

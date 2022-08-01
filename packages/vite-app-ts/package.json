@@ -48,7 +48,7 @@
     "authereum": "^0.1.14",
     "axios": "^0.25.0",
     "buffer": "^6.0.3",
-    "dayjs": "^1.11.1",
+    "dayjs": "^1.11.4",
     "eth-components": "3.0.39",
     "eth-hooks": "4.0.44",
     "ethereum-cryptography": "^0.1.3",

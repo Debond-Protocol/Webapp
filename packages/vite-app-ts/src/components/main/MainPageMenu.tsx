@@ -77,53 +77,15 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         Loan
       </Link>
     </Menu.Item>
-    {/*
-    <Menu.Item key="/">
-      <Link
-        onClick={(): void => {
-          props.setRoute('/');
-        }}
-        to="/">
-        Contracts
-      </Link>
-    </Menu.Item>
 
-    <Menu.Item key="/hints">
+    <Menu.Item key="/nft" icon={<img src={'./menu/nft.png'} />}>
       <Link
         onClick={(): void => {
-          props.setRoute('/hints');
+          props.setRoute('/nft');
         }}
-        to="/hints">
-        Hints
+        to="/nft">
+        NFT
       </Link>
     </Menu.Item>
-    <Menu.Item key="/exampleui">
-      <Link
-        onClick={(): void => {
-          props.setRoute('/exampleui');
-        }}
-        to="/exampleui">
-        ExampleUI
-      </Link>
-    </Menu.Item>
-    <Menu.Item key="/mainnetdai">
-      <Link
-        onClick={(): void => {
-          props.setRoute('/mainnetdai');
-        }}
-        to="/mainnetdai">
-        Mainnet DAI
-      </Link>
-    </Menu.Item>
-    */}
-    {/* <Menu.Item key="/subgraph">
-      <Link
-        onClick={() => {
-          props.setRoute('/subgraph');
-        }}
-        to="/subgraph">
-        Subgraph
-      </Link>
-    </Menu.Item> */}
   </Menu>
 );
