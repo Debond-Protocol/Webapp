@@ -8,19 +8,19 @@ import { useEthersContext } from 'eth-hooks/context';
 import { useDexEthPrice } from 'eth-hooks/dapps';
 import { asEthersAdaptor } from 'eth-hooks/functions';
 
-import { MainPageMenu, MainPageFooter, MainPageHeader } from './components/main';
+import { MainPageFooter, MainPageHeader, MainPageMenu } from './components/main';
 
-import { useBurnerFallback } from '~~/components/main/hooks/useBurnerFallback';
+import { useClasses } from '~~/components/main/hooks/useClasses';
 import { useScaffoldProviders as useScaffoldAppProviders } from '~~/components/main/hooks/useScaffoldAppProviders';
-// import { Hints, ExampleUI } from '~~/components/pages';
 import ContentLayout from '~~/components/main/layout/ContentLayout';
 import { BankUI } from '~~/components/pages/bank/BankUI';
 import { DashboardUI } from '~~/components/pages/dashboard/DashboardUI';
 import { ExchangeUI } from '~~/components/pages/exchange/ExchangeUI';
 import { GovernanceUI } from '~~/components/pages/governance/GovernanceUI';
+import { NFTUI } from '~~/components/pages/nft/NFTUI';
 import { WalletUI } from '~~/components/pages/wallet/WalletUI';
-import { BURNER_FALLBACK_ENABLED, MAINNET_PROVIDER } from '~~/config/appConfig';
-import { useAppContracts, useConnectAppContracts, useLoadAppContracts } from '~~/config/contractContext';
+import { MAINNET_PROVIDER } from '~~/config/appConfig';
+import { useConnectAppContracts, useLoadAppContracts } from '~~/config/contractContext';
 
 import { Layout } from 'antd';
 
@@ -49,9 +49,7 @@ export const Main: FC = () => {
   // 🦊 Get your web3 ethers context from current providers
   const ethersContext = useEthersContext();
 
-  // if no user is found use a burner wallet on localhost as fallback if enabled
-  useBurnerFallback(scaffoldAppProviders, BURNER_FALLBACK_ENABLED);
-
+  const { classes, classesMap } = useClasses();
   // -----------------------------
   // Load Contracts
   // -----------------------------
@@ -62,30 +60,6 @@ export const Main: FC = () => {
   useConnectAppContracts(mainnetAdaptor);
   // 🏭 connec to  contracts for current network & signer
   useConnectAppContracts(asEthersAdaptor(ethersContext));
-
-  // -----------------------------
-  // Hooks use and examples
-  // -----------------------------
-  // 🎉 Console logs & More hook examples:
-  // 🚦 disable this hook to stop console logs
-  // 🏹🏹🏹 go here to see how to use hooks!
-  // useScaffoldHooksExamples(scaffoldAppProviders);
-
-  // -----------------------------
-  // These are the contracts!
-  // -----------------------------
-
-  // init contracts
-  // const mainnetDai = useAppContracts('DAI', NETWORKS.mainnet.chainId);
-  const daiContract = useAppContracts('DAI', ethersContext.chainId);
-  const usdcContract = useAppContracts('USDC', ethersContext.chainId);
-  const usdtContract = useAppContracts('USDT', ethersContext.chainId);
-  const dbitContract = useAppContracts('DBIT', ethersContext.chainId);
-
-  // -----------------------------
-  // .... 🎇 End of examples
-  // -----------------------------
-  // 💵 This hook will get the price of ETH from 🦄 Uniswap:
   const [ethPrice] = useDexEthPrice(scaffoldAppProviders.mainnetAdaptor?.provider, scaffoldAppProviders.targetNetwork);
 
   // 💰 this hook will get your balance
@@ -121,6 +95,7 @@ export const Main: FC = () => {
                       mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
                       yourCurrentBalance={yourCurrentBalance}
                       price={ethPrice}
+                      classesMap={classesMap}
                     />
                   </Route>
                   <Route path="/wallet">
@@ -145,6 +120,13 @@ export const Main: FC = () => {
                   </Route>
                   <Route path="/dex">
                     <ExchangeUI
+                      mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
+                      yourCurrentBalance={yourCurrentBalance}
+                      price={ethPrice}
+                    />
+                  </Route>
+                  <Route path="/nft">
+                    <NFTUI
                       mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
                       yourCurrentBalance={yourCurrentBalance}
                       price={ethPrice}

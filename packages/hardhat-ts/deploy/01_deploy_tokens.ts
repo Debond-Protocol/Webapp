@@ -1,4 +1,3 @@
-import { ethers } from 'hardhat';
 import { DeployFunction } from 'hardhat-deploy/types';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
 
@@ -17,12 +16,22 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     log: true,
   });
 
-  const DBIT = await deploy('DBIT', {
+  const USDC = await deploy('USDC', {
     from: deployer,
     log: true,
   });
 
-  const USDC = await deploy('USDC', {
+  const WETH = await deploy('WETH', {
+    from: deployer,
+    log: true,
+  });
+
+  const FakeOracle = await deploy('FakeOracle', {
+    from: deployer,
+    log: true,
+  });
+
+  const DebondMath = await deploy('DebondMath', {
     from: deployer,
     log: true,
   });

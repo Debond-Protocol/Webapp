@@ -1,4 +1,5 @@
 import { BigNumber } from 'ethers';
+import { parseEther } from 'ethers/lib/utils';
 import { ethers } from 'hardhat';
 import { DeployFunction } from 'hardhat-deploy/types';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
@@ -8,65 +9,91 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
 
-  console.log(deployer);
-
-  const DBIT = await ethers.getContract('DBIT', deployer);
   const USDC = await ethers.getContract('USDC', deployer);
   const USDT = await ethers.getContract('USDT', deployer);
   const DAI = await ethers.getContract('DAI', deployer);
+  const WETH = await ethers.getContract('WETH', deployer);
+  const DebondMath = await ethers.getContract('DebondMath', deployer);
+  const Oracle = await ethers.getContract('FakeOracle', deployer);
+  console.log(USDC.address, USDT.address, DAI.address);
 
-  const DeBond = await deploy('DebondBond', {
+  const governanceAddress = deployer;
+
+  await deploy('Bank', {
     from: deployer,
     log: true,
-    args: [DBIT.address, USDC.address, USDT.address, DAI.address],
+    libraries: { DebondMath: DebondMath.address },
+    args: [
+      governanceAddress,
+      '0x0000000000000000000000000000000000000000',
+      '0x0000000000000000000000000000000000000000',
+      '0x0000000000000000000000000000000000000000',
+      '0x0000000000000000000000000000000000000000',
+      '0x0000000000000000000000000000000000000000',
+      USDC.address,
+      WETH.address,
+      Oracle.address,
+    ],
   });
 
-  const DebondData = await deploy('DebondData', {
+  const BankDeployed = await ethers.getContract('Bank', deployer);
+
+  await deploy('BankBondManager', {
     from: deployer,
-    args: [DBIT.address, USDC.address, USDT.address, DAI.address],
     log: true,
+    libraries: { DebondMath: DebondMath.address },
+    args: [
+      governanceAddress,
+      '0x0000000000000000000000000000000000000000',
+      BankDeployed.address,
+      '0x0000000000000000000000000000000000000000',
+      Oracle.address,
+      USDC.address,
+    ],
   });
+  const BankBondManagerDeployed = await ethers.getContract('BankBondManager', deployer);
 
-  const APM = await deploy('APM', {
+  await deploy('APMTest', {
     from: deployer,
     log: true,
-    // args: [USDC.address, DBIT.address],
+    args: [deployer],
   });
+  const APMDeployed = await ethers.getContract('APMTest', deployer);
 
-  const Bank = await deploy('Bank', {
+  await APMDeployed.setBankAddress(BankDeployed.address);
+
+  await deploy('DebondBondTest', {
     from: deployer,
-    args: [APM.address, DebondData.address, DeBond.address],
     log: true,
+    args: [deployer],
   });
 
-  const Exchange = await deploy('Exchange', {
+  const DebondBondTestDeployed = await ethers.getContract('DebondBondTest', deployer);
+  await DebondBondTestDeployed.setBankAddress(BankBondManagerDeployed.address);
+
+  const FakeOracleDeployed = await ethers.getContract('FakeOracle', deployer);
+
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+
+  await deploy('BankData', {
     from: deployer,
-    args: [DebondData.address, Bank.address, DeBond.address, DBIT.address, 1],
     log: true,
+    args: [governanceAddress, BankBondManagerDeployed.address, d.getTime() / 10 ** 3],
   });
 
-  const DebondDeployed = await ethers.getContract('DebondBond', deployer);
-  const APMDeployed = await ethers.getContract('APM', deployer);
-  const USDCDeployed = await ethers.getContract('USDC', deployer);
-  const USDTDeployed = await ethers.getContract('USDT', deployer);
-  const DBITDeployed = await ethers.getContract('DBIT', deployer);
+  const BankData = await ethers.getContract('BankData', deployer);
 
-  const bondIssueRole = await DebondDeployed.ISSUER_ROLE();
-  const DBITMinterRole = await DBIT.MINTER_ROLE();
-  await DebondDeployed.grantRole(bondIssueRole, Bank.address);
-  await DBIT.grantRole(DBITMinterRole, Bank.address);
-
-  await USDC.mint(deployer, BigNumber.from('1000000000000000000'));
-  await USDT.mint(deployer, BigNumber.from('1000000000000000000'));
-  await DAI.mint(deployer, BigNumber.from('3000000000000000000'));
-
-  await APMDeployed.updaReserveAfterAddingLiquidity(USDCDeployed.address, 10 ** 9); // adding reserve
-  await APMDeployed.updaReserveAfterAddingLiquidity(DBITDeployed.address, 10 ** 9); // adding reserve
-  await APMDeployed.updaReserveAfterAddingLiquidity(USDTDeployed.address, 10 ** 9); // adding reserve
-
-  // await USDC.mint("0x632e15d35BeE185B9765a5b31550E9935a225326", 100000);
-
-  /* await BankDeployed.buyBond(1, 0, 1000, 50, 0);*/
+  await deploy('DBITTest', {
+    from: deployer,
+    log: true,
+    args: [governanceAddress, BankDeployed.address, '0x0000000000000000000000000000000000000000', '0x0000000000000000000000000000000000000000'],
+  });
+  await deploy('DGOV', {
+    from: deployer,
+    log: true,
+    args: [governanceAddress, BankDeployed.address, '0x0000000000000000000000000000000000000000', '0x0000000000000000000000000000000000000000'],
+  });
 };
 
 export default func;
