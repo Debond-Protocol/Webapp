@@ -29,6 +29,11 @@
   text-transform: capitalize;
   text-align: left;
 }
+/* buttons style */
+.ant-btn-lg{
+  height: 45px;
+  font-weight: 600;
+}
 
 .ant-menu-item a {
   color: #7a7a7a !important;
@@ -287,14 +292,47 @@
     display: block;
     position: absolute;
     right: 5%;
-    top:40px
+    top:30px
+  }
+  .icon-menu {
+    background: url("burger.png") center center no-repeat;
+    background-size: contain;
+    display: inline-block;
+    width: 26px;
+    height: 22px;
+    cursor: pointer;
   }
 
+  .close-menu {
+    background: url("close.png") center center no-repeat;
+    background-size: contain;
+  }
+  .dlayoutContent{
+    margin: 0 !important;
+    padding: 0;
+  }
   #networkConnection, .leftWallet {
     display: none!important;
   }
-  .ant-modal-content{
-    height: 600px;
+  .ant-modal{
+    width: 100vw;
+  }
+  .ant-modal-content {
+    border: 0;
+    height: calc(100vh - 100px);
+  }
+  .ant-tabs{margin: 0 !important}
+  .ant-tabs-nav-wrap{
+    margin: 0;
+  }
+  .ant-tabs-tab{
+    display: inline-block;
+    padding: 15px 0;
+    font-weight: 700;
+    text-align: center;
+  }
+  .ant-tabs-top>.ant-tabs-nav .ant-tabs-ink-bar {
+    height: 4px;
   }
   .ant-modal-body{
     display: flex;

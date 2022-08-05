@@ -94,7 +94,7 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
    */
   const right = (
     <>
-      <Modal onCancel={handleCancel} footer={null} className="burger-modal" visible={isModalVisible}>
+      <Modal onCancel={handleCancel} footer={null} className="burger-modal" visible={isModalVisible} closable={false} mask={false} width="auto">
         <>
           <WalletConnector
             createLoginConnector={props.scaffoldAppProviders.createLoginConnector}
@@ -107,7 +107,7 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
         </>
       </Modal>
       <div id={'burger-menu'} onClick={showModal}>
-        <img src={'burger.png'} />
+        <span className={`icon-menu ${isModalVisible ? "close-menu" : ""}`} />
       </div>
       <div
         className={'leftWallet'}
@@ -116,8 +116,7 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
           position: 'fixed',
           textAlign: 'right',
           right: '20px',
-          top: '40px',
-          padding: 10,
+          top: '35px',
           zIndex: 1,
         }}>
         <WalletConnector
