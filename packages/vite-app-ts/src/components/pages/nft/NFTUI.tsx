@@ -150,9 +150,10 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
     const numberOfSlides: number = 11;
     for (let i = 1; i <= numberOfSlides; i++) {
       content.push(
-        <div>
-          <img src={`nft/${i}.png`} />
-        </div>
+          <picture>
+            <source srcSet={`nft/mobile/${i}.png`} media="(max-width: 768px)" />
+            <img src={`nft/${i}.png`} alt="PP" />
+        </picture>
       );
     }
     return content;

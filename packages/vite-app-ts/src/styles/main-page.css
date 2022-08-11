@@ -316,6 +316,8 @@
   }
   .ant-modal{
     width: 100vw;
+    margin: 0;
+    max-width: none;
   }
   .ant-modal-content {
     border: 0;
