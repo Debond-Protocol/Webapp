@@ -16,10 +16,10 @@ tenderly.yaml
 .yalc
 yalc.lock
 packages/vite-app-ts/dist
-#packages/vite-app-ts/src/generated
+packages/vite-app-ts/src/generated/
 #packages/vite-app-ts/public
 packages/hardhat-ts/mnemonic.secret
-packages/hardhat-ts/contracts/*
+packages/hardhat-ts/contracts/
 
 # ts
 packages/hardhat-ts/cache
