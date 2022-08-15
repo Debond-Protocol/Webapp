@@ -44,6 +44,7 @@ export const getBondColumns = (redeem: any): any => {
   // columnsBond.set("amount", {title: 'Amount', dataIndex: 'balance', key: 'amount',})
   columnsBond.set('interest', { title: 'Interest Type', dataIndex: 'interestRateType', key: 'interest' });
   columnsBond.set('apy', { title: 'APY', dataIndex: 'apy', key: 'apy' });
+  columnsBond.set('actualApy', { title: 'Actual APY', dataIndex: 'actualApy', key: 'actualApy' });
   columnsBond.set('typePeriod', {
     title: 'Bond',
     dataIndex: 'typePeriod',
@@ -222,6 +223,14 @@ export const getClassColumns = (
     dataIndex: 'apy',
     key: 'apy',
     render: (apy: BigNumber) => BNtoPercentage(apy),
+  });
+  columns.set('actualApy', {
+    title: 'Actual APY',
+    dataIndex: 'actualApy',
+    key: 'actualApy',
+    render: (apy: BigNumber | undefined) => {
+      return apy ? BNtoPercentage(apy) : BigNumber.from(0);
+    },
   });
   columns.set('selectBond', {
     title: 'Deposit',

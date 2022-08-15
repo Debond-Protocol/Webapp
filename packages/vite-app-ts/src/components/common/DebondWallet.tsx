@@ -6,9 +6,10 @@ import { useEthersContext } from 'eth-hooks/context';
 import { BigNumber, BigNumberish } from 'ethers';
 import React, { useContext, useState } from 'react';
 
-import { IIssuesOutputs, useIssues } from '~~/components/main/hooks/useIssues';
+import { useIssues } from '~~/components/main/hooks/useIssues';
 import { getTableColumns } from '~~/components/main/table/bondColumns';
 import { useAppContracts } from '~~/config/contractContext';
+import { IIssuesOutputs } from '~~/interfaces/interfaces';
 
 export const DebondWallet = (props: any): any => {
   const selectedColumnsName: [] = props.columns;

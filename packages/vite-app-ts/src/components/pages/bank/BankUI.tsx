@@ -1,16 +1,17 @@
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { Button, Steps, Table } from 'antd';
 import { BigNumber } from 'ethers';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
-import { Class } from '~~/components/main/hooks/useClasses';
-import { RowsOutputs, useClassesRows } from '~~/components/main/hooks/useClassesRow';
 import ContentLayout from '~~/components/main/layout/ContentLayout';
 import { getTableColumns } from '~~/components/main/table/bondColumns';
 import { Purchase } from '~~/components/pages/bank/Purchase';
 import '~~/styles/css/bank.css';
 
 import { DoubleLeftOutlined } from '@ant-design/icons/lib';
+
+import { mapClassesToRow } from '~~/components/main/table/utils/mapping';
+import { Class, IClassRow, IRowsOutputs } from '~~/interfaces/interfaces';
 
 export interface IBankUIProps {
   mainnetProvider: StaticJsonRpcProvider | undefined;
@@ -27,12 +28,22 @@ export interface IBankUIProps {
  */
 export const BankUI: FC<IBankUIProps> = (props) => {
   const { classesMap } = props;
-  const { classesRowMap, debondClassesRowMap, filters }: RowsOutputs = useClassesRows();
+  const [classesRowMap, setClassesRowMap] = useState<Map<number, IClassRow>>();
+  const [debondClassesRowMap, setDebondClassesRowMap] = useState<Map<number, IClassRow>>();
 
   const [selectedClass, setSelectedClass]: any[] = useState(null);
   const [tokenFilters, setTokenFilters]: any[] = useState([]);
 
   const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (classesMap) {
+      const outputs: IRowsOutputs | undefined = mapClassesToRow(classesMap);
+      setClassesRowMap(outputs?.classesRowMap);
+      setDebondClassesRowMap(outputs?.debondClassesRowMap);
+      setTokenFilters(outputs?.filters);
+    }
+  }, [classesMap]);
 
   const next = (): void => {
     setCurrent(current + 1);

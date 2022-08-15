@@ -32,6 +32,11 @@ export const availableExternalTokens: Map<string, any> = getAvailableTokens(['US
 */
 
 export const purchaseMethods: Map<string, string> = new Map<string, string>([
-  ['0', 'stake'],
-  ['1', 'buy'],
+  ['0', 'buy'],
+  ['1', 'stake'],
 ]);
+
+export enum purchaseMethodsEnum {
+  buy,
+  stake,
+}
