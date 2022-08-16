@@ -97,4 +97,4 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 };
 
 export default func;
-func.tags = ['DBIT'];
+func.tags = ['debond'];

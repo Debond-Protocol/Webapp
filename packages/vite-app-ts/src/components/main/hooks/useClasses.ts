@@ -1,5 +1,4 @@
 import { useEthersContext } from 'eth-hooks/context';
-import { BigNumber } from 'ethers';
 import { useEffect, useState } from 'react';
 
 import { getMultiCallResults } from '~~/api/multicall';
@@ -7,15 +6,7 @@ import { interestRatesEnum } from '~~/components/main/table/utils';
 import { useAppContracts } from '~~/config/contractContext';
 import { BankBondManager } from '~~/generated/contract-types';
 import { ClassCreatedEventFilter } from '~~/generated/contract-types/BankBondManager';
-
-export interface Class {
-  id: number;
-  interestType: string;
-  period: number;
-  symbol: string;
-  tokenAddress: string;
-  interestRate: BigNumber;
-}
+import { Class } from '~~/interfaces/interfaces';
 
 export const useClasses = (): any => {
   const ethersContext = useEthersContext();

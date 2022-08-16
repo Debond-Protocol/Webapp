@@ -42,6 +42,8 @@ export const contractConnectorConfig = () => {
       USDT: createConnectorForHardhatContract('USDT', hardhatContracts.USDT__factory, hardhatContractsJson),
       DBITTest: createConnectorForHardhatContract('DBITTest', hardhatContracts.DBITTest__factory, hardhatContractsJson),
       DAI: createConnectorForHardhatContract('DAI', hardhatContracts.DAI__factory, hardhatContractsJson),
+      WETH: createConnectorForHardhatContract('WETH', hardhatContracts.WETH__factory, hardhatContractsJson),
+      DGOV: createConnectorForHardhatContract('DGOV', hardhatContracts.DGOVTest__factory, hardhatContractsJson),
 
       // Governance: createConnectorForHardhatContract('Governance', hardhatContracts.Governance__factory, hardhatContractsJson),
 

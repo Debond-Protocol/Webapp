@@ -4,51 +4,14 @@ import { BigNumber } from 'ethers';
 import { useEffect, useState } from 'react';
 
 import { getMultiCallResults } from '~~/api/multicall';
-import { Class, useClasses } from '~~/components/main/hooks/useClasses';
-import { ClassRow, RowsOutputs, useClassesRows } from '~~/components/main/hooks/useClassesRow';
+import { useClasses } from '~~/components/main/hooks/useClasses';
+import { useClassesRows } from '~~/components/main/hooks/useClassesRow';
 import { interestRatesEnum, ratings } from '~~/components/main/table/utils';
 import { useAppContracts } from '~~/config/contractContext';
 import { BankBondManager, DebondBondTest } from '~~/generated/contract-types';
 import { TransferEventFilter } from '~~/generated/contract-types/DebondBondTest';
 import { IssueEventFilter } from '~~/generated/contract-types/DebondERC3475';
-
-export interface IIssuesOutputs {
-  bonds?: IBondInfos[];
-  bondsMap?: Map<number, IBondInfos>;
-  completedClassesMap?: Map<number, ICompletedClassRow>;
-}
-
-export interface ICompletedClassRow extends ClassRow {
-  balance: number;
-  progress: number;
-}
-
-export interface IBondInfos {
-  key?: number;
-  maturityDate?: BigNumber;
-  symbol?: string;
-  interestRateType?: string;
-  period?: number;
-  issuanceDate?: string;
-  progress: {
-    issuance?: BigNumber;
-    period?: number;
-    maturity?: BigNumber;
-    progress?: BigNumber;
-  };
-  redeem: { progress?: number; classId?: number; nonceId?: number; balance?: number };
-  classId?: number;
-  bondId?: number;
-  balance?: number;
-  // mocked
-  issuer?: string;
-  typePeriod?: {
-    interestRateType?: string;
-    period?: number;
-  };
-  rating?: string;
-  maturityCountdown?: BigNumber;
-}
+import { Class, IBondInfos, ICompletedClassRow, IIssuesOutputs, IRowsOutputs } from '~~/interfaces/interfaces';
 
 export const useIssues = (): IIssuesOutputs => {
   const ethersContext = useEthersContext();
@@ -59,8 +22,8 @@ export const useIssues = (): IIssuesOutputs => {
   const [bondsMap, setBondsMap] = useState<Map<number, IBondInfos> | undefined>();
   const [completedClassesMap, setCompletedClassesMap] = useState<Map<number, ICompletedClassRow>>();
   const [userAddress] = useSignerAddress(ethersContext.signer);
-  const { classes, classesMap }: { classes: Class[]; classesMap: Map<string, Class> } = useClasses();
-  const { classesRowMap, debondClassesRowMap, filters }: RowsOutputs = useClassesRows();
+  const { classes, classesMap }: { classes: Class[]; classesMap: Map<number, Class> } = useClasses();
+  const { classesRowMap, debondClassesRowMap, filters }: IRowsOutputs = useClassesRows();
 
   const flat = (arr: any[], idx: number): any[] => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
@@ -109,7 +72,7 @@ export const useIssues = (): IIssuesOutputs => {
         const _bonds = bondsValues.map(
           (values: { _issuanceDate: BigNumber; _maturityDate: BigNumber }, idx: number): IBondInfos => {
             const { classId, nonceId } = bondsIds[idx];
-            const _class = classesMap.get(classId as string);
+            const _class = classesMap.get(classId as number);
             const maturityDate = _class?.interestType === interestRatesEnum.get(0) ? values._maturityDate : etas[idx];
             const infos: IBondInfos = {
               balance: balances[idx],
@@ -155,6 +118,7 @@ export const useIssues = (): IIssuesOutputs => {
             })
           );
           return {
+            tokenAddress: classRowMap.tokenAddress,
             apy: classRowMap.apy,
             balance: balance,
             deposit: classRowMap.deposit,

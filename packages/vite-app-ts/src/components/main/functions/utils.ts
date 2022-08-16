@@ -1,4 +1,6 @@
+import { formatEther } from '@ethersproject/units';
 import dayjs from 'dayjs';
+import { BigNumber } from 'ethers';
 
 /**
  * Get data series for specified coin
@@ -75,4 +77,10 @@ export const getCoinSeries = async (currencies: string[], freqInDays: any): Prom
     totalVolumes.push(_totalVolumes);
   }
   return { prices: prices, marketCaps: marketCaps, totalVolumes: totalVolumes };
+};
+
+export const bnToFixed = (bn: BigNumber, decimals: number): string => {
+  let res = formatEther(bn);
+  res = (+res).toFixed(4);
+  return res;
 };

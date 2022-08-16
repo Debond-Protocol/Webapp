@@ -18,6 +18,7 @@ import { DashboardUI } from '~~/components/pages/dashboard/DashboardUI';
 import { ExchangeUI } from '~~/components/pages/exchange/ExchangeUI';
 import { GovernanceUI } from '~~/components/pages/governance/GovernanceUI';
 import { NFTUI } from '~~/components/pages/nft/NFTUI';
+import { SwapUI } from '~~/components/pages/swap/SwapUI';
 import { WalletUI } from '~~/components/pages/wallet/WalletUI';
 import { MAINNET_PROVIDER } from '~~/config/appConfig';
 import { useConnectAppContracts, useLoadAppContracts } from '~~/config/contractContext';
@@ -106,7 +107,11 @@ export const Main: FC = () => {
                     />
                   </Route>
                   <Route path="/swap">
-                    <ContentLayout title={'Swap'} description={'Here you can swap different currencies'} />
+                    <SwapUI
+                      mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
+                      yourCurrentBalance={yourCurrentBalance}
+                      price={ethPrice}
+                    />
                   </Route>
                   <Route path="/governance">
                     <GovernanceUI
