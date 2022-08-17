@@ -94,6 +94,20 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     log: true,
     args: [governanceAddress, BankDeployed.address, '0x0000000000000000000000000000000000000000', '0x0000000000000000000000000000000000000000'],
   });
+
+  await deploy('ExchangeStorage', {
+    from: deployer,
+    log: true,
+    args: [governanceAddress],
+  });
+  const exchangestorageDeployed = await ethers.getContract('ExchangeStorage', deployer);
+  const dbitDeployed = await ethers.getContract('DBITTest', deployer);
+
+  await deploy('Exchange', {
+    from: deployer,
+    log: true,
+    args: [exchangestorageDeployed.address, governanceAddress, dbitDeployed.address],
+  });
 };
 
 export default func;
