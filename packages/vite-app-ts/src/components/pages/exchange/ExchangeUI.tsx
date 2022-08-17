@@ -27,11 +27,11 @@ export interface IExchangeUIProps {
  */
 export const ExchangeUI: FC<IExchangeUIProps> = (props) => {
   const selectedColumnsName: string[] = [
+    'currentPrice',
+    'endDate',
     'token',
     'typePeriod',
     'progress',
-    'currentPrice',
-    'endDate',
     'initialPrice',
     'actions',
   ];

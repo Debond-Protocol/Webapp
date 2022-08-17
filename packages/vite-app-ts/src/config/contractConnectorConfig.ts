@@ -31,6 +31,7 @@ export const contractConnectorConfig = () => {
       ),
 
       BankData: createConnectorForHardhatContract('BankData', hardhatContracts.BankData__factory, hardhatContractsJson),
+      APM: createConnectorForHardhatContract('APMTest', hardhatContracts.APMTest__factory, hardhatContractsJson),
       Exchange: createConnectorForHardhatContract('Exchange', hardhatContracts.Exchange__factory, hardhatContractsJson),
       ExchangeStorage: createConnectorForHardhatContract(
         'ExchangeStorage',
