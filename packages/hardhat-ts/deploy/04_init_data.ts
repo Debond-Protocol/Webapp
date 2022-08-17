@@ -26,6 +26,28 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   const ExchangeStorage = await ethers.getContract('ExchangeStorage', deployer);
 
   console.log(DBIT.address, USDC.address, USDT.address, DAI.address);
+  console.log('minting');
+  await USDC.mint(APM.address, parseEther('100'));
+  await USDT.mint(APM.address, parseEther('200'));
+  await DAI.mint(APM.address, parseEther('400'));
+
+  console.log(1);
+  await DGOV.setBankAddress(deployer);
+  await DBIT.setBankAddress(deployer);
+  await APM.setBankAddress(deployer);
+  await DGOV.mintCollateralisedSupply(APM.address, parseEther('500'));
+  console.log(2);
+  await DBIT.mintCollateralisedSupply(APM.address, parseEther('700'));
+  console.log('end minting');
+
+  await APM.updateWhenAddLiquidity(parseEther('100'), parseEther('100'), DBIT.address, USDC.address);
+  console.log('updated');
+  await APM.updateWhenAddLiquidity(parseEther('100'), parseEther('100'), DBIT.address, USDT.address);
+
+  await APM.updateWhenAddLiquidity(parseEther('100'), parseEther('100'), DBIT.address, DAI.address);
+
+  await APM.updateWhenAddLiquidity(parseEther('50'), parseEther('100'), DBIT.address, WETH.address);
+
   await ExchangeStorage.setExchangeAddress(ExchangeDeployed.address);
   await BankBondManager.setDebondBondAddress(DebondBondTestDeployed.address);
   await BankBondManager.setBankDataAddress(BankData.address);
@@ -36,6 +58,10 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   await Bank.setBankDataAddress(BankData.address);
   await Bank.setDBITAddress(DBIT.address);
   await Bank.setDGOVAddress(DGOV.address);
+
+  await APM.setBankAddress(Bank.address);
+  await DBIT.setBankAddress(Bank.address);
+  await DGOV.setBankAddress(Bank.address);
 };
 
 export default func;

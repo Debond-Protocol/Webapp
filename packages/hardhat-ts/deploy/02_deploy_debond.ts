@@ -60,8 +60,6 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   });
   const APMDeployed = await ethers.getContract('APMTest', deployer);
 
-  await APMDeployed.setBankAddress(BankDeployed.address);
-
   await deploy('DebondBondTest', {
     from: deployer,
     log: true,
