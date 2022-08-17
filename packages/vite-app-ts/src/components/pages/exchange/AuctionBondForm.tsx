@@ -96,7 +96,7 @@ export const AuctionBondForm: FC<IAuctionBondProps> = ({}) => {
   return (
     <>
       <Button icon={<PlusOutlined />} onClick={onClick}>
-        Add an secondary market auction
+        Create
       </Button>
       <Modal
         width={1000}

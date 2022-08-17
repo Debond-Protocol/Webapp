@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button, Row } from 'antd';
 import moment from 'moment';
 import React from 'react';
 
@@ -53,22 +53,28 @@ export const getColumns = (bid: any, cancel: any): Map<string, any> => {
     key: 'actions',
     render: (input: any) => {
       return (
-        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-          <Button
-            onClick={(): void => {
-              bid(input);
-            }}>
-            Bid
-          </Button>
-          {
+        <div>
+          <Row>
             <Button
-              type="primary"
+              style={{ margin: 3 }}
               onClick={(): void => {
-                cancel(input);
+                bid(input.id);
               }}>
-              Cancel
+              Bid
             </Button>
-          }
+          </Row>
+
+          {input.isOwner && (
+            <Row>
+              <Button
+                type="primary"
+                onClick={(): void => {
+                  cancel(input);
+                }}>
+                Cancel
+              </Button>
+            </Row>
+          )}
         </div>
       );
     },

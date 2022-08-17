@@ -126,7 +126,7 @@ export interface IAuctionRow extends IBondInfos {
   startingTime: number;
   successfulBidder: string;
   duration: number;
-  actions: number;
+  actions: { id: number; isOwner: boolean };
   currentPrice: number;
 }
 

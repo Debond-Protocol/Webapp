@@ -8,7 +8,10 @@ import { Class, ColumnFilter, IAuctionCompleted, IAuctionRow, IClassRow, IRowsOu
 /**
  * Map the global auctions map to table row values
  */
-export const mapAuctionToRow = (auctions: Map<number, IAuctionCompleted>): Map<number, IAuctionRow> => {
+export const mapAuctionToRow = (
+  auctions: Map<number, IAuctionCompleted>,
+  address: string
+): Map<number, IAuctionRow> => {
   const _filters: any[] = [];
   const auctionsMap = new Map<number, IAuctionRow>();
   console.log(auctions);
@@ -26,7 +29,7 @@ export const mapAuctionToRow = (auctions: Map<number, IAuctionCompleted>): Map<n
       initialPrice: _auction.maxCurrencyAmount.toNumber(),
       minimumPrice: _auction.minCurrencyAmount.toNumber(),
       owner: _auction.owner,
-      actions: key,
+      actions: { id: key, isOwner: _auction.owner === address },
       startingTime: _auction.startingTime.toNumber(),
       successfulBidder: _auction.successfulBidder,
       currentPrice: _auction.currentPrice?.toNumber(),
