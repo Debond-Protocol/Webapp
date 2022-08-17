@@ -6,7 +6,7 @@ import { useEthersContext } from 'eth-hooks/context';
 import { BigNumber, BigNumberish } from 'ethers';
 import React, { useContext, useState } from 'react';
 
-import { useIssues } from '~~/components/main/hooks/useIssues';
+import { useMyBonds } from '~~/components/main/hooks/useMyBonds';
 import { getTableColumns } from '~~/components/main/table/bondColumns';
 import { useAppContracts } from '~~/config/contractContext';
 import { IIssuesOutputs } from '~~/interfaces/interfaces';
@@ -14,13 +14,12 @@ import { IIssuesOutputs } from '~~/interfaces/interfaces';
 export const DebondWallet = (props: any): any => {
   const selectedColumnsName: [] = props.columns;
   const ethersContext = useEthersContext();
-  const provider = ethersContext.provider!;
   const ethComponentsSettings = useContext(EthComponentsSettingsContext);
   const [gasPrice] = useGasPrice(ethersContext.chainId, 'fast');
   const tx = transactor(ethComponentsSettings, ethersContext?.signer, gasPrice);
   const bankContract = useAppContracts('Bank', ethersContext.chainId);
   const [tokenFilters, setTokenFilters]: any[] = useState([]);
-  const { bonds, bondsMap, completedClassesMap }: IIssuesOutputs = useIssues();
+  const { bonds, bondsMap, completedClassesMap }: IIssuesOutputs = useMyBonds();
 
   /**
    * Function to redeem Bond
@@ -61,8 +60,6 @@ export const DebondWallet = (props: any): any => {
 
   const expandRowRenderer = (record: any, i: any): any => {
     const _bonds = bonds?.filter((e) => e.classId === record.id);
-    console.log(bonds);
-    console.log(record.id);
     return (
       <Table
         className={'table-bordered'}

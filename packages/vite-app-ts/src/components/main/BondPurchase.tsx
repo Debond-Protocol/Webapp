@@ -157,25 +157,22 @@ export const BondPurchase: FC<IBondPurchaseProps> = (props) => {
   /**
    * Buy or stake for dbond
    */
-  const deposit = (): void => {
+  const deposit = async (): Promise<void> => {
+    await approve();
     const account: string = ethersContext.account!;
-    if (approved) {
-      const result = depositTransaction(
-        amountValue,
-        selectedClass,
-        selectedPurchaseClass,
-        purchaseMethod,
-        tx,
-        bankContract!,
-        account
-      );
-      if (result) {
-        setApproved(false);
-      }
+    const result = depositTransaction(
+      amountValue,
+      selectedClass,
+      selectedPurchaseClass,
+      purchaseMethod,
+      tx,
+      bankContract!,
+      account
+    );
+    if (result) {
       setApproved(false);
-    } else {
-      console.log('not approved');
     }
+    setApproved(false);
   };
 
   /**
@@ -183,7 +180,7 @@ export const BondPurchase: FC<IBondPurchaseProps> = (props) => {
    */
   const handleFaucet = async (): Promise<void> => {
     const account: string | undefined = ethersContext?.account;
-    await tokenContract?.mint(account!, BigNumber.from('1000000000000000000000'));
+    await tx?.(tokenContract?.mint(account!, BigNumber.from('1000000000000000000000')));
   };
 
   return (
@@ -278,15 +275,13 @@ export const BondPurchase: FC<IBondPurchaseProps> = (props) => {
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'center', margin: 70 }}>
-        {approved ? (
-          <button className="dbutton" onClick={deposit}>
-            Deposit
-          </button>
-        ) : (
-          <button className={'dbutton'} disabled={loading} onClick={approve}>
-            Approve
-          </button>
-        )}
+        <button
+          className="dbutton"
+          onClick={async (): Promise<void> => {
+            await deposit();
+          }}>
+          Deposit
+        </button>
       </div>
     </>
   );

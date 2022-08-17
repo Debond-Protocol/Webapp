@@ -90,6 +90,7 @@ export const SwapUI: FC<ISwapUIProps> = (props) => {
   };
 
   const swap = async (): Promise<void> => {
+    setError(undefined);
     if (!token1 || !token2) {
       setError('Select a token');
       return;

@@ -84,3 +84,8 @@ export const bnToFixed = (bn: BigNumber, decimals: number): string => {
   res = (+res).toFixed(4);
   return res;
 };
+
+export const flat = (arr: any[], idx: number): any[] => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  return arr.map((item: any) => item.args[idx]).flat();
+};
