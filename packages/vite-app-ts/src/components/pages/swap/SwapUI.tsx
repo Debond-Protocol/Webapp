@@ -41,6 +41,8 @@ export const SwapUI: FC<ISwapUIProps> = (props) => {
   const DGOV = useAppContracts('DGOV', ethersContext.chainId);
   const apmContract = useAppContracts('APMTest', ethersContext.chainId);
   const [tokenInfos, setTokenInfos] = useState<any[]>();
+  const [tokenInfos1, setTokenInfos1] = useState<any[]>();
+  const [tokenInfos2, setTokenInfos2] = useState<any[]>();
   const [token1, setToken1] = useState<string>();
   const [value1, setValue1] = useState<number>();
   const [token2, setToken2] = useState<string>();
@@ -50,48 +52,43 @@ export const SwapUI: FC<ISwapUIProps> = (props) => {
   const [gasPrice] = useGasPrice(ethersContext.chainId, 'fast');
   const tx = transactor(ethComponentsSettings, ethersContext?.signer, gasPrice);
   const userAddress = ethersContext?.account;
+  /**
+   * Temporary get fake token list
+   */
+  const getTokensInfos = async (): Promise<void> => {
+    const tokenContracts_ = [
+      DAI?.address,
+      USDT?.address,
+      USDC?.address,
+      DBITTest?.address,
+      WETH?.address,
+      DGOV?.address,
+    ];
+    const _tokensContracts: ERC20[] = tokenContracts_.map(
+      (_address): ERC20 =>
+        new ethers.Contract(_address!, ERC20__factory.abi as ContractInterface, ethersContext.signer) as ERC20
+    );
+    const _tokenList = await Promise.all(
+      _tokensContracts.map(async (c: ERC20): Promise<any> => {
+        const symbol = await c.symbol();
+        const name = await c.name();
+        const address = c.address;
+        return { symbol, name, address };
+      })
+    );
+    // _tokenList.push({symbol: "ETH", name: "Ether", address: undefined})
+    setTokenInfos(_tokenList);
+  };
 
-  useEffect(() => {
-    /**
-     * Temporary get fake token list
-     */
-    const getTokensInfos = async (): Promise<void> => {
-      const tokenContracts_ = [
-        DAI?.address,
-        USDT?.address,
-        USDC?.address,
-        DBITTest?.address,
-        WETH?.address,
-        DGOV?.address,
-      ];
-      const _tokensContracts: ERC20[] = tokenContracts_.map(
-        (_address): ERC20 =>
-          new ethers.Contract(_address!, ERC20__factory.abi as ContractInterface, ethersContext.signer) as ERC20
-      );
-      const _tokenList = await Promise.all(
-        _tokensContracts.map(async (c: ERC20): Promise<any> => {
-          const symbol = await c.symbol();
-          const name = await c.name();
-          const address = c.address;
-          return { symbol, name, address };
-        })
-      );
-      // _tokenList.push({symbol: "ETH", name: "Ether", address: undefined})
-      setTokenInfos(_tokenList);
-    };
-    if (DAI && USDC && USDT && WETH && DGOV && DBITTest) {
-      void getTokensInfos();
-    }
-  }, [DAI, USDC, USDT, WETH, DGOV, DBITTest]);
-
+  const updateInfos = (): void => {
+    if (token1) setTokenInfos2(tokenInfos?.filter((e) => e.address !== token1));
+  };
   const updateValue = async (): Promise<void> => {
-    console.log(value1);
     if (token1 && token2 && value1 && value1 > 0) {
       const _amount = parseEther(value1.toString());
       const out = await apmContract?.getAmountsOut(_amount, [token1, token2]);
       if (out && out.length > 1) {
         const _val = bnToFixed(out[out.length - 1], 4);
-        console.log(_val);
         setValue2(parseFloat(_val));
       }
     }
@@ -111,6 +108,20 @@ export const SwapUI: FC<ISwapUIProps> = (props) => {
   const onChangeToken2 = (_token: string): void => {
     setToken2(_token);
   };
+
+  useEffect(() => {
+    setTokenInfos1(tokenInfos);
+  }, [tokenInfos]);
+
+  useEffect(() => {
+    if (DAI && USDC && USDT && WETH && DGOV && DBITTest) {
+      void getTokensInfos();
+    }
+  }, [DAI, USDC, USDT, WETH, DGOV, DBITTest]);
+
+  useEffect(() => {
+    void updateInfos();
+  }, [token1, token2]);
   useEffect(() => {
     void updateValue();
   }, [token1, token2, value1, value2]);
@@ -143,7 +154,7 @@ export const SwapUI: FC<ISwapUIProps> = (props) => {
         <div style={{ width: 300 }}>
           <Row>
             <SelectToken
-              tokenInfos={tokenInfos!}
+              tokenInfos={tokenInfos1!}
               onToken={onChangeToken1}
               onValue={onChangeValue1}
               token={token1}
@@ -152,7 +163,7 @@ export const SwapUI: FC<ISwapUIProps> = (props) => {
           </Row>
           <Row>
             <SelectToken
-              tokenInfos={tokenInfos!}
+              tokenInfos={tokenInfos2!}
               onToken={onChangeToken2}
               onValue={onChangeValue2}
               token={token2}
