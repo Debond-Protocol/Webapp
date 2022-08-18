@@ -84,7 +84,6 @@ export const getBondColumns = (redeem: any): any => {
     dataIndex: 'progress',
     key: 'progress',
     render: (infos: any) => {
-      console.log(infos);
       return (
         <div>
           <Progress percent={infos.progress.toNumber().toFixed(0)} showInfo={true} />

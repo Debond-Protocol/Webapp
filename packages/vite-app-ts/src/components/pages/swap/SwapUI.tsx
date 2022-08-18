@@ -8,10 +8,11 @@ import { useEthersContext } from 'eth-hooks/context';
 import { BigNumber, ContractInterface, ethers } from 'ethers';
 import React, { FC, useContext, useEffect, useState } from 'react';
 
+import { bnToFixed } from '~~/components/main/functions/utils';
 import ContentLayout from '~~/components/main/layout/ContentLayout';
 import { SelectToken } from '~~/components/pages/swap/SelectToken';
 import { useAppContracts } from '~~/config/contractContext';
-import { ERC20, ERC20__factory } from '~~/generated/contract-types';
+import { ERC20, ERC20__factory, Mintable, Mintable__factory } from '~~/generated/contract-types';
 
 export interface ISwapUIProps {
   mainnetProvider: StaticJsonRpcProvider | undefined;
@@ -20,8 +21,8 @@ export interface ISwapUIProps {
 }
 
 export interface TokenInfo {
-  value: number;
-  token: string;
+  value?: number;
+  token?: string;
 }
 
 /**
@@ -38,69 +39,112 @@ export const SwapUI: FC<ISwapUIProps> = (props) => {
   const DBITTest = useAppContracts('DBITTest', ethersContext.chainId);
   const WETH = useAppContracts('WETH', ethersContext.chainId);
   const DGOV = useAppContracts('DGOV', ethersContext.chainId);
+  const apmContract = useAppContracts('APMTest', ethersContext.chainId);
   const [tokenInfos, setTokenInfos] = useState<any[]>();
-  const [token1, setToken1] = useState<TokenInfo>();
-  const [token2, setToken2] = useState<TokenInfo>();
+  const [tokenInfos1, setTokenInfos1] = useState<any[]>();
+  const [tokenInfos2, setTokenInfos2] = useState<any[]>();
+  const [token1, setToken1] = useState<string>();
+  const [value1, setValue1] = useState<number>();
+  const [token2, setToken2] = useState<string>();
+  const [value2, setValue2] = useState<number>();
   const [error, setError] = useState<string>();
   const ethComponentsSettings = useContext(EthComponentsSettingsContext);
   const [gasPrice] = useGasPrice(ethersContext.chainId, 'fast');
   const tx = transactor(ethComponentsSettings, ethersContext?.signer, gasPrice);
   const userAddress = ethersContext?.account;
+  /**
+   * Temporary get fake token list
+   */
+  const getTokensInfos = async (): Promise<void> => {
+    const tokenContracts_ = [
+      DAI?.address,
+      USDT?.address,
+      USDC?.address,
+      DBITTest?.address,
+      WETH?.address,
+      DGOV?.address,
+    ];
+    const _tokensContracts: ERC20[] = tokenContracts_.map(
+      (_address): ERC20 =>
+        new ethers.Contract(_address!, ERC20__factory.abi as ContractInterface, ethersContext.signer) as ERC20
+    );
+    const _tokenList = await Promise.all(
+      _tokensContracts.map(async (c: ERC20): Promise<any> => {
+        const symbol = await c.symbol();
+        const name = await c.name();
+        const address = c.address;
+        return { symbol, name, address };
+      })
+    );
+    // _tokenList.push({symbol: "ETH", name: "Ether", address: undefined})
+    setTokenInfos(_tokenList);
+  };
+
+  const updateInfos = (): void => {
+    if (token1) setTokenInfos2(tokenInfos?.filter((e) => e.address !== token1));
+  };
+  const updateValue = async (): Promise<void> => {
+    if (token1 && token2 && value1 && value1 > 0) {
+      const _amount = parseEther(value1.toString());
+      const out = await apmContract?.getAmountsOut(_amount, [token1, token2]);
+      if (out && out.length > 1) {
+        const _val = bnToFixed(out[out.length - 1], 4);
+        setValue2(parseFloat(_val));
+      }
+    }
+  };
+  const onChangeValue1 = (_value: number): void => {
+    setValue1(_value);
+  };
+
+  const onChangeValue2 = (_value: number): void => {
+    setValue2(_value);
+  };
+
+  const onChangeToken1 = (_token: string): void => {
+    setToken1(_token);
+  };
+
+  const onChangeToken2 = (_token: string): void => {
+    setToken2(_token);
+  };
 
   useEffect(() => {
-    /**
-     * Temporary get fake token list
-     */
-    const getTokensInfos = async (): Promise<void> => {
-      const tokenContracts_ = [
-        DAI?.address,
-        USDT?.address,
-        USDC?.address,
-        DBITTest?.address,
-        WETH?.address,
-        DGOV?.address,
-      ];
-      const _tokensContracts: ERC20[] = tokenContracts_.map(
-        (_address): ERC20 =>
-          new ethers.Contract(_address!, ERC20__factory.abi as ContractInterface, ethersContext.signer) as ERC20
-      );
-      const _tokenList = await Promise.all(
-        _tokensContracts.map(async (c: ERC20): Promise<any> => {
-          const symbol = await c.symbol();
-          const name = await c.name();
-          const address = c.address;
-          return { symbol, name, address };
-        })
-      );
-      // _tokenList.push({symbol: "ETH", name: "Ether", address: undefined})
-      setTokenInfos(_tokenList);
-    };
+    setTokenInfos1(tokenInfos);
+  }, [tokenInfos]);
+
+  useEffect(() => {
     if (DAI && USDC && USDT && WETH && DGOV && DBITTest) {
       void getTokensInfos();
     }
   }, [DAI, USDC, USDT, WETH, DGOV, DBITTest]);
 
-  const onChange1 = (_value: number, token: string): void => {
-    setToken1({ value: _value, token: token });
-    // update the token2 value given the exchange rate
-  };
-
-  const onChange2 = (_value: number, token: string): void => {
-    setToken2({ value: _value, token: token });
-  };
+  useEffect(() => {
+    void updateInfos();
+  }, [token1, token2]);
+  useEffect(() => {
+    void updateValue();
+  }, [token1, token2, value1, value2]);
 
   const swap = async (): Promise<void> => {
-    if (!token1 || !token2) {
+    setError(undefined);
+    if (!(token1 && value1 && value1 > 0 && token2)) {
       setError('Select a token');
       return;
     }
-    const inValue = parseEther(token1.value.toString()!);
-    if (token1?.token === WETH!.address) {
-      await tx?.(bank?.swapExactEthForTokens(0, [token1.token, token2.token], userAddress!, { value: inValue }));
-    } else if (token2?.token === WETH!.address) {
-      await tx?.(bank?.swapExactTokensForEth(inValue, 0, [token1.token, token2.token], userAddress!));
+    const inValue = parseEther(value2!.toString()!);
+    const tokenContract: Mintable | undefined = new ethers.Contract(
+      token1,
+      Mintable__factory.abi as ContractInterface,
+      ethersContext.signer
+    ) as Mintable;
+    await tx?.(tokenContract.approve(bank!.address, inValue));
+    if (token1 === WETH!.address) {
+      await tx?.(bank?.swapExactEthForTokens(0, [token1, token2], userAddress!, { value: inValue }));
+    } else if (token2 === WETH!.address) {
+      await tx?.(bank?.swapExactTokensForEth(inValue, 0, [token1, token2], userAddress!));
     } else {
-      await tx?.(bank?.swapExactTokensForTokens(inValue, 0, [token1.token, token2.token], userAddress!));
+      await tx?.(bank?.swapExactTokensForTokens(inValue, 0, [token1, token2], userAddress!));
     }
   };
 
@@ -109,10 +153,22 @@ export const SwapUI: FC<ISwapUIProps> = (props) => {
       <div style={{ justifyContent: 'center', display: 'flex' }}>
         <div style={{ width: 300 }}>
           <Row>
-            <SelectToken tokenInfos={tokenInfos!} onChange={onChange1} />
+            <SelectToken
+              tokenInfos={tokenInfos1!}
+              onToken={onChangeToken1}
+              onValue={onChangeValue1}
+              token={token1}
+              value={value1}
+            />
           </Row>
           <Row>
-            <SelectToken tokenInfos={tokenInfos!} onChange={onChange2} />
+            <SelectToken
+              tokenInfos={tokenInfos2!}
+              onToken={onChangeToken2}
+              onValue={onChangeValue2}
+              token={token2}
+              value={value2}
+            />
           </Row>
           <Row>
             <Button

@@ -1,9 +1,12 @@
 import { InputNumber, Select } from 'antd';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 
 export interface ISelectToken {
   tokenInfos: any[];
-  onChange: any;
+  onToken: any;
+  onValue: any;
+  token?: string;
+  value?: number;
 }
 
 /**
@@ -12,9 +15,7 @@ export interface ISelectToken {
  * @constructor
  */
 export const SelectToken: FC<ISelectToken> = (props) => {
-  const { tokenInfos, onChange } = props;
-  const [value, setValue] = useState<number>(0.0);
-  const [token, setToken] = useState<string>();
+  const { tokenInfos, onToken, onValue, token, value } = props;
 
   const tokenOptions = (infos: any): any => {
     return infos.map((info: any): any => (
@@ -23,22 +24,19 @@ export const SelectToken: FC<ISelectToken> = (props) => {
       </Select.Option>
     ));
   };
-  const onChangeValue = (_value: number): void => {
-    onChange(_value, token);
-    setValue(_value);
-  };
-  const onChangeToken = (_token: string): void => {
-    onChange(value, _token);
-    setToken(_token);
-  };
 
   return (
     <>
-      <InputNumber defaultValue={value} onChange={onChangeValue} />
+      <InputNumber
+        value={value}
+        onChange={async (e): Promise<void> => {
+          await onValue(e);
+        }}
+      />
 
       <Select
         showSearch
-        style={{ width: 100 }}
+        style={{ width: 150 }}
         placeholder="Select Token"
         optionFilterProp="children"
         filterOption={(input, option): any => (option!.children as unknown as string).includes(input)}
@@ -47,7 +45,9 @@ export const SelectToken: FC<ISelectToken> = (props) => {
             .toLowerCase()
             .localeCompare((optionB.children as unknown as string).toLowerCase())
         }
-        onChange={onChangeToken}>
+        onChange={async (e): Promise<void> => {
+          await onToken(e as string);
+        }}>
         {tokenInfos ? tokenOptions(tokenInfos) : []}
       </Select>
     </>

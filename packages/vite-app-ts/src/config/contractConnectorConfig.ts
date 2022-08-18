@@ -31,6 +31,13 @@ export const contractConnectorConfig = () => {
       ),
 
       BankData: createConnectorForHardhatContract('BankData', hardhatContracts.BankData__factory, hardhatContractsJson),
+      APMTest: createConnectorForHardhatContract('APMTest', hardhatContracts.APMTest__factory, hardhatContractsJson),
+      Exchange: createConnectorForHardhatContract('Exchange', hardhatContracts.Exchange__factory, hardhatContractsJson),
+      ExchangeStorage: createConnectorForHardhatContract(
+        'ExchangeStorage',
+        hardhatContracts.ExchangeStorage__factory,
+        hardhatContractsJson
+      ),
 
       DebondBondTest: createConnectorForHardhatContract(
         'DebondBondTest',
@@ -43,9 +50,7 @@ export const contractConnectorConfig = () => {
       DBITTest: createConnectorForHardhatContract('DBITTest', hardhatContracts.DBITTest__factory, hardhatContractsJson),
       DAI: createConnectorForHardhatContract('DAI', hardhatContracts.DAI__factory, hardhatContractsJson),
       WETH: createConnectorForHardhatContract('WETH', hardhatContracts.WETH__factory, hardhatContractsJson),
-      DGOV: createConnectorForHardhatContract('DGOV', hardhatContracts.DGOVTest__factory, hardhatContractsJson),
-
-      // Governance: createConnectorForHardhatContract('Governance', hardhatContracts.Governance__factory, hardhatContractsJson),
+      DGOV: createConnectorForHardhatContract('DGOV', hardhatContracts.DGOV__factory, hardhatContractsJson),
 
       // 🙋🏽‍♂️ Add your external contracts here, make sure to define the address in `externalContractsConfig.ts`
       // DAI: createConnectorForExternalContract('DAI', externalContracts.DAI__factory, externalContractsAddressMap),

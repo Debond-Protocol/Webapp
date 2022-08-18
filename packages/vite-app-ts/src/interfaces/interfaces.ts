@@ -93,3 +93,44 @@ export interface IRowsOutputs {
   debondClassesRowMap: Map<number, IClassRow> | undefined;
   filters: ColumnFilter[] | undefined;
 }
+
+export interface IAuction {
+  auctionId: number;
+  currentPrice: BigNumber;
+  auctionState: number;
+  endingTime: BigNumber;
+  erc20Currency: BigNumber;
+  finalPrice: BigNumber;
+  maxCurrencyAmount: BigNumber;
+  minCurrencyAmount: BigNumber;
+  owner: string;
+  startingTime: BigNumber;
+  successfulBidder: string;
+  duration: BigNumber;
+  _classId: BigNumber;
+  _bondId: BigNumber;
+  amount: BigNumber;
+}
+export interface IAuctionCompleted extends IAuction, IBondInfos {}
+
+export interface IAuctionRow extends IBondInfos {
+  id: number;
+  auctionState: number;
+  endDate: { startingTime: number; duration: number };
+  bidTime: number;
+  finalPrice: number;
+  erc20Currency: string;
+  initialPrice: number;
+  minimumPrice: number;
+  owner: string;
+  startingTime: number;
+  successfulBidder: string;
+  duration: number;
+  actions: { id: number; isOwner: boolean };
+  currentPrice: number;
+}
+
+export interface IAuctionRowOutputs {
+  rowMap?: Map<number, IAuctionRow>;
+  filters?: ColumnFilter[];
+}

@@ -151,7 +151,7 @@ const config: HardhatUserConfig = {
     ],
   },
   paths: {
-    sources: "./contracts/Debond-Bank/contracts",
+    sources: "./contracts/src",
     cache: './generated/cache',
     artifacts: './generated/artifacts',
     deployments: './generated/deployments',

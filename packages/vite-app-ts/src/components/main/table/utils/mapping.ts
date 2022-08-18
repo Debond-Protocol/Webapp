@@ -3,34 +3,42 @@ import moment from 'moment';
 
 import { ratings } from '~~/components/main/table/utils';
 import { Bank } from '~~/generated/contract-types';
-import { Class, ColumnFilter, IClassRow, IRowsOutputs } from '~~/interfaces/interfaces';
+import { Class, ColumnFilter, IAuctionCompleted, IAuctionRow, IClassRow, IRowsOutputs } from '~~/interfaces/interfaces';
 
 /**
  * Map the global auctions map to table row values
  */
-export const mapAuctionToRow = (auctions: any): any[] => {
+export const mapAuctionToRow = (
+  auctions: Map<number, IAuctionCompleted>,
+  address: string
+): Map<number, IAuctionRow> => {
   const _filters: any[] = [];
-  const _values: any[] = [];
-  const auctionsMap = new Map<string, any>();
-  let idx = 0;
-  for (const [_auctionId, auction] of auctions) {
-    const infos = {
-      key: _auctionId,
-      id: _auctionId,
-      initialPrice: auction.initialPrice.toString(),
-      minimumPrice: auction.minimumPrice.toString(),
-      period: auction.duration.toString(),
-      faceValue: auction.faceValue.toString(),
-      issuanceDate: auction.issuanceTimestamp.toNumber(),
-      endDate: { issuanceDate: auction.issuanceTimestamp.toNumber(), duration: auction.duration.toNumber() },
-
-      bid: { id: _auctionId },
+  const auctionsMap = new Map<number, IAuctionRow>();
+  console.log(auctions);
+  auctions.forEach((_auction, key): void => {
+    const _auctionRow: IAuctionRow = {
+      ..._auction,
+      id: key,
+      key: key,
+      progress: _auction.progress,
+      auctionState: _auction.auctionState,
+      duration: _auction.duration.toNumber(),
+      bidTime: _auction.endingTime.toNumber(),
+      endDate: { duration: _auction.duration.toNumber(), startingTime: _auction.startingTime.toNumber() },
+      erc20Currency: _auction.erc20Currency.toString(),
+      finalPrice: _auction.finalPrice.toNumber(),
+      initialPrice: _auction.maxCurrencyAmount.toNumber(),
+      minimumPrice: _auction.minCurrencyAmount.toNumber(),
+      owner: _auction.owner,
+      actions: { id: key, isOwner: _auction.owner === address },
+      startingTime: _auction.startingTime.toNumber(),
+      successfulBidder: _auction.successfulBidder,
+      currentPrice: _auction.currentPrice?.toNumber(),
     };
-    auctionsMap.set(_auctionId as string, infos);
-    _values.push(infos);
-    idx += 1;
-  }
-  return [auctionsMap, _filters];
+    auctionsMap.set(key, _auctionRow);
+  });
+
+  return auctionsMap;
 };
 
 export const mapClassesToRow = (classes: Map<number, Class>): IRowsOutputs | undefined => {
@@ -71,27 +79,6 @@ export const mapClassesToRow = (classes: Map<number, Class>): IRowsOutputs | und
 
   return { classesRowMap, debondClassesRowMap, filters };
 };
-
-/* export const completePurchaseClassToRow =  (bankContract: Bank, purchaseClassRow: IClassRow, debondClass: Class, amount: number, method: string): IClassPurchasedRow => {
-  const classPurchasedRow = purchaseClassRow as IClassPurchasedRow;
-  classPurchasedRow.actualApy = {
-    amountValue: BigNumber.from(amount),
-    bankContract: bankContract,
-    debondTokenClassId: BigNumber.from(debondClass.id),
-    default: purchaseClassRow.apy,
-    interestType: purchaseClassRow.interestType!,
-    method: method,
-    purchaseTokenClassId: BigNumber.from(purchaseClassRow.id)
-  };
-  return classPurchasedRow ;
-}
-
-export const completePurchaseClassesToRow =  (bankContract: Bank, purchaseClassesRow: Map<number, IClassRow>, debondClass: Class, amount: number, method: string): Map<number, IClassPurchasedRow> => {
-  const newEntries = Array.from(purchaseClassesRow, ([key, value]) => [key, completePurchaseClassToRow(bankContract, value, debondClass, amount, method)]);
-  // @ts-ignore
-  return new Map<number, IClassPurchasedRow>(newEntries);
-
-}*/
 
 export const getActualInterestRate = async (
   bankContract: Bank,

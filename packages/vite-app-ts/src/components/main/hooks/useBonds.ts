@@ -4,16 +4,15 @@ import { BigNumber } from 'ethers';
 import { useEffect, useState } from 'react';
 
 import { getMultiCallResults } from '~~/api/multicall';
+import { useClassesRows } from '~~/components/main/hooks/table/useClassesRow';
 import { useClasses } from '~~/components/main/hooks/useClasses';
-import { useClassesRows } from '~~/components/main/hooks/useClassesRow';
 import { interestRatesEnum, ratings } from '~~/components/main/table/utils';
 import { useAppContracts } from '~~/config/contractContext';
 import { BankBondManager, DebondBondTest } from '~~/generated/contract-types';
-import { TransferEventFilter } from '~~/generated/contract-types/DebondBondTest';
-import { IssueEventFilter } from '~~/generated/contract-types/DebondERC3475';
 import { Class, IBondInfos, ICompletedClassRow, IIssuesOutputs, IRowsOutputs } from '~~/interfaces/interfaces';
 
-export const useIssues = (): IIssuesOutputs => {
+export const useBonds = (props: any): IIssuesOutputs => {
+  const { bondIdsDict } = props;
   const ethersContext = useEthersContext();
   const provider = ethersContext.provider!;
   const debondBond: DebondBondTest | undefined = useAppContracts('DebondBondTest', ethersContext.chainId);
@@ -25,42 +24,20 @@ export const useIssues = (): IIssuesOutputs => {
   const { classes, classesMap }: { classes: Class[]; classesMap: Map<number, Class> } = useClasses();
   const { classesRowMap, debondClassesRowMap, filters }: IRowsOutputs = useClassesRows();
 
-  const flat = (arr: any[], idx: number): any[] => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return arr.map((item: any) => item.args[idx]).flat();
-  };
-  /*
-  TODO : Improve this, we need two multicalls to get the purchasable classes, maybe use events
-   */
   useEffect(() => {
     const init = async (): Promise<void> => {
-      if (debondBond && bankManager && userAddress && classes && classesMap && classesRowMap) {
-        const issueCreatedEvent: IssueEventFilter = debondBond.filters.Issue(null, userAddress);
-        /*        const redeemEvent: RedeemEventFilter = debondBond.filters.Redeem(null, userAddress);
-                const burnEvent: BurnEventFilter = debondBond.filters.Burn(null, userAddress);
-                const transferFromEvent: TransferEventFilter = debondBond.filters.Transfer(null, userAddress);*/
-        /*      const redeemEvents = flat(await debondBond.queryFilter(redeemEvent), 2);
-      const burnEvents = flat(await debondBond.queryFilter(burnEvent), 2);
-      const transferFromEvents = flat(await debondBond.queryFilter(transferFromEvent), 3);*/
-        const transferToEvent: TransferEventFilter = debondBond.filters.Transfer(null, null, userAddress);
-
-        const issueEvents = flat((await debondBond.queryFilter(issueCreatedEvent)) as any[], 2);
-
-        const transferToEvents = flat((await debondBond.queryFilter(transferToEvent)) as any[], 3);
-
-        const ownedNonces = issueEvents.concat(transferToEvents);
-        const balanceArgs = ownedNonces.map(
+      if (debondBond && bankManager && userAddress && classesMap && classesRowMap && bondIdsDict) {
+        const balanceArgs = bondIdsDict.map(
           (nonceInfos: { classId: number; nonceId: number }): [string, number, number] => [
             userAddress,
             nonceInfos.classId,
             nonceInfos.nonceId,
           ]
         );
-        const balances = (await getMultiCallResults(debondBond, 'balanceOf', provider, balanceArgs)).filter(
-          (balance: BigNumber) => balance.toNumber() > 0
-        );
+        const balances = await getMultiCallResults(debondBond, 'balanceOf', provider, balanceArgs);
+        // .filter((balance: BigNumber) => balance.toNumber() > 0);
         const bondsIds = balances.map((_, idx: number) => {
-          const e = ownedNonces[idx];
+          const e = bondIdsDict[idx];
           return { classId: e.classId.toNumber(), nonceId: e.nonceId.toNumber() };
         });
         const argsIds = bondsIds.map(
@@ -138,7 +115,8 @@ export const useIssues = (): IIssuesOutputs => {
         setCompletedClassesMap(new Map<number, ICompletedClassRow>(completedClassRows.map((e) => [e.id, e])));
       }
     };
+
     void init();
-  }, [debondBond, bankManager, userAddress, classes, classesMap, classesRowMap]);
+  }, [debondBond, bankManager, userAddress, classes, classesMap, classesRowMap, bondIdsDict]);
   return { bonds, bondsMap, completedClassesMap };
 };
