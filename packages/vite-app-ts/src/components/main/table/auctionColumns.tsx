@@ -1,8 +1,10 @@
+import { formatEther } from '@ethersproject/units';
 import { Button, Row } from 'antd';
 import moment from 'moment';
 import React from 'react';
 
 import { getBondColumns } from '~~/components/main/table/bondColumns';
+import { AuctionState } from '~~/interfaces/enum';
 
 export interface ITableColumnsProps {
   selectedColumnsName: string[];
@@ -27,7 +29,14 @@ export const getColumns = (bid: any, cancel: any): Map<string, any> => {
     },
   });
 
-  columns.set('initialPrice', { title: 'Initial Price', dataIndex: 'initialPrice', key: 'initialPrice' });
+  columns.set('initialPrice', {
+    title: 'Initial Price',
+    dataIndex: 'initialPrice',
+    key: 'initialPrice',
+    render: (price: number) => {
+      return formatEther(price);
+    },
+  });
   columns.set('startTime', {
     title: 'Start',
     dataIndex: 'startingTime',
@@ -45,8 +54,30 @@ export const getColumns = (bid: any, cancel: any): Map<string, any> => {
       return moment.unix(duration - 3600).format('HH:mm');
     },
   });
-  columns.set('minimumPrice', { title: 'Minimum Price', dataIndex: 'minimumPrice', key: 'minimumPrice' });
-  columns.set('currentPrice', { title: 'Current Price', dataIndex: 'currentPrice', key: 'currentPrice' });
+  columns.set('minimumPrice', {
+    title: 'Minimum Price',
+    dataIndex: 'minimumPrice',
+    key: 'minimumPrice',
+    render: (price: number) => {
+      return formatEther(price);
+    },
+  });
+  columns.set('currentPrice', {
+    title: 'Current Price',
+    dataIndex: 'currentPrice',
+    key: 'currentPrice',
+    render: (price: number) => {
+      return price ? formatEther(price) : 0;
+    },
+  });
+  columns.set('auctionState', {
+    title: 'State',
+    dataIndex: 'auctionState',
+    key: 'auctionState',
+    render: (idx: number) => {
+      return AuctionState[idx];
+    },
+  });
   columns.set('actions', {
     title: 'Actions',
     dataIndex: 'actions',

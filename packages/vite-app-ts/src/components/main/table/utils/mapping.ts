@@ -19,6 +19,7 @@ export const mapAuctionToRow = (
     const _auctionRow: IAuctionRow = {
       ..._auction,
       id: key,
+      key: key,
       progress: _auction.progress,
       auctionState: _auction.auctionState,
       duration: _auction.duration.toNumber(),

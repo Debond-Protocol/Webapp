@@ -39,7 +39,7 @@ export const SwapUI: FC<ISwapUIProps> = (props) => {
   const DBITTest = useAppContracts('DBITTest', ethersContext.chainId);
   const WETH = useAppContracts('WETH', ethersContext.chainId);
   const DGOV = useAppContracts('DGOV', ethersContext.chainId);
-  const apmContract = useAppContracts('APM', ethersContext.chainId);
+  const apmContract = useAppContracts('APMTest', ethersContext.chainId);
   const [tokenInfos, setTokenInfos] = useState<any[]>();
   const [token1, setToken1] = useState<string>();
   const [value1, setValue1] = useState<number>();

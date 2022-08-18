@@ -1,4 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons';
+import { parseEther } from '@ethersproject/units';
 import { Button, DatePicker, Form, Input, Modal, Table, TimePicker } from 'antd';
 import { transactor } from 'eth-components/functions';
 import { EthComponentsSettingsContext } from 'eth-components/models';
@@ -54,6 +55,8 @@ export const AuctionBondForm: FC<IAuctionBondProps> = ({}) => {
 
     const duration = moment.duration((values.duration as Moment).format('HH:MM:ss'));
     const _selected = selected as IBondInfos;
+    const minValue = parseEther(values.minimalValue as string);
+    const initialValue = parseEther(values.initialValue as string);
 
     console.log(_selected);
     await tx?.(
@@ -63,8 +66,8 @@ export const AuctionBondForm: FC<IAuctionBondProps> = ({}) => {
         [_selected.classId!],
         [_selected.bondId!],
         [_selected.balance!],
-        values.minimalValue as number,
-        values.initialValue as number,
+        minValue,
+        initialValue,
         duration.asSeconds()
       ) as Promise<ContractTransaction>
     );
@@ -76,15 +79,12 @@ export const AuctionBondForm: FC<IAuctionBondProps> = ({}) => {
 
   const selectRow = (record: IBondInfos): void => {
     setSelectedRowKeys([record.key]);
-    // @ts-ignore
-
     setSelected(record);
   };
 
   const onSelectedRowKeysChange = (_selectedRowKeys: any): void => {
     setSelectedRowKeys(_selectedRowKeys);
-    // @ts-ignore
-    setSelected(bondsMap.get(_selectedRowKeys[0] as number));
+    setSelected(bondsMap!.get(_selectedRowKeys[0] as number));
   };
 
   const rowSelection: any = {

@@ -27,12 +27,12 @@ export interface IExchangeUIProps {
  */
 export const ExchangeUI: FC<IExchangeUIProps> = (props) => {
   const selectedColumnsName: string[] = [
+    'auctionState',
     'currentPrice',
     'endDate',
     'token',
     'typePeriod',
     'progress',
-    'initialPrice',
     'actions',
   ];
   const ethersContext = useEthersContext();
@@ -43,13 +43,11 @@ export const ExchangeUI: FC<IExchangeUIProps> = (props) => {
   const provider = ethersContext?.provider;
   const [tableColumns, setTableColumns]: any[] = useState([]);
   const { rowMap, filters } = useAuctionsRow();
-  console.log(rowMap);
 
   const bidFunction = async (id: string): Promise<void> => {
     await tx?.(exchangeContract?.bid(id) as Promise<ContractTransaction>);
   };
   const cancelFunction = async (id: string): Promise<void> => {
-    // @ts-ignore
     await tx?.(exchangeContract?.cancelAuction(id) as Promise<ContractTransaction>);
   };
 
