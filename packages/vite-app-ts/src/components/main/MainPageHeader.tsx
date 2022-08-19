@@ -116,7 +116,7 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
           position: 'fixed',
           textAlign: 'right',
           right: '20px',
-          top: '35px',
+          top: '33px',
           zIndex: 1,
         }}>
         <WalletConnector

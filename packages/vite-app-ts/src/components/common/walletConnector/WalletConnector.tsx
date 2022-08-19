@@ -99,7 +99,7 @@ export const WalletConnector: FC<IAccountProps> = (props: IAccountProps) => {
   const loadModalButton = (
     <>
       {showLoadModal && props.createLoginConnector && (
-        <Button loading={loadingButtonDebounce.isPending()} key="loginbutton" size="large" onClick={handleLoginClick}>
+        <Button loading={loadingButtonDebounce.isPending()} className="debond-btn" key="loginbutton" size="large" onClick={handleLoginClick}>
           CONNECT
         </Button>
       )}
@@ -109,7 +109,7 @@ export const WalletConnector: FC<IAccountProps> = (props: IAccountProps) => {
   const logoutButton = (
     <>
       {!showLoadModal && props.createLoginConnector && (
-        <Button key="logoutbutton" size="large" onClick={ethersContext.disconnectModal}>
+        <Button key="logoutbutton" className="debond-btn" size="large" onClick={ethersContext.disconnectModal}>
           LOGOUT
         </Button>
       )}

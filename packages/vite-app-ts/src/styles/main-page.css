@@ -186,7 +186,7 @@
   min-width: 288px;
   position: fixed;
   top: 40px;
-  right: 360px;
+  right: 20%;
   /*top:-30px;
       right: 20px;*/
 }
@@ -234,6 +234,11 @@
   background-color: black !important;
 }
 
+.ant-tabs-tab .ant-tabs-tab-btn {
+  font-size: 22px;
+  font-weight: 700;
+  margin-left: 30px;
+}
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
   color: #ffffff;
 }
@@ -286,6 +291,12 @@
 #burger-menu{
   display: none;
 }
+.ant-card-body{
+  padding: 0;
+}
+.ant-tabs-top>.ant-tabs-nav .ant-tabs-ink-bar {
+  height: 4px;
+}
 
 @media all and (max-width: 768px) {
   #burger-menu{
@@ -333,9 +344,6 @@
     font-weight: 700;
     text-align: center;
   }
-  .ant-tabs-top>.ant-tabs-nav .ant-tabs-ink-bar {
-    height: 4px;
-  }
   .ant-modal-body{
     display: flex;
     align-items: center;
@@ -359,3 +367,8 @@
   }
 }
 
+@media all and (min-width: 768px) {
+  .debond-btn {
+      padding: 10px 2vw 10px 2vw;
+    }
+}

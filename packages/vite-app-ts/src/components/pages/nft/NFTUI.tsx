@@ -141,6 +141,7 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
             <Card title={item.title} cover={<img alt="your nft" src={item.src} />}></Card>
           </List.Item>
         )}
+        style={{marginTop: "30px"}}
       />
     );
   };
@@ -158,9 +159,20 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
     }
     return content;
   };
-
+  // hard-coded data for time being
+  const FOOTER_DATA = {
+    DBIT_CURRENT_PRICE: 0.98,
+    DBIT_SUPPLY: 42345691,
+    DBIT_MINTING_COST: 1.42,
+    GAS_FEE: 34.13,
+    TOTAL: 14481242412
+  }
   return (
     <ContentLayout className={'nft-page'}>
+      <div className="nft-label">
+        <div className="nft-label-title">NFT</div>
+        <div className="nft-label-descri">D/Bond redefines the utilities and conceptions of NFTs</div>
+      </div>
       <Tabs defaultActiveKey="1" centered>
         <Tabs.TabPane tab="MINT D/NFT" key="1" style={{}}>
           <div style={{ position: 'relative' }}>
@@ -180,6 +192,7 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
               <div className={'minting-div'}>
                 <div className={'minting-header'}>
                   <div className={'ether-price'}>
+                    <span className="etherIcon" />
                     {mintingPrice ? (+formatEther(mintingPrice.toString())).toFixed(2) : 'Loading'}
                     <span> ETH</span>
                   </div>
@@ -214,6 +227,13 @@ export const NFTUI: FC<NFTUIProps> = (props) => {
           {renderNFTs()}
         </Tabs.TabPane>
       </Tabs>
+      <ul className="carousel-data-footer">
+         <li>DBIT CURRENT PRICE: <span className="dbit_price">${FOOTER_DATA.DBIT_CURRENT_PRICE}</span></li> 
+         <li>DBIT SUPPLY: <span className="dbit_supply">{FOOTER_DATA.DBIT_SUPPLY}</span></li>
+         <li>DBIT MINTING COST: <span className="dbit_mining_cost">${FOOTER_DATA.DBIT_MINTING_COST}</span></li>
+         <li>GAS FEE: <span className="dbit_gas_fee">{FOOTER_DATA.GAS_FEE}WEI</span></li>
+         <li><span className="dbit_total">{FOOTER_DATA.TOTAL}</span></li>
+      </ul>
     </ContentLayout>
   );
 };

@@ -4,11 +4,13 @@
   font-weight: 500;
   font-size: 30.9836px;
   color: #dfdfdf;
+  margin-bottom: 10px;
 }
 
 .minting-div {
   z-index: 2;
-  border: 0.2px solid #0029ff;
+  border: 0.2px solid #0029FF;
+  background-color: rgba(18, 18, 77, 0.62);;
   backdrop-filter: blur(37px);
   border-radius: 4px;
   backdrop-filter: blur(37px);
@@ -29,7 +31,7 @@
 }
 
 .minting-footer {
-  margin-top: 15px;
+  margin-top: 20px;
   display: flex;
   justify-content: center;
 }
@@ -37,7 +39,13 @@
 .debond-btn {
   width: 100%;
 }
-
+.etherIcon{
+  background: url('/ETH.png') 0 0 no-repeat;
+  width: 30px;
+  height: 36px;
+  display: inline-block;
+  vertical-align: middle;
+}
 .ether-price span {
   font-family: 'Inter';
   font-style: normal;
@@ -169,23 +177,76 @@
   margin: 0px auto auto auto;
   width: 100%;
 }
+.nft-label{
+  margin: 0 40px 0 40px;
+}
+.nft-label-title{
+  position: relative;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 5px 24px;
+}
+.nft-label-title:before{
+  width: 16px;
+  height: 16px;
+  content: "";
+  position: absolute;
+  left: -24px;
+  bottom: 3px;
+  background: url("/nft-icon.png") 0 0 no-repeat;
+
+}
+.nft-label-description{
+  font-size: 12px;
+}
+.carousel-data-footer{
+  display: flex;
+  justify-content: space-between;
+  overflow-x: auto;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  padding-bottom: 10px;
+}
+.carousel-data-footer li{
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 2;
+}
+.carousel-data-footer li+li{
+  margin-left: 20px;
+}
+.dbit_price{
+  color: #F8D829;
+}
+.dbit_supply{
+  color: #D128A2;
+}
+.dbit_mining_cost{
+  color: #CC93D3;
+}
+.dbit_gas_fee{
+  color: #8BC80B
+}
+.dbit_total{
+  color: #63D7C5;
+}
 @media all and (min-width: 768px) {
 .inner{
   top:150px;
 }
   .minting-divs {
-    top: 280px !important;
+    top: 25vh !important;
   }
 }
 
 
 @media all and (max-width: 500px) {
   .minting-divs {
-    top: 130px !important;
+    top: 12vh !important;
   }
 
   .minting-div{
-    width:50vw;
+    width:55vw;
     padding: 10px;
   }
   .minting-header,.ether-price span{
@@ -207,17 +268,23 @@
   .nft-carousel img {
     min-height: 480px!important;
   }
+  .nft-label {
+    display: none;
+  }
 
 }
-@media all and (min-device-width: 500px) and (max-device-width: 768px) {
+@media all and (min-width: 500px) and (max-width: 768px) {
   .inner {
     width: 400px;
     height: 400px;
     border-radius: 200px;
     top:100px;
   }
+  .minting-divs {
+    top: 18vh !important;
+  }
   .minting-div {
-    width:250px;
+    width:52vw;
     padding: 15px;
   }
   .nft-carousel img {
