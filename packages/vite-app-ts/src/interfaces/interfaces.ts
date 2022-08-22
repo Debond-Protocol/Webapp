@@ -118,16 +118,16 @@ export interface IAuctionRow extends IBondInfos {
   auctionState: number;
   endDate: { startingTime: number; duration: number };
   bidTime: number;
-  finalPrice: number;
+  finalPrice: BigNumber;
   erc20Currency: string;
-  initialPrice: number;
-  minimumPrice: number;
+  initialPrice: BigNumber;
+  minimumPrice: BigNumber;
   owner: string;
   startingTime: number;
   successfulBidder: string;
   duration: number;
   actions: { id: number; isOwner: boolean };
-  currentPrice: number;
+  currentPrice: BigNumber;
 }
 
 export interface IAuctionRowOutputs {

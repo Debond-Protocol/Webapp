@@ -1,5 +1,6 @@
 import { formatEther } from '@ethersproject/units';
 import { Button, Row } from 'antd';
+import { BigNumber } from 'ethers';
 import moment from 'moment';
 import React from 'react';
 
@@ -33,7 +34,7 @@ export const getColumns = (bid: any, cancel: any): Map<string, any> => {
     title: 'Initial Price',
     dataIndex: 'initialPrice',
     key: 'initialPrice',
-    render: (price: number) => {
+    render: (price: BigNumber) => {
       return formatEther(price);
     },
   });
@@ -58,7 +59,7 @@ export const getColumns = (bid: any, cancel: any): Map<string, any> => {
     title: 'Minimum Price',
     dataIndex: 'minimumPrice',
     key: 'minimumPrice',
-    render: (price: number) => {
+    render: (price: BigNumber) => {
       return formatEther(price);
     },
   });
@@ -66,7 +67,7 @@ export const getColumns = (bid: any, cancel: any): Map<string, any> => {
     title: 'Current Price',
     dataIndex: 'currentPrice',
     key: 'currentPrice',
-    render: (price: number) => {
+    render: (price: BigNumber) => {
       return price ? formatEther(price) : 0;
     },
   });
@@ -85,16 +86,17 @@ export const getColumns = (bid: any, cancel: any): Map<string, any> => {
     render: (input: any) => {
       return (
         <div>
-          <Row>
-            <Button
-              style={{ margin: 3 }}
-              onClick={(): void => {
-                bid(input.id);
-              }}>
-              Bid
-            </Button>
-          </Row>
-
+          {!input.isOwner && (
+            <Row>
+              <Button
+                style={{ margin: 3 }}
+                onClick={(): void => {
+                  bid(input.id);
+                }}>
+                Bid
+              </Button>
+            </Row>
+          )}
           {input.isOwner && (
             <Row>
               <Button

@@ -26,14 +26,14 @@ export const mapAuctionToRow = (
       bidTime: _auction.endingTime.toNumber(),
       endDate: { duration: _auction.duration.toNumber(), startingTime: _auction.startingTime.toNumber() },
       erc20Currency: _auction.erc20Currency.toString(),
-      finalPrice: _auction.finalPrice.toNumber(),
-      initialPrice: _auction.maxCurrencyAmount.toNumber(),
-      minimumPrice: _auction.minCurrencyAmount.toNumber(),
+      finalPrice: _auction.finalPrice,
+      initialPrice: _auction.maxCurrencyAmount,
+      minimumPrice: _auction.minCurrencyAmount,
       owner: _auction.owner,
       actions: { id: key, isOwner: _auction.owner === address },
       startingTime: _auction.startingTime.toNumber(),
       successfulBidder: _auction.successfulBidder,
-      currentPrice: _auction.currentPrice?.toNumber(),
+      currentPrice: _auction.currentPrice,
     };
     auctionsMap.set(key, _auctionRow);
   });
