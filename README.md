@@ -29,6 +29,7 @@ Running the app
    ```bash
    cd packages/hardhat-ts/contracts
    # clone the repo
+   mkdir src && cd src
    git clone --branch frontend https://github.com/Debond-Protocol/Debond-Bank.git
    ```
 4. run the app, `open a new command prompt`
