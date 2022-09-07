@@ -62,5 +62,5 @@ yarn-error.log*
 .idea
 
 
-
-/packages/hardhat-ts/contracts/
+!/packages/hardhat-ts/contracts/
+/packages/hardhat-ts/contracts/*
