@@ -56,7 +56,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   await BankBondManager.setBankDataAddress(BankData.address);
   console.log('init');
 
-  // await BankBondManager.initDatas(DBIT.address, USDT.address, DAI.address, DGOV.address, WETH.address);
+  await BankBondManager.initDatas(DBIT.address, USDT.address, DAI.address, DGOV.address, WETH.address);
   console.log('init2');
 
   await Bank.setApmAddress(APM.address);
