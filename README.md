@@ -27,9 +27,8 @@ Running the app
 
 3. get the contracts
    ```bash
-   cd packages/hardhat-ts/contracts
+   cd packages/hardhat-ts/contracts/src
    # clone the repo
-   mkdir src && cd src
    git clone --branch frontend https://github.com/Debond-Protocol/Debond-Bank.git
    git clone --branch front https://github.com/Debond-Protocol/Debond-Exchange.git
    ```
