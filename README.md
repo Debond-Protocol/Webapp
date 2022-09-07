@@ -31,6 +31,7 @@ Running the app
    # clone the repo
    mkdir src && cd src
    git clone --branch frontend https://github.com/Debond-Protocol/Debond-Bank.git
+   git clone --branch front https://github.com/Debond-Protocol/Debond-Exchange.git
    ```
 4. run the app, `open a new command prompt`
    
