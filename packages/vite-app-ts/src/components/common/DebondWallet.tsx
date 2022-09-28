@@ -58,19 +58,7 @@ export const DebondWallet = (props: any): any => {
 
   const tableColumns = getTableColumns({ selectedColumnsName, tokenFilters, redeem });
 
-  const expandRowRenderer = (record: any, i: any): any => {
-    const _bonds = bonds?.filter((e) => e.classId === record.id);
-    return (
-      <Table
-        className={'table-bordered'}
-        bordered={false}
-        columns={tableColumns.bondColumns}
-        dataSource={_bonds}
-        showHeader={false}
-        pagination={false}
-      />
-    );
-  };
+  console.log(completedClassesMap);
 
   return (
     <Table
@@ -78,8 +66,6 @@ export const DebondWallet = (props: any): any => {
       className={'table-bordered'}
       columns={tableColumns.classColumns}
       dataSource={completedClassesMap ? Array.from(completedClassesMap.values()) : []}
-      expandable={{ expandRowByClick: true, expandedRowRender: expandRowRenderer }}
-      pagination={false}
     />
   );
 };

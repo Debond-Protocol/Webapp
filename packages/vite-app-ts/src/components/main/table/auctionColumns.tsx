@@ -4,20 +4,28 @@ import { BigNumber } from 'ethers';
 import moment from 'moment';
 import React from 'react';
 
-import { getBondColumns } from '~~/components/main/table/bondColumns';
+import { addressToShorten, bnToFixed } from '~~/components/main/functions/utils';
+import { AuctionBidButton } from '~~/components/pages/exchange/purchase/AuctionBidButton';
 import { AuctionState } from '~~/interfaces/enum';
 
 export interface ITableColumnsProps {
   selectedColumnsName: string[];
-  bid: any;
-  cancel: any;
+  selectAuction: any;
 }
 
 /**
  * Function to get auction columns for antd tables
  */
-export const getColumns = (bid: any, cancel: any): Map<string, any> => {
+export const getColumns = (selectAuction: any): Map<string, any> => {
   const columns = new Map<string, any>();
+  columns.set('owner', {
+    title: 'Owner',
+    dataIndex: 'owner',
+    key: 'owner',
+    render: (owner: string) => {
+      return addressToShorten(owner);
+    },
+  });
 
   columns.set('endDate', {
     title: 'End',
@@ -68,7 +76,7 @@ export const getColumns = (bid: any, cancel: any): Map<string, any> => {
     dataIndex: 'currentPrice',
     key: 'currentPrice',
     render: (price: BigNumber) => {
-      return price ? formatEther(price) : 0;
+      return price ? bnToFixed(price, 6) : 0;
     },
   });
   columns.set('auctionState', {
@@ -79,6 +87,12 @@ export const getColumns = (bid: any, cancel: any): Map<string, any> => {
       return AuctionState[idx];
     },
   });
+  columns.set('details', {
+    title: 'Details',
+    dataIndex: 'details',
+    key: 'details',
+    render: selectAuction,
+  });
   columns.set('actions', {
     title: 'Actions',
     dataIndex: 'actions',
@@ -88,22 +102,12 @@ export const getColumns = (bid: any, cancel: any): Map<string, any> => {
         <div>
           {!input.isOwner && (
             <Row>
-              <Button
-                style={{ margin: 3 }}
-                onClick={(): void => {
-                  bid(input.id);
-                }}>
-                Bid
-              </Button>
+              <AuctionBidButton auction={input.auction} />
             </Row>
           )}
           {input.isOwner && (
             <Row>
-              <Button
-                type="primary"
-                onClick={(): void => {
-                  cancel(input);
-                }}>
+              <Button type="primary" onClick={(): void => {}}>
                 Cancel
               </Button>
             </Row>
@@ -127,12 +131,11 @@ const onFilter = (value: any, record: any): boolean => {
  * @param props: functions and parameters necessary for table columns
  */
 export const getAuctionColumns = (props: ITableColumnsProps): any => {
-  const { selectedColumnsName, bid, cancel } = props;
+  const { selectedColumnsName, selectAuction } = props;
   const width = `${100 / selectedColumnsName.length}%`;
 
-  const auctionColumns = getColumns(bid, cancel);
-  const bondColumns = getBondColumns(null);
-  const columns = new Map<string, any>([...auctionColumns, ...bondColumns]);
+  const auctionColumns = getColumns(selectAuction);
+  const columns = new Map<string, any>([...auctionColumns]);
   const selectedColumns = selectedColumnsName.map((name): any => {
     const col = columns.get(name);
     col.width = width;

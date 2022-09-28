@@ -3,24 +3,21 @@ import moment from 'moment';
 
 import { ratings } from '~~/components/main/table/utils';
 import { Bank } from '~~/generated/contract-types';
-import { Class, ColumnFilter, IAuctionCompleted, IAuctionRow, IClassRow, IRowsOutputs } from '~~/interfaces/interfaces';
+import { Class, ColumnFilter, IAuction, IAuctionRow, IClassRow, IRowsOutputs } from '~~/interfaces/interfaces';
 
 /**
  * Map the global auctions map to table row values
  */
-export const mapAuctionToRow = (
-  auctions: Map<number, IAuctionCompleted>,
-  address: string
-): Map<number, IAuctionRow> => {
+export const mapAuctionToRow = (auctions: Map<number, IAuction>, address: string): Map<number, IAuctionRow> => {
   const _filters: any[] = [];
   const auctionsMap = new Map<number, IAuctionRow>();
   console.log(auctions);
   auctions.forEach((_auction, key): void => {
+    console.log(_auction);
     const _auctionRow: IAuctionRow = {
       ..._auction,
       id: key,
-      key: key,
-      progress: _auction.progress,
+      key: key.toString(),
       auctionState: _auction.auctionState,
       duration: _auction.duration.toNumber(),
       bidTime: _auction.endingTime.toNumber(),
@@ -30,10 +27,11 @@ export const mapAuctionToRow = (
       initialPrice: _auction.maxCurrencyAmount,
       minimumPrice: _auction.minCurrencyAmount,
       owner: _auction.owner,
-      actions: { id: key, isOwner: _auction.owner === address },
+      actions: { auction: _auction, id: key, isOwner: _auction.owner === address },
       startingTime: _auction.startingTime.toNumber(),
       successfulBidder: _auction.successfulBidder,
       currentPrice: _auction.currentPrice,
+      details: _auction.auctionId,
     };
     auctionsMap.set(key, _auctionRow);
   });

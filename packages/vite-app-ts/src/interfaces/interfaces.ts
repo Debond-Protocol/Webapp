@@ -18,12 +18,13 @@ export interface IIssuesOutputs {
 }
 
 export interface ICompletedClassRow extends IClassRow {
-  balance: number;
-  progress: number;
+  balance: BigNumber;
+  progress: { progress: BigNumber };
+  children: any[];
 }
 
 export interface IBondInfos {
-  key?: number;
+  key?: string;
   maturityDate?: BigNumber;
   symbol?: string;
   interestRateType?: string;
@@ -38,7 +39,7 @@ export interface IBondInfos {
   redeem: { progress?: number; classId?: number; nonceId?: number; balance?: number };
   classId?: number;
   bondId?: number;
-  balance?: number;
+  balance?: BigNumber;
   // mocked
   issuer?: string;
   typePeriod?: {
@@ -107,14 +108,13 @@ export interface IAuction {
   startingTime: BigNumber;
   successfulBidder: string;
   duration: BigNumber;
-  _classId: BigNumber;
-  _bondId: BigNumber;
   amount: BigNumber;
 }
 export interface IAuctionCompleted extends IAuction, IBondInfos {}
 
-export interface IAuctionRow extends IBondInfos {
+export interface IAuctionRow {
   id: number;
+  key: string;
   auctionState: number;
   endDate: { startingTime: number; duration: number };
   bidTime: number;
@@ -126,8 +126,9 @@ export interface IAuctionRow extends IBondInfos {
   startingTime: number;
   successfulBidder: string;
   duration: number;
-  actions: { id: number; isOwner: boolean };
+  actions: { auction: IAuction; id: number; isOwner: boolean };
   currentPrice: BigNumber;
+  details: any;
 }
 
 export interface IAuctionRowOutputs {

@@ -221,14 +221,6 @@
   background-color: black !important;
 }
 
-.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: #ffffff;
-}
-
-.ant-tabs {
-  margin: 5vh 0 5vh 0 !important;
-  border-bottom: 3px #6c757d;
-}
 
 .ant-select-item,
 .ant-select-item-option,

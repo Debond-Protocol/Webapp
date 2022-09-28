@@ -27,6 +27,7 @@ export const useBonds = (props: any): IIssuesOutputs => {
   useEffect(() => {
     const init = async (): Promise<void> => {
       if (debondBond && bankManager && userAddress && classesMap && classesRowMap && bondIdsDict) {
+        console.log(bondIdsDict);
         const balanceArgs = bondIdsDict.map(
           (nonceInfos: { classId: number; nonceId: number }): [string, number, number] => [
             userAddress,
@@ -58,14 +59,11 @@ export const useBonds = (props: any): IIssuesOutputs => {
               interestRateType: _class?.interestType,
               issuanceDate: values._issuanceDate.toString(),
               issuer: 'debond',
-              key: idx,
+              key: `${classId.toString()}_${nonceId.toString()}_${idx}`,
               maturityCountdown: maturityDate,
               maturityDate: maturityDate,
               period: _class?.period,
               progress: {
-                issuance: values._issuanceDate,
-                maturity: maturityDate,
-                period: _class?.period,
                 progress: progress[idx].progressAchieved,
               },
               rating: ratings[idx % ratings.length],
@@ -87,7 +85,9 @@ export const useBonds = (props: any): IIssuesOutputs => {
         const completedClassRows = uniqueClassIds.map((_classId): ICompletedClassRow => {
           const classRowMap = classesRowMap.get(_classId)!;
           const bondsForClass = _bonds.filter((e: IBondInfos) => e.classId === _classId);
-          const balance = bondsForClass.map((e: IBondInfos) => e.balance!).reduce((a, b) => a + b, 0);
+          const balance = bondsForClass
+            .map((e: IBondInfos) => e.balance)
+            .reduce((a, b) => a?.add(b!), BigNumber.from(0));
           const maturityCountDown = Math.max(...bondsForClass.map((e: IBondInfos) => e.maturityCountdown!.toNumber()));
           const progress = Math.min(
             ...bondsForClass.map((e: IBondInfos) => {
@@ -97,7 +97,7 @@ export const useBonds = (props: any): IIssuesOutputs => {
           return {
             tokenAddress: classRowMap.tokenAddress,
             apy: classRowMap.apy,
-            balance: balance,
+            balance: balance!,
             deposit: classRowMap.deposit,
             id: classRowMap.id,
             interestType: classRowMap.interestType,
@@ -105,11 +105,12 @@ export const useBonds = (props: any): IIssuesOutputs => {
             key: classRowMap.key,
             maturityCountdown: BigNumber.from(maturityCountDown),
             period: classRowMap.period,
-            progress: progress,
+            progress: { progress: BigNumber.from(progress) },
             rating: classRowMap.rating,
             token: classRowMap.token,
             typePeriod: classRowMap.typePeriod,
             value: classRowMap.value,
+            children: bondsForClass,
           };
         });
         setCompletedClassesMap(new Map<number, ICompletedClassRow>(completedClassRows.map((e) => [e.id, e])));

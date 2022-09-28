@@ -3,28 +3,28 @@ import { useEffect, useState } from 'react';
 
 import { useAuctionsCompleted } from '~~/components/main/hooks/useAuctionsCompleted';
 import { mapAuctionToRow } from '~~/components/main/table/utils/mapping';
-import { ColumnFilter, IAuctionCompleted, IAuctionRow, IAuctionRowOutputs } from '~~/interfaces/interfaces';
+import { ColumnFilter, IAuction, IAuctionRow, IAuctionRowOutputs } from '~~/interfaces/interfaces';
 
 export const useAuctionsRow = (): IAuctionRowOutputs => {
   const ethersContext = useEthersContext();
-  const { auctionsCompletedMap } = useAuctionsCompleted();
+  const { auctionsMap, auctionsCompletedMap } = useAuctionsCompleted();
   const [rowMap, setRowMap] = useState<Map<number, IAuctionRow>>();
   const [filters, setFilters] = useState<ColumnFilter[]>();
   const userAddress = ethersContext?.account;
 
   useEffect(() => {
     const init = (): void => {
-      if (auctionsCompletedMap) {
-        const outputs = mapAuctionToRow(auctionsCompletedMap as Map<number, IAuctionCompleted>, userAddress!);
+      if (auctionsMap) {
+        const outputs = mapAuctionToRow(auctionsMap as Map<number, IAuction>, userAddress!);
         setRowMap(outputs);
         setFilters([]);
       }
     };
 
-    if (auctionsCompletedMap) {
+    if (auctionsMap) {
       void init();
     }
-  }, [auctionsCompletedMap]);
+  }, [auctionsMap]);
 
   return { rowMap, filters };
 };

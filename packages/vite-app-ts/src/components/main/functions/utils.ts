@@ -81,8 +81,12 @@ export const getCoinSeries = async (currencies: string[], freqInDays: any): Prom
 
 export const bnToFixed = (bn: BigNumber, decimals: number): string => {
   let res = formatEther(bn);
-  res = (+res).toFixed(4);
+  res = (+res).toFixed(decimals);
   return res;
+};
+
+export const addressToShorten = (address: string): string => {
+  return address.substring(0, 4) + '...' + address.substring(address.length - 4, address.length - 1);
 };
 
 export const flat = (arr: any[], idx: number): any[] => {

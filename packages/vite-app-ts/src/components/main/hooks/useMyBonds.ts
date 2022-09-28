@@ -16,7 +16,7 @@ export const useMyBonds = (): IIssuesOutputs => {
   const [userAddress] = useSignerAddress(ethersContext.signer);
   const [ownedBonds, setOwnedBonds] = useState<any[]>();
   const { bonds, bondsMap, completedClassesMap }: IIssuesOutputs = useBonds({ bondIdsDict: ownedBonds });
-
+  console.log(completedClassesMap);
   useEffect(() => {
     const init = async (): Promise<void> => {
       if (debondBond && userAddress) {

@@ -111,7 +111,7 @@ export const Purchase: FC<IPurchaseProps> = (props: IPurchaseProps) => {
 
   // console.log(purchasableClassesUpdate)
   return (
-    <>
+    <div className={'purchase-div'}>
       <Tabs
         style={{ width: '100%' }}
         activeKey={activeMethod}
@@ -163,6 +163,6 @@ export const Purchase: FC<IPurchaseProps> = (props: IPurchaseProps) => {
           </Col>
         </Row>
       </Form>
-    </>
+    </div>
   );
 };
