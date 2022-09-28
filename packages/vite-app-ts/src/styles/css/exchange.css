@@ -1,31 +1,31 @@
 .exchange .ant-tabs-tab {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 24px;
-    gap: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 24px;
+  gap: 10px;
 
-    width: 197.33px;
-    height: 40px;
+  width: 197.33px;
+  height: 40px;
 
-    background: #323066;
-    box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.02);
-    border-radius: 8px;
+  background: #323066;
+  box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.02);
+  border-radius: 8px;
 
-    /* Inside auto layout */
+  /* Inside auto layout */
 
-    flex: none;
-    order: 0;
-    flex-grow: 1;
-    color:rgba(255, 255, 255, 0.3);
-    margin:0px;
-    margin-right:3px;
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+  color: rgba(255, 255, 255, 0.3);
+  margin: 0px;
+  margin-right: 3px;
 }
-.exchange .ant-tabs-ink-bar{
-    display: none;
+.exchange .ant-tabs-ink-bar {
+  display: none;
 }
 
-.exchange .ant-tabs-tab .ant-tabs-tab-active{
-    color:white
+.exchange .ant-tabs-tab .ant-tabs-tab-active {
+  color: white;
 }
