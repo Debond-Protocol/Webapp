@@ -1,59 +1,30 @@
-import React, { FC, useEffect, useState } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import {BrowserRouter as Router} from "react-router-dom";
 
-import '~~/styles/main-page.css';
+import Menu from "./ui-design/src/components/universal/side_menu";
+import Inconsistent_main from "./screens";
 
-import { useBalance, useEthersAdaptorFromProviderOrSigners } from 'eth-hooks';
-import { useEthersContext } from 'eth-hooks/context';
-import { useDexEthPrice } from 'eth-hooks/dapps';
-import { asEthersAdaptor } from 'eth-hooks/functions';
-
-import { MainPageFooter, MainPageHeader, MainPageMenu } from './components/main';
-
-import { useClasses } from '~~/components/main/hooks/useClasses';
-import { useScaffoldProviders as useScaffoldAppProviders } from '~~/components/main/hooks/useScaffoldAppProviders';
-import ContentLayout from '~~/components/main/layout/ContentLayout';
-import { BankUI } from '~~/components/pages/bank/BankUI';
-import { DashboardUI } from '~~/components/pages/dashboard/DashboardUI';
-import { ExchangeUI } from '~~/components/pages/exchange/ExchangeUI';
-import { GovernanceUI } from '~~/components/pages/governance/GovernanceUI';
-import { NFTUI } from '~~/components/pages/nft/NFTUI';
-import { SwapUI } from '~~/components/pages/swap/SwapUI';
-import { WalletUI } from '~~/components/pages/wallet/WalletUI';
-import { MAINNET_PROVIDER } from '~~/config/appConfig';
-import { useConnectAppContracts, useLoadAppContracts } from '~~/config/contractContext';
-
-import { Layout } from 'antd';
-
-/**
- * ⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️
- * See config/appConfig.ts for configuration, such as TARGET_NETWORK
- * See MainPageContracts.tsx for your contracts component
- * See contractsConnectorConfig.ts for how to configure your contracts
- * ⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️
- *
- * For more
- */
-
-/**
- * The main component
- * @returns
- */
-export const Main: FC = () => {
-  // -----------------------------
-  // Providers, signers & wallets
-  // -----------------------------
-  // 🛰 providers
-  // see useLoadProviders.ts for everything to do with loading the right providers
+import "./ui-design/src/style/frame112.css";
+import "./ui-design/src/style/side_menu.css"; // includes logo-full
+import "./MainPage.css";
+import React, {useState} from "react";
+import {useScaffoldProviders as useScaffoldAppProviders} from "./hooks/useScaffoldAppProviders";
+import {useEthersContext} from "eth-hooks/context";
+import {useIsMounted} from "usehooks-ts";
+import {useEthersAdaptorFromProviderOrSigners, useGasPrice, useSignerAddress} from "eth-hooks";
+import {asEthersAdaptor} from "eth-hooks/functions";
+import {MAINNET_PROVIDER} from "~~/config/appConfig";
+import {useConnectAppContracts, useLoadAppContracts} from "~~/config/contractContext";
+import {WalletConnector} from "~~/components/main/walletConnector/WalletConnector";
+import {addressToShorten} from "~~/functions/utils";
+import Wallet_dropdown from "./ui-design/src/components/universal/headers_wallet/wallet_dropdown";
+import Swap_popup from "./ui-design/src/components/swap_popup";
+import Footer_status_bar from "./ui-design/src/components/universal/footer_status_bar";
+import Banner from "./ui-design/src/components/universal/banner";
+import Wallet from "./ui-design/src/components/universal/headers_wallet/wallet"
+export const MainPage= ():any => {
   const scaffoldAppProviders = useScaffoldAppProviders();
-
-  // 🦊 Get your web3 ethers context from current providers
   const ethersContext = useEthersContext();
 
-  const { classes, classesMap } = useClasses();
-  // -----------------------------
-  // Load Contracts
-  // -----------------------------
   // 🛻 load contracts
   useLoadAppContracts();
   // 🏭 connect to contracts for mainnet network & signer
@@ -61,96 +32,47 @@ export const Main: FC = () => {
   useConnectAppContracts(mainnetAdaptor);
   // 🏭 connec to  contracts for current network & signer
   useConnectAppContracts(asEthersAdaptor(ethersContext));
-  const [ethPrice] = useDexEthPrice(scaffoldAppProviders.mainnetAdaptor?.provider, scaffoldAppProviders.targetNetwork);
+  const [gasPrice] = useGasPrice(ethersContext.chainId, 'fast');
 
-  // 💰 this hook will get your balance
-  const [yourCurrentBalance] = useBalance(ethersContext.account);
-
-  const [route, setRoute] = useState<string>('');
-  useEffect(() => {
-    setRoute(window.location.pathname);
-  }, [setRoute]);
+  const [swap_popup_hidden, setSwap_popup_hidden] = useState(true);
+  const [address] = useSignerAddress(ethersContext.signer);
 
   return (
-    <Layout>
-      <Layout.Header style={{ height: '20vh' }}>
-        <MainPageHeader scaffoldAppProviders={scaffoldAppProviders} price={ethPrice} />
-      </Layout.Header>
-      <Layout.Content>
-        <Layout>
-          {/* Routes should be added between the <Switch> </Switch> as seen below */}
-          <BrowserRouter>
-            <Layout.Sider>
-              <MainPageMenu route={route} setRoute={setRoute} />
-            </Layout.Sider>
-            <Layout.Content className={'dlayoutContent'}>
-              <Layout.Content>
-                <Switch>
-                  {/* <Route exact path="/">
-                  <MainPageContracts scaffoldAppProviders={scaffoldAppProviders} />
-                </Route>
-                 you can add routes here like the below examlples */}
+    <div className="bonds main_page desktop not-logged-in">
+      <Router>
+      <aside id="side_menu" className="collapsed">
+          <Menu />
+      </aside>
+      <div className="main_content">
+          <div id="header_menu">
+            <WalletConnector
+              createLoginConnector={scaffoldAppProviders.createLoginConnector}
+              ensProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
+              price={gasPrice!}
+              blockExplorer={scaffoldAppProviders.targetNetwork.blockExplorer}
+              hasContextConnect={true}
+            />
+          </div>
+          <div className="wallet_connected">
+            <Wallet network={scaffoldAppProviders.targetNetwork} />
+            &nbsp; &nbsp;
+            <Wallet_dropdown>{addressToShorten(address !)}</Wallet_dropdown>
+          </div>
+          <header className="true desktop"></header>
 
-                  <Route path="/bank">
-                    <BankUI
-                      mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-                      yourCurrentBalance={yourCurrentBalance}
-                      price={ethPrice}
-                      classesMap={classesMap}
-                    />
-                  </Route>
-                  <Route path="/wallet">
-                    <WalletUI
-                      mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-                      yourCurrentBalance={yourCurrentBalance}
-                      price={ethPrice}
-                    />
-                  </Route>
-                  <Route path="/swap">
-                    <SwapUI
-                      mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-                      yourCurrentBalance={yourCurrentBalance}
-                      price={ethPrice}
-                    />
-                  </Route>
-                  <Route path="/governance">
-                    <GovernanceUI
-                      mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-                      yourCurrentBalance={yourCurrentBalance}
-                      price={ethPrice}
-                    />
-                  </Route>
-                  <Route path="/loan">
-                    <ContentLayout title={'Loan'} description={'Here you can get a loan'} />
-                  </Route>
-                  <Route path="/dex">
-                    <ExchangeUI
-                      mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-                      yourCurrentBalance={yourCurrentBalance}
-                      price={ethPrice}
-                    />
-                  </Route>
-                  <Route path="/nft">
-                    <NFTUI
-                      mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-                      yourCurrentBalance={yourCurrentBalance}
-                      price={ethPrice}
-                    />
-                  </Route>
-                  <Route path="/">
-                    <DashboardUI
-                      mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-                      yourCurrentBalance={yourCurrentBalance}
-                      price={ethPrice}
-                    />
-                  </Route>
-                </Switch>
-              </Layout.Content>
-            </Layout.Content>
-          </BrowserRouter>
-        </Layout>
-      </Layout.Content>
-      <MainPageFooter scaffoldAppProviders={scaffoldAppProviders} price={ethPrice} />
-    </Layout>
+          <div id="hero_banners">
+            <Banner></Banner>
+          </div>
+          <div className="data_container">
+            <Inconsistent_main></Inconsistent_main>
+          </div>
+          <Footer_status_bar></Footer_status_bar>
+        </div>
+      </Router>
+      <Swap_popup
+        hidden={swap_popup_hidden}
+        close={():any => setSwap_popup_hidden(true)}
+      ></Swap_popup>
+    </div>
   );
 };

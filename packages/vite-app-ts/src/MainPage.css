@@ -1,0 +1,59 @@
+* {
+  box-sizing: border-box;
+  color: white;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.bonds.desktop.not-logged-in {
+  /* Bonds-desktop-not logged in */
+
+  position: relative;
+  width: 1440px;
+  height: 1060px;
+
+  /* darkmode/core/surface/primary */
+  /* background: #000000; */
+}
+.main_page{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+#header_menu {
+  /* header menu */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 32px 0px;
+}
+
+#hero_banners {
+  /* hero banners */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 0px;
+  gap: 32px;
+}
+
+.wallet_connected{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+.main_content{
+  margin-right: 100px;
+}
+.data_container{
+  min-height: 490px;
+}

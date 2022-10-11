@@ -1,0 +1,32 @@
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(173, 173, 173, 0.3) #adadad;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: linear-gradient(
+      180deg,
+      rgba(3, 0, 233, 0.192) 0%,
+      rgba(17, 15, 74, 0.09) 100%
+    ),
+    rgba(173, 173, 173, 0.3);
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+      180deg,
+      rgba(3, 0, 233, 0.64) 0%,
+      rgba(17, 15, 74, 0.3) 100%
+    ),
+    #adadad;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+}

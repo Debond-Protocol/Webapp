@@ -1,0 +1,77 @@
+html,
+body {
+  background-color: black;
+}
+
+/* Ellipse 4 */
+.ellipse4 {
+  position: absolute;
+  width: 760px;
+  height: 800px;
+  left: 0px;
+  top: 205px;
+
+  /* gradient-01 */
+  background: rgba(64, 58, 244, 0.4);
+  filter: blur(344px);
+}
+
+/* Ellipse 6 */
+
+.ellipse6 {
+  position: absolute;
+  width: 1442px;
+  height: 746px;
+  left: 716px;
+  top: 757px;
+
+  /* gradient-02 */
+  background: rgba(64, 58, 244, 0.4);
+  mix-blend-mode: normal;
+  filter: blur(374px);
+}
+
+.ellipse5 {
+  /* Ellipse 5 */
+
+  position: absolute;
+  width: 941px;
+  height: 851px;
+  left: 857px;
+  top: 0px;
+
+  /* gradient-03 */
+  background: rgba(65, 32, 103, 0.6);
+  filter: blur(384px);
+}
+
+#BG {
+  /* BG */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+
+  position: absolute;
+  /* width: 2158px;
+        height: 3006px; */
+  width: 1440px;
+  height: 1060px;
+  overflow: hidden;
+  left: 0px;
+  top: 0px;
+}
+
+#gradient_blur_bg {
+  /* gradient blur bg */
+
+  width: 2158px;
+  height: 1503px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
