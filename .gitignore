@@ -20,6 +20,7 @@ packages/vite-app-ts/src/generated/
 #packages/vite-app-ts/public
 packages/hardhat-ts/mnemonic.secret
 packages/hardhat-ts/contracts/
+packages/vite-app-ts/src/ui-design/
 
 # ts
 packages/hardhat-ts/cache
