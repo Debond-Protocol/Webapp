@@ -1,0 +1,4 @@
+[submodule "packages/vite-app-ts/src/ui"]
+	path = packages/vite-app-ts/src/ui
+	url = https://github.com/Debond-Protocol/ui-design.git
+	branch = integration
