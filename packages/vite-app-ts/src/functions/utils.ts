@@ -7,11 +7,6 @@ import { BigNumber } from 'ethers';
 dayjs.extend(relativeTime);
 dayjs.extend(duration);
 
-export const bnToFixed = (bn: BigNumber, decimals: number): string => {
-  let res = formatEther(bn);
-  res = (+res).toFixed(decimals);
-  return res;
-};
 
 export const addressToShorten = (address: string): string => {
   return address
@@ -36,6 +31,12 @@ export const numberFormatter = (item: number): string => item.toExponential(0);
 export const BNtoPercentage = (bn: BigNumber): string => {
   const _apy = (+formatEther(bn) * 100).toFixed(2);
   return `${_apy}%`;
+};
+
+export const bnToFixed = (bn: BigNumber, decimals: number): string => {
+  let res = formatEther(bn);
+  res = (+res).toFixed(decimals);
+  return res;
 };
 
 export const numberToHumanDuration = (seconds: number): string => {

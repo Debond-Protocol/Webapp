@@ -19,8 +19,8 @@ import '~~/styles/css/tailwind-base.pcss';
 import '~~/styles/css/tailwind-components.pcss';
 import '~~/styles/css/tailwind-utilities.pcss';
 import '~~/styles/css/app.css';
-import '~~/ui-design/public/style/BG.css';
-import '~~/ui-design/public/style/scroll.css';
+import '~~/ui/public/style/BG.css';
+import '~~/ui/public/style/scroll.css';
 
 import {MainPage} from "~~/MainPage";
 

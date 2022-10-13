@@ -7,7 +7,7 @@ import { invariant } from 'ts-invariant';
 import { useDebounce } from 'use-debounce';
 import { useIsMounted } from 'usehooks-ts';
 
-import Button from '~~/ui-design/src/components/button';
+import Button from '~~/ui/src/components/button';
 
 export interface IAccountProps {
   ensProvider: StaticJsonRpcProvider | undefined;

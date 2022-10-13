@@ -1,6 +1,4 @@
-// import BondWallet from "../../components/bonds/bondWallet"
-
-import BondsList, { IBond } from '~~/ui-design/src/components/bonds/bonds-list';
+import BondsList from '~~/ui/src/components/bonds/bonds-list';
 
 export interface IBondsProps {
   classesRowMap?: Map<number, any>;

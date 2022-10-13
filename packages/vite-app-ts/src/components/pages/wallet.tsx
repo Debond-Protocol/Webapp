@@ -1,4 +1,4 @@
-import BondWallet from '../../ui-design/src/components/bond_wallet/wallet-list';
+import BondWallet from '~~/ui/src/components/bond_wallet/wallet-list';
 
 import { useMyBonds } from '~~/hooks/useMyBonds';
 import { IIssuesOutputs } from '~~/models/interfaces/interfaces';

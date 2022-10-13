@@ -15,8 +15,8 @@ import { purchaseMethods } from '~~/functions/utils';
 import { Bank, ERC20, Mintable, Mintable__factory } from '~~/generated/contract-types';
 import { usePurchasable } from '~~/hooks/usePurchasable';
 import { Class, IClassRow } from '~~/models/interfaces/interfaces';
-import Action from '~~/ui-design/src/components/action';
-import Button from '~~/ui-design/src/components/button';
+import Action from '~~/ui/src/components/action';
+import Button from '~~/ui/src/components/button';
 
 export interface IGetBondProps {
   classesRowMap?: Map<number, any>;
