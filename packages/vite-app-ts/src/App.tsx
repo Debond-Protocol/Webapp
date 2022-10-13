@@ -18,7 +18,6 @@ import {ContractsAppContext} from '~~/config/contractContext';
 import '~~/styles/css/tailwind-base.pcss';
 import '~~/styles/css/tailwind-components.pcss';
 import '~~/styles/css/tailwind-utilities.pcss';
-import '~~/styles/css/app.css';
 import '~~/ui/public/style/BG.css';
 import '~~/ui/public/style/scroll.css';
 
