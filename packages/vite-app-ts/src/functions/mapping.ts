@@ -3,7 +3,43 @@ import moment from 'moment';
 
 import { ratings } from '~~/functions/utils';
 import { Bank } from '~~/generated/contract-types';
-import { Class, ColumnFilter, IClassRow, IRowsOutputs } from '~~/models/interfaces/interfaces';
+import { Class, ColumnFilter, IAuction, IAuctionRow, IClassRow, IRowsOutputs } from '~~/models/interfaces/interfaces';
+
+
+/**
+ * Map the global auctions map to table row values
+ */
+export const mapAuctionToRow = (auctions: Map<number, IAuction>, address: string): Map<number, IAuctionRow> => {
+  const _filters: any[] = [];
+  const auctionsMap = new Map<number, IAuctionRow>();
+  console.log(auctions);
+  auctions.forEach((_auction, key): void => {
+    console.log(_auction);
+    const _auctionRow: IAuctionRow = {
+      ..._auction,
+      id: key,
+      key: key.toString(),
+      auctionState: _auction.auctionState,
+      duration: _auction.duration.toNumber(),
+      bidTime: _auction.endingTime.toNumber(),
+      endDate: { duration: _auction.duration.toNumber(), startingTime: _auction.startingTime.toNumber() },
+      erc20Currency: _auction.erc20Currency.toString(),
+      finalPrice: _auction.finalPrice,
+      initialPrice: _auction.maxCurrencyAmount,
+      minimumPrice: _auction.minCurrencyAmount,
+      owner: _auction.owner,
+      actions: { auction: _auction, id: key, isOwner: _auction.owner === address },
+      startingTime: _auction.startingTime.toNumber(),
+      successfulBidder: _auction.successfulBidder,
+      currentPrice: _auction.currentPrice,
+      details: _auction.auctionId,
+    };
+    auctionsMap.set(key, _auctionRow);
+  });
+
+  return auctionsMap;
+};
+
 
 export const mapClassesToRow = (classes: Map<number, Class>): IRowsOutputs | undefined => {
   if (!classes) return undefined;
@@ -20,8 +56,8 @@ export const mapClassesToRow = (classes: Map<number, Class>): IRowsOutputs | und
       id: _class.id,
       key: _class.id,
       tokenAddress: _class.tokenAddress,
-      interestType: _class.interestType,
-      token: _class.symbol,
+      interestRateType: _class.interestType,
+      symbol: _class.symbol,
       period: _period,
       price: ['101.1', _class.symbol],
       typePeriod: _class.interestType + ' (' + moment.duration(_class.period * 1000).humanize() + ')',

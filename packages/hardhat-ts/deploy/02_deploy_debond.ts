@@ -1,20 +1,21 @@
-import { BigNumber } from 'ethers';
-import { parseEther } from 'ethers/lib/utils';
-import { ethers } from 'hardhat';
-import { DeployFunction } from 'hardhat-deploy/types';
-import { HardhatRuntimeEnvironment } from 'hardhat/types';
+import {ethers} from 'hardhat';
+import {DeployFunction} from 'hardhat-deploy/types';
+import {HardhatRuntimeEnvironment} from 'hardhat/types';
+import {getContract} from "./00_deploy_your_contract";
+
 
 const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   const { getNamedAccounts, deployments } = hre;
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
 
-  const USDC = await ethers.getContract('USDC', deployer);
-  const USDT = await ethers.getContract('USDT', deployer);
-  const DAI = await ethers.getContract('DAI', deployer);
-  const WETH = await ethers.getContract('WETH', deployer);
-  const DebondMath = await ethers.getContract('DebondMath', deployer);
-  const Oracle = await ethers.getContract('FakeOracle', deployer);
+  const USDC = await getContract(deployments, "USDC")
+  const USDT = await getContract(deployments, "USDT")
+  const DAI = await getContract(deployments, "DAI")
+  const WETH = await getContract(deployments, "WETH")
+  const DebondMath = await getContract(deployments, "DebondMath")
+  const Oracle = await getContract(deployments, "FakeOracle")
+
   console.log(USDC.address, USDT.address, DAI.address);
 
   const governanceAddress = deployer;
@@ -36,7 +37,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     ],
   });
 
-  const BankDeployed = await ethers.getContract('Bank', deployer);
+  const BankDeployed = await getContract(deployments, "Bank")
 
   await deploy('BankBondManager', {
     from: deployer,
@@ -51,25 +52,25 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
       USDC.address,
     ],
   });
-  const BankBondManagerDeployed = await ethers.getContract('BankBondManager', deployer);
+  const BankBondManagerDeployed = await getContract(deployments,'BankBondManager');
 
   await deploy('APMTest', {
     from: deployer,
     log: true,
     args: [deployer],
   });
-  const APMDeployed = await ethers.getContract('APMTest', deployer);
-
+  const APMDeployed = await getContract(deployments,'APMTest');
   await deploy('DebondBondTest', {
     from: deployer,
     log: true,
     args: [deployer],
   });
 
-  const DebondBondTestDeployed = await ethers.getContract('DebondBondTest', deployer);
+
+  const DebondBondTestDeployed = await getContract(deployments, 'DebondBondTest');
   await DebondBondTestDeployed.setBankAddress(BankBondManagerDeployed.address);
 
-  const FakeOracleDeployed = await ethers.getContract('FakeOracle', deployer);
+  const FakeOracleDeployed = await getContract(deployments,'FakeOracle');
 
   const d = new Date();
   d.setHours(0, 0, 0, 0);
@@ -80,7 +81,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     args: [governanceAddress, BankBondManagerDeployed.address, d.getTime() / 10 ** 3],
   });
 
-  const BankData = await ethers.getContract('BankData', deployer);
+  const BankData = await getContract(deployments,'BankData');
 
   await deploy('DBITTest', {
     from: deployer,
@@ -98,8 +99,8 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     log: true,
     args: [governanceAddress],
   });
-  const exchangestorageDeployed = await ethers.getContract('ExchangeStorage', deployer);
-  const dbitDeployed = await ethers.getContract('DBITTest', deployer);
+  const exchangestorageDeployed = await getContract(deployments,'ExchangeStorage');
+  const dbitDeployed = await getContract(deployments, "DBITTest");
 
   await deploy('Exchange', {
     from: deployer,

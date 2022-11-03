@@ -249,7 +249,7 @@ export default (props: IGetBondProps): any => {
         onClick={async (): Promise<void> => {
           await handleFaucet();
         }}>
-        {`Get some ${selectedCollateral?.token} tokens`}
+        {`Get some ${selectedCollateral?.symbol} tokens`}
       </Button>
       <Action
         deposit={deposit}

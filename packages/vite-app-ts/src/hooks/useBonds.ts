@@ -10,7 +10,8 @@ import moment from "moment";
 import {useClasses} from "~~/hooks/useClasses";
 import {useClassesRows} from "~~/hooks/table/useClassesRow";
 import {getMultiCallResults} from "~~/functions/api/multicall";
-import {interestRatesEnum, ratings} from "~~/functions/utils";
+import {bnToFixed, BNtoPercentage, interestRatesEnum, ratings} from "~~/functions/utils";
+import {parseEther} from "@ethersproject/units";
 
 export const useBonds = (props: any): IIssuesOutputs => {
   const { bondIdsDict } = props;
@@ -47,6 +48,7 @@ export const useBonds = (props: any): IIssuesOutputs => {
         );
         const bondsValues = await getMultiCallResults(bankManager, 'nonceValues', provider, argsIds);
         const etas = await getMultiCallResults(bankManager, 'getETA', provider, argsIds);
+        console.log(bondsValues)
         const progress = await getMultiCallResults(bankManager, 'getProgress', provider, argsIds);
         const _bonds = bondsValues.map(
           (values: { _issuanceDate: BigNumber; _maturityDate: BigNumber }, idx: number): IBondInfos => {
@@ -54,9 +56,11 @@ export const useBonds = (props: any): IIssuesOutputs => {
             const _class = classesMap.get(classId as number);
             console.log(_class)
             const maturityDate = _class?.interestType === interestRatesEnum.get(0) ? values._maturityDate : etas[idx];
+            const price = balances[idx]?.mul(_class.interestRate.add(parseEther("1"))).div(parseEther("1"))
             const infos: IBondInfos = {
               maturity: moment(maturityDate.toNumber()*1000),
               balance: balances[idx],
+              price:bnToFixed(price!, 7),
               bondId: nonceId,
               classId: classId,
               interestRateType: _class?.interestType,
@@ -70,6 +74,7 @@ export const useBonds = (props: any): IIssuesOutputs => {
                 progress: progress[idx].progressAchieved,
                 maturity:maturityDate
               },
+              apy:BNtoPercentage(_class?.interestRate),
               rating: ratings[idx % ratings.length],
               redeem: {
                 balance: balances[idx],
@@ -98,18 +103,21 @@ export const useBonds = (props: any): IIssuesOutputs => {
               return e.progress.progress!.toNumber();
             })
           );
+          const price = balance?.mul(classRowMap.apy.add(parseEther("1"))).div(parseEther("1"))
+
           return {
             maturity:  moment(maturityCountDown * 1000), price: undefined,
             tokenAddress: classRowMap.tokenAddress,
-            apy: classRowMap.apy,
+            apy: BNtoPercentage(classRowMap.apy),
+            price:bnToFixed(price!, 7),
             balance: balance!,
             id: classRowMap.id,
-            interestType: classRowMap.interestType,
+            interestRateType: classRowMap.interestRateType,
             key: classRowMap.key,
             period: classRowMap.period,
             progress: { progress: BigNumber.from(progress) },
             rating: classRowMap.rating,
-            token: classRowMap.token,
+            symbol: classRowMap.symbol,
             typePeriod: classRowMap.typePeriod,
             value: classRowMap.value,
             children: bondsForClass

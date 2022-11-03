@@ -25,6 +25,7 @@ export interface ICompletedClassRow extends IClassRow {
 }
 
 export interface IBondInfos {
+  apy?:any
   maturity?:any
   key?: string;
   maturityDate?: BigNumber;

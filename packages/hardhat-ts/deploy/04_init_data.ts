@@ -1,29 +1,30 @@
-import { parseEther } from '@ethersproject/units';
-import { ethers } from 'hardhat';
-import { DeployFunction } from 'hardhat-deploy/types';
-import { HardhatRuntimeEnvironment } from 'hardhat/types';
+import {parseEther} from '@ethersproject/units';
+import {ethers} from 'hardhat';
+import {DeployFunction} from 'hardhat-deploy/types';
+import {HardhatRuntimeEnvironment} from 'hardhat/types';
+import {getContract} from "./00_deploy_your_contract";
 
 const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
-  const { getNamedAccounts, deployments } = hre;
-  const { deploy } = deployments;
-  const { deployer } = await getNamedAccounts();
+  const {getNamedAccounts, deployments} = hre;
+  const {deploy} = deployments;
+  const {deployer} = await getNamedAccounts();
 
   console.log(deployer);
 
-  const USDC = await ethers.getContract('USDC', deployer);
-  const USDT = await ethers.getContract('USDT', deployer);
-  const DAI = await ethers.getContract('DAI', deployer);
-  const DBIT = await ethers.getContract('DBITTest', deployer);
+  const USDC = await getContract(deployments, 'USDC');
+  const USDT = await getContract(deployments, 'USDT');
+  const DAI = await getContract(deployments, 'DAI');
+  const DBIT = await getContract(deployments, 'DBITTest');
   // const DGOV = await ethers.getContract('DGOVTest', deployer);
-  const WETH = await ethers.getContract('WETH', deployer);
-  const BankBondManager = await ethers.getContract('BankBondManager', deployer);
-  const DebondBondTestDeployed = await ethers.getContract('DebondBondTest', deployer);
-  const BankData = await ethers.getContract('BankData', deployer);
-  const DGOV = await ethers.getContract('DGOV', deployer);
-  const Bank = await ethers.getContract('Bank', deployer);
-  const APM = await ethers.getContract('APMTest', deployer);
-  const ExchangeDeployed = await ethers.getContract('Exchange', deployer);
-  const ExchangeStorage = await ethers.getContract('ExchangeStorage', deployer);
+  const WETH = await getContract(deployments, 'WETH');
+  const BankBondManager = await getContract(deployments, 'BankBondManager');
+  const DebondBondTestDeployed = await getContract(deployments, 'DebondBondTest');
+  const BankData = await getContract(deployments, 'BankData');
+  const DGOV = await getContract(deployments, 'DGOV');
+  const Bank = await getContract(deployments, 'Bank');
+  const APM = await getContract(deployments, 'APMTest');
+  const ExchangeDeployed = await getContract(deployments, 'Exchange');
+  const ExchangeStorage = await getContract(deployments, 'ExchangeStorage');
 
   console.log(DBIT.address, USDC.address, USDT.address, DAI.address);
   console.log('minting');

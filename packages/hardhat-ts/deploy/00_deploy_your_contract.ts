@@ -1,6 +1,11 @@
 import { DeployFunction } from 'hardhat-deploy/types';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
+import {ethers} from "hardhat";
 
+export const getContract=async(deployments:any,contractName:string )=>{
+  const myContract = await deployments.get(contractName);
+  return await ethers.getContractAt(myContract.abi, myContract.address);
+}
 const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   const { getNamedAccounts, deployments } = hre;
   const { deploy } = deployments;
