@@ -75,7 +75,7 @@ export interface IClassRow {
   key: number;
   interestType?: string;
   period: string;
-  token:string
+  symbol:string
   price:any
   apy: BigNumber;
   rating: string;

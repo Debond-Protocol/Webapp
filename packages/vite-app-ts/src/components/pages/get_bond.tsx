@@ -139,27 +139,28 @@ export default (props: IGetBondProps): any => {
   const getPurchaseMethod = (contract: Bank, _method: string, inToken: IClassRow, outToken: Class): any => {
     let purchaseMethod = null;
     const method = purchaseMethods.get(_method);
-    console.log(method, inToken.token, outToken.token);
+    console.log(method, inToken.symbol, outToken.symbol);
     console.log(outToken);
-    if (method === 'stake' && inToken.token === 'ETH' && outToken.token === 'DBIT') {
+    console.log(inToken)
+    if (method === 'stake' && inToken.symbol === 'ETH' && outToken.symbol === 'DBIT') {
       purchaseMethod = contract.purchaseDBITBondsByStakingETH;
-    } else if (method === 'stake' && outToken.token === 'DBIT') {
+    } else if (method === 'stake' && outToken.symbol === 'DBIT') {
       purchaseMethod = contract.purchaseDBITBondsByStakingTokens;
-    } else if (method === 'stake' && inToken.token === 'ETH' && outToken.token === 'DGOV') {
+    } else if (method === 'stake' && inToken.symbol === 'ETH' && outToken.symbol === 'DGOV') {
       purchaseMethod = contract.purchaseDGOVBondsByStakingETH;
-    } else if (method === 'stake' && inToken.token === 'DBIT' && outToken.token === 'DGOV') {
+    } else if (method === 'stake' && inToken.symbol === 'DBIT' && outToken.symbol === 'DGOV') {
       purchaseMethod = contract.purchaseDGOVBondsByStakingDBIT;
-    } else if (method === 'stake' && outToken.token === 'DGOV') {
+    } else if (method === 'stake' && outToken.symbol === 'DGOV') {
       purchaseMethod = contract.purchaseDGOVBondsByStakingTokens;
-    } else if (method === 'buy' && inToken.token === 'ETH' && outToken.token === 'DBIT') {
+    } else if (method === 'buy' && inToken.symbol === 'ETH' && outToken.token === 'DBIT') {
       purchaseMethod = contract.buyDBITBondsWithETH;
-    } else if (method === 'buy' && outToken.token === 'DBIT') {
+    } else if (method === 'buy' && outToken.symbol === 'DBIT') {
       purchaseMethod = contract.buyDBITBondsWithTokens;
-    } else if (method === 'buy' && inToken.token === 'DBIT' && outToken.token === 'DGOV') {
+    } else if (method === 'buy' && inToken.symbol === 'DBIT' && outToken.symbol === 'DGOV') {
       purchaseMethod = contract.buyDGOVBondsWithDBIT;
-    } else if (method === 'buy' && inToken.token === 'ETH' && outToken.token === 'DGOV') {
+    } else if (method === 'buy' && inToken.symbol === 'ETH' && outToken.symbol === 'DGOV') {
       purchaseMethod = contract.buyDGOVBondsWithETH;
-    } else if (method === 'buy' && outToken.token === 'DGOV') {
+    } else if (method === 'buy' && outToken.symbol === 'DGOV') {
       purchaseMethod = contract.buyDGOVBondsWithTokens;
     } else {
       throw new Error('purchase method not found');
