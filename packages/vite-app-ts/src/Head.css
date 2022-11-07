@@ -1,0 +1,61 @@
+.head {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+
+  width: 480px;
+  height: 80px;
+
+  /* highlight */
+
+  background: linear-gradient(269.88deg, rgba(3, 0, 255, 0.096) 7.38%, rgba(20, 3, 163, 0.11175) 38.6%, rgba(42, 6, 45, 0.042) 96.89%), rgba(52, 0, 200, 0.15);
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.headLogo{
+  /* logo */
+
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+
+  width: 36.92px;
+  height: 36.61px;
+
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.burgermenu{
+  /* Shape */
+
+
+  width: 16px;
+  height: 16px;
+
+  /* Debond White */
+
+
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+}

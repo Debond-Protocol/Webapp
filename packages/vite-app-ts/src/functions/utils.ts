@@ -8,9 +8,9 @@ dayjs.extend(relativeTime);
 dayjs.extend(duration);
 
 
-export const addressToShorten = (address: string): string => {
+export const addressToShorten = (address: string, length:number): string => {
   return address
-    ? address.substring(0, 10) + '...' + address.substring(address.length - 7, address.length - 1)
+    ? address.substring(0, length) + '...' + address.substring(address.length - length, address.length - 1)
     : '00000000...00000';
 };
 

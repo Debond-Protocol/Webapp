@@ -1,0 +1,27 @@
+.contentRowMain {
+  /* bond */
+
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 16px;
+
+  width: 440px;
+  height: 64px;
+
+  /* transparent */
+
+  background: linear-gradient(269.88deg, rgba(55, 52, 255, 0.224) 7.38%, rgba(20, 3, 163, 0.26075) 38.6%, rgba(42, 6, 45, 0.098) 96.89%);
+  border-radius: 8px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}

@@ -15,11 +15,7 @@ import {ContractsAppContext} from '~~/config/contractContext';
  * You don't need to change this file!!
  */
 // import postcss style file
-import '~~/styles/css/tailwind-base.pcss';
-import '~~/styles/css/tailwind-components.pcss';
-import '~~/styles/css/tailwind-utilities.pcss';
-import '~~/ui/public/style/BG.css';
-import '~~/ui/public/style/scroll.css';
+
 
 import {MainPage} from "~~/MainPage";
 
