@@ -1,0 +1,52 @@
+.rowButton {
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 24px;
+  gap: 10px;
+
+  width: 440px;
+  height: 40px;
+
+  /* darkmode/core/ui/primary/inactive */
+
+  background: #403AF4;
+  box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.02);
+  border-radius: 8px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.rowButton div{
+  width: 392px;
+  height: 17px;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 120%;
+  /* identical to box height, or 17px */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.15px;
+  text-transform: capitalize;
+
+  color: #FFFFFF;
+  justify-content: center;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+}

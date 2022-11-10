@@ -58,6 +58,7 @@ export const useBonds = (props: any): IIssuesOutputs => {
             const maturityDate = _class?.interestType === interestRatesEnum.get(0) ? values._maturityDate : etas[idx];
             const price = balances[idx]?.mul(_class.interestRate.add(parseEther("1"))).div(parseEther("1"))
             const infos: IBondInfos = {
+              temp:{amount:0},
               maturity: moment(maturityDate.toNumber()*1000),
               balance: balances[idx],
               price:bnToFixed(price!, 7),

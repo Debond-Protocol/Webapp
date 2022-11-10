@@ -1,19 +1,22 @@
 import "./ContentRowMain.css"
 import {ContentCell} from "~~/ContentCell";
-import WalletListItem from "~~/ui/src/components/bond_wallet/wallet-list-item";
-import {IIssuesOutputs} from "~~/models/interfaces/interfaces";
-import {useMyBonds} from "~~/hooks/useMyBonds";
 
-export const ContentRowMain = (): any => {
-  const {bonds, bondsMap, completedClassesMap}: IIssuesOutputs = useMyBonds();
+export interface IContentRowMainProps {
+  item: any
+  expand?:any
+  columnsName?:any
+  sliderChange?:any
+}
 
+export const ContentRowMain = (props: IContentRowMainProps): any => {
+  const {item, expand, columnsName, sliderChange} = props
   return (
     <div className={'contentRowMain'}>
-      {completedClassesMap && Array.from(completedClassesMap.values()).map((item, index) => (
-        <>
-          <ContentCell item={item}></ContentCell>
-        </>
-      ))}
+
+        <div className={"contentRowInfos"}>
+          <ContentCell columnsName={columnsName} expand={expand} item={item} sliderChange={sliderChange}></ContentCell>
+        </div>
+
     </div>
   )
 }

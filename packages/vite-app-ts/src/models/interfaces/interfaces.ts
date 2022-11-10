@@ -22,9 +22,11 @@ export interface ICompletedClassRow extends IClassRow {
   balance: BigNumber;
   progress: { progress: BigNumber };
   children: any[];
+
 }
 
 export interface IBondInfos {
+  temp?:{amount:number}
   apy?:any
   maturity?:any
   key?: string;

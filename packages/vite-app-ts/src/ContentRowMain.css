@@ -25,3 +25,26 @@
   order: 0;
   flex-grow: 0;
 }
+
+.contentRowInfos{
+  /* info */
+
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px 39px 0px 16px;
+  gap: 16px;
+
+  width: 383.5px;
+  height: 56px;
+
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+}

@@ -90,7 +90,6 @@
   /* feed */
 
 
-  width: 136px;
   height: 27px;
 
   font-family: 'Inter';
@@ -148,5 +147,12 @@
 
   flex: none;
   order: 1;
+  flex-grow: 0;
+}
+
+
+.contentTitleSwipe1 a:first-child{
+  order:0;
+  flex:none;
   flex-grow: 0;
 }
