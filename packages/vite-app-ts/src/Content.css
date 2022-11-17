@@ -22,3 +22,44 @@
   align-self: stretch;
   flex-grow: 0;
 }
+
+.statusBar{
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  /* Inside auto layout */
+  position: absolute;
+  bottom: 10px;
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+}
+
+.statusBar div{
+  margin:2px;
+  background: #403AF4;
+  border-radius: 8px;
+  width: 184px;
+  height: 40px;
+  cursor: pointer;
+  justify-content: center;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 146%;
+  /* identical to box height, or 20px */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  text-transform: capitalize;
+
+  color: #FFFFFF;
+
+}

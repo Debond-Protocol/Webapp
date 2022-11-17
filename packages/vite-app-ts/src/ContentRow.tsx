@@ -1,14 +1,11 @@
 import {ContentRowMain} from "~~/ContentRowMain";
 import {ContentRowSub} from "~~/ContentRowSub";
 import "./ContentRow.css"
-import {IIssuesOutputs} from "~~/models/interfaces/interfaces";
-import {useMyBonds} from "~~/hooks/useMyBonds";
 import {useState} from "react";
-import {ContentRowRedeem} from "~~/ContentRowRedeem";
 
-export const ContentRow = (props: { item: any, columnsName:string[], sliderChange?:any }): any => {
-  const {item, columnsName, sliderChange} = props
-  const [expanded, setExpanded] = useState<boolean>(true);
+export const ContentRow = (props: { item: any, columnsName:string[], sliderChange?:any,extraSubComponent?:any }): any => {
+  const {item, columnsName, sliderChange, extraSubComponent} = props
+  const [expanded, setExpanded] = useState<boolean>(false);
 
   const expand = () => {
     setExpanded(!expanded)
@@ -20,7 +17,7 @@ export const ContentRow = (props: { item: any, columnsName:string[], sliderChang
       {expanded &&
           <>
               <ContentRowSub sliderChange={sliderChange} columnsName={columnsName} items={item.children}/>
-              <ContentRowRedeem items={item.children}/>
+            {extraSubComponent}
           </>
       }
     </div>

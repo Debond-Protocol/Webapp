@@ -29,7 +29,6 @@ export const useBonds = (props: any): IIssuesOutputs => {
   useEffect(() => {
     const init = async (): Promise<void> => {
       if (debondBond && bankManager && userAddress && classesMap && classesRowMap && bondIdsDict) {
-        console.log(bondIdsDict);
         const balanceArgs = bondIdsDict.map(
           (nonceInfos: { classId: number; nonceId: number }): [string, number, number] => [
             userAddress,
@@ -48,13 +47,11 @@ export const useBonds = (props: any): IIssuesOutputs => {
         );
         const bondsValues = await getMultiCallResults(bankManager, 'nonceValues', provider, argsIds);
         const etas = await getMultiCallResults(bankManager, 'getETA', provider, argsIds);
-        console.log(bondsValues)
         const progress = await getMultiCallResults(bankManager, 'getProgress', provider, argsIds);
         const _bonds = bondsValues.map(
           (values: { _issuanceDate: BigNumber; _maturityDate: BigNumber }, idx: number): IBondInfos => {
             const { classId, nonceId } = bondsIds[idx];
             const _class = classesMap.get(classId as number);
-            console.log(_class)
             const maturityDate = _class?.interestType === interestRatesEnum.get(0) ? values._maturityDate : etas[idx];
             const price = balances[idx]?.mul(_class.interestRate.add(parseEther("1"))).div(parseEther("1"))
             const infos: IBondInfos = {
@@ -84,7 +81,7 @@ export const useBonds = (props: any): IIssuesOutputs => {
                 progress: progress[idx].progressAchieved,
               },
               symbol: _class?.symbol,
-              typePeriod: { interestRateType: _class?.interestType, period: _class?.period },
+              typePeriod: _class.interestType + ' (' + (moment.duration(_class.period * 1000).months()+1) + 'M)',
             };
             return infos;
           }

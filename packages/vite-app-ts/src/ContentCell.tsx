@@ -10,13 +10,12 @@ export interface IContentCellProps {
   setShowing?: any
   setExpandItem?: any
   expand?: any
-  sliderChange?:any
+  sliderChange?: any
 }
 
 export const ContentCell = (props: IContentCellProps): any => {
-  let {columnsName, item, expand,sliderChange } = props
+  let {columnsName, item, expand, sliderChange} = props
   columnsName = columnsName ? columnsName : allColumnsName
-  console.log(item)
   const columns = (_columnsName: any, item: any) => {
     return _columnsName?.map((e: any) => {
         let value = (<div>
@@ -50,18 +49,31 @@ export const ContentCell = (props: IContentCellProps): any => {
           </div>)
         } else if (e == "balance") {
           value = (<div>
-            <div className="T"> {bnToFixed(item.balance, 4)}</div>
+            <div className="T"> {bnToFixed(item.balance, 1)}</div>
+          </div>)
+        } else if (e == "img") {
+          value = (<div>
+            <div className="T"><img style={{width: 20}} src={"currency/" + item.symbol + ".png"}/></div>
           </div>)
         } else if (e == "balanceSlider") {
           value = (<div>
-            <div className="T"><input type="range" min="0" max="1." onChange={(e)=>{sliderChange(e.target.value, item)}} className="slider"/>
-              </div>
+            <div className="T"><input defaultValue="0" disabled={columnsName?.includes("expand")} type="range" min="0"
+                                      max="100" onChange={(e) => {
+              sliderChange(e.target.value, item)
+            }} className="slider"/>
+            </div>
           </div>)
         } else if (e == "issuer") {
           value = (<img src={"./ui/logo.png"} className={"issuer"}/>)
+        } else if (e == "title") {
+          value = (<div>{item.symbol}
+            <div>{item.typePeriod}</div>
+          </div>)
         } else if (e == "expand") {
           value = (
-            <img src={"./ui/down.png"} onClick={() => expand(item.children)} className={"cellDown"}/>)
+            <div className={"expand"}>
+              <img src={"./ui/down.png"} onClick={() => expand(item.children)} className={"cellDown"}/>
+            </div>)
         }
         return (<div>{value}</div>)
       }

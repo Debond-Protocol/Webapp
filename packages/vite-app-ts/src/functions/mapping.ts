@@ -60,7 +60,7 @@ export const mapClassesToRow = (classes: Map<number, Class>): IRowsOutputs | und
       symbol: _class.symbol,
       period: _period,
       price: ['101.1', _class.symbol],
-      typePeriod: _class.interestType + ' (' + moment.duration(_class.period * 1000).humanize() + ')',
+      typePeriod: _class.interestType + ' (' + (moment.duration(_class.period * 1000).months()+1) + 'M)',
       maturity: [_maturityDate.format('DD/MM/yyyy'), _maturityDate.format('hh:mm:ss')],
       rating: ratings[idx % ratings.length],
       apy: _class.interestRate,

@@ -24,9 +24,8 @@
   flex-grow: 0;
 }
 
-.rowButton div{
-  width: 392px;
-  height: 17px;
+.rowButton {
+
 
   font-family: 'Inter';
   font-style: normal;
@@ -35,7 +34,6 @@
   line-height: 120%;
   /* identical to box height, or 17px */
 
-  display: flex;
   align-items: center;
   text-align: center;
   letter-spacing: 0.15px;
@@ -44,9 +42,4 @@
   color: #FFFFFF;
   justify-content: center;
 
-  /* Inside auto layout */
-
-  flex: none;
-  order: 0;
-  flex-grow: 1;
 }
